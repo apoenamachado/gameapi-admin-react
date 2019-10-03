@@ -9,6 +9,8 @@ import {
   Icon,
   Feed,
   Menu,
+  Segment,
+  Divider
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -24,6 +26,10 @@ const games = [
 ];
 
 class StudioView extends Component {
+
+  state = {
+    itemsPerRow:3
+  }
 
   teste(){
     console.log('Apoena testando')
@@ -61,14 +67,35 @@ class StudioView extends Component {
           
         </Grid.Column>
         <Grid.Column stretched width={12}>
-      
-          <Card.Group itemsPerRow={3}>
+
+        <Segment size='mini'>
+
+          <Header as='h1' floated='left'>
+            <Icon name='gamepad' />
+            <Header.Content>
+              Games 
+            <Header.Subheader>Manage your Games</Header.Subheader>
+            </Header.Content>
+          </Header>
+
+            <Button
+              floated='right'
+              size="large"
+              color='blue'
+              content='Add New Game'
+              icon='add'
+              labelPosition='left'
+            />
+          
+          </Segment>
+
+          <Card.Group itemsPerRow={this.state.itemsPerRow}>
 
             {games.map((game, index) => (
               <Card 
-              key={`game-${index}`}
-              raised 
-              href='#link'>
+                key={`game-${index}`}
+                raised 
+                href='#link'>
                 <Image src={game.thumb} wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>{game.name}</Card.Header>
@@ -86,6 +113,8 @@ class StudioView extends Component {
               ))}
 
           </Card.Group>
+
+          
 
 
           

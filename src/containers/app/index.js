@@ -32,7 +32,7 @@ class App extends Component {
             <Menu size='large' stackable >
 
               <Menu.Item header>
-              <Link to="/" style={{color:'#000'}} >Semantic-UI Admin</Link>
+              <Link to="/" style={{color:'#000'}} >GAMEAPI</Link>
               </Menu.Item>
 
               <Menu.Item name='messages'>
