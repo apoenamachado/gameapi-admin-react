@@ -25,7 +25,7 @@ class About extends Component {
 
 
         <Segment>
-    <Header as='h1'>Header</Header>
+    <Header as='h1'>About</Header>
     <p>
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
       ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et

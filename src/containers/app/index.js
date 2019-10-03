@@ -36,7 +36,7 @@ class App extends Component {
               </Menu.Item>
 
               <Menu.Item name='messages'>
-                <Link to="/about-us">Sobre</Link>
+                <Link to="/about-us">About</Link>
               </Menu.Item>
 
               <Dropdown item text='Súdio 1'>
