@@ -26,8 +26,6 @@ import {
   removeGameAsync
 } from '../../modules/games'
 
-import TablesView from '../Tables'
-
 // Apenas para adicionar randomicamente
 const studiosTemp = [
   {id:1, name: "Studio 1", resume: 'Resumo estúdio 1', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
@@ -96,11 +94,13 @@ class StudioView extends Component {
     console.log('componentWillUpdate')
   }
 
-  componentDidUpdate(){
+  componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
-    let a = studiosTemp[this.props.match.params.id-1]
-    console.log('componentDidUpdate:', a)
-
+    if(prevProps.location.pathname !== this.props.location.pathname){
+      this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
+    }
+    //let a = studiosTemp[this.props.match.params.id-1]
+    //console.log('componentDidUpdate:', a)
   }
 
   teste(){
@@ -115,6 +115,7 @@ class StudioView extends Component {
   render(){
     return (
       <div>
+
       <Container style={{ marginTop: '3em' }}>
 
       <Grid columns={2}  stackable>
