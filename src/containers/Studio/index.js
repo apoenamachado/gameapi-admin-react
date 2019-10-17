@@ -117,7 +117,7 @@ class StudioView extends Component {
       <div>
       <Container style={{ marginTop: '3em' }}>
 
-      <Grid columns={2} divided stackable>
+      <Grid columns={2}  stackable>
 
         <Grid.Column width={4}>
 

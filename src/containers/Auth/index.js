@@ -43,7 +43,8 @@ class LoginView extends Component {
     super(props);
     this.state = {
       username:null,
-      password:null
+      password:null,
+      token: null
     };
   }
 
@@ -57,11 +58,17 @@ class LoginView extends Component {
     this.setState({password:value})
   }
 
+  go(url){
+    this.props.history.push(url)
+  }
+
   login(){
 
     console.log('Login', this.state.username, this.state.password)
 
-    fetch('http://api.apoena.org/api-token-auth/', {
+    let that = this
+
+    fetch('https://apoena.org/api-token-auth/', {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
@@ -69,9 +76,18 @@ class LoginView extends Component {
         password:this.state.password
       })
     }).then(function(response) {
-      return response.json();
+      console.log('Response: ', response)
+      if(response.ok){
+        return response.json();
+      }
+      return false;
     }).then(function(data) {
-      console.log('Login token: ', data.token)
+      console.log('Login token: ', data, data.token)
+      if(data && data.token){
+        that.go('/components/cards')
+      }else{
+        that.go('/')
+      }
     }).catch(function (err) {
       console.log('Login error: ', err)
   })
