@@ -2,10 +2,11 @@ export const GAME_ADD_REQUESTED = 'GAME/ADD_REQUESTED'
 export const GAME_ADD = 'GAME/ADD'
 export const GAME_REMOVE_REQUESTED = 'GAME/REMOVE_REQUESTED'
 export const GAME_REMOVE = 'GAME/REMOVE'
+export const GAME_SET = 'GAME/SET'
 
 const initialState = { 
   games:[
-    { name: "Game Name 1", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://www.mmotube.net/wp-content/uploads/2017/02/Preparing-For-Plays-SkySaga.png' },
+    //{ name: "Game Name 1", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://www.mmotube.net/wp-content/uploads/2017/02/Preparing-For-Plays-SkySaga.png' },
     //{ name: "Game Name 2", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://i.ytimg.com/vi/Xdes4VYvmlI/maxresdefault.jpg'  },
     //{ name: "Game Name 3", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJ920hatZfWjxhbJ7BqV5TupEewz368J-4cQbJnyR1FvXY17j'  },
     //{ name: "Game Name 4", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://www.selectgame.com.br/wp-content/uploads/2012/12/The-Legend-of-Heroes-Trails-in-the-Sky-Wallpaper.jpg'  },
@@ -48,7 +49,11 @@ export default (state = initialState, action) => {
         ...state,
         isRemove: !state.isRemove
       }
-
+    case GAME_SET:
+      console.log('GAME_SET: ', state, action)
+      return Object.assign({}, state, {
+        games: action.games
+      })
     default:
       return state
   }
@@ -66,6 +71,19 @@ export const addGame = (game) => {
       resume: game.resume,
       date: game.date,
       thumb: game.thumb,
+    })
+  }
+}
+export const setGames = (games) => {
+  return dispatch => {
+    /*
+    dispatch({
+      type: GAME_ADD_REQUESTED
+    })
+    */
+    dispatch({
+      type: GAME_SET,
+      games: games
     })
   }
 }

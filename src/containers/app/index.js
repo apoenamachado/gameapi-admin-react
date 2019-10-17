@@ -15,10 +15,14 @@ import CardsView from '../Cards'
 import TablesView from '../Tables'
 import LabelsView from '../Labels'
 import StudioView from '../Studio'
+import LoginView from '../Auth/index'
 
 // feito com esse modelo https://github.com/notrab/create-react-app-redux
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   teste(){
     console.log('Apoena testando')
@@ -41,9 +45,9 @@ class App extends Component {
 
               <Dropdown item text='Súdio 1'>
                 <Dropdown.Menu>
-                  <Dropdown.Item><Link to="/studio">Súdio 1</Link></Dropdown.Item>
-                  <Dropdown.Item><Link to="/studio">Súdio 2</Link></Dropdown.Item>
-                  <Dropdown.Item><Link to="/Studio">Súdio 3</Link></Dropdown.Item>
+                  <Dropdown.Item><Link to="/studio/1">Súdio 1</Link></Dropdown.Item>
+                  <Dropdown.Item><Link to="/Studio/2">Súdio 2</Link></Dropdown.Item>
+                  <Dropdown.Item><Link to="/Studio/3">Súdio 3</Link></Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>   
 
@@ -64,6 +68,9 @@ class App extends Component {
                   </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item>
+                  <Link to="/login">Login</Link>
+                </Menu.Item>
+                <Menu.Item>
                   <Button primary>Cadastro</Button>
                 </Menu.Item>
               </Menu.Menu>
@@ -74,8 +81,8 @@ class App extends Component {
             <Route exact path="/components/cards" component={CardsView} />
             <Route exact path="/components/tables" component={TablesView} />
             <Route exact path="/components/labels" component={LabelsView} />
-
-            <Route exact path="/studio" component={StudioView} />
+            <Route exact path="/studio/:id" component={StudioView} />
+            <Route exact path="/login" component={LoginView} />
           
         </Container>
     </div>
