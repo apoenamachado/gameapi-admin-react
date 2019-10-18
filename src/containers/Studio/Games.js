@@ -14,17 +14,10 @@ import {
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-import { Link, BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-// Telas
-import StudioDashboardView from './Dashboard'
-import StudioGamesView from './Games'
-import StudioSettingsView from './Settings'
-
-
 import {
   setGames,
   addGame,
@@ -79,8 +72,7 @@ gamesTemp[2] = [
 ];
 
 
-
-class StudioView extends Component {
+class StudioGamesView extends Component {
 
   constructor(props) {
     super(props);
@@ -117,54 +109,78 @@ class StudioView extends Component {
   }
 
   go(url){
-    this.props.history.push('/studio/'+ (this.props.match.params.id) + url)
+    this.props.history.push(url)
   }
 
   render(){
     return (
       <div>
+       <Container>
 
-      <Container style={{ marginTop: '3em' }}>
+      <Grid columns={1}  stackable>
+        <Grid.Column stretched width={16}>
+        
+        <Segment size='mini'>
 
-      <Grid columns={2}  stackable>
+          <Header as='h1' floated='left'>
+            <Icon name='gamepad' />
+            <Header.Content>
+              Games {studiosTemp[this.props.match.params.id-1].name}
+            <Header.Subheader>Manage your Games</Header.Subheader>
+            </Header.Content>
+          </Header>
 
-        <Grid.Column width={4}>
-
-          <Menu pointing vertical >
-          <Menu.Item
-              name='Dashboard'
-              active={false}
-              onClick={()=>{ this.go('') }}
-              icon='line graph layout'
+            <Button
+              onClick={ ()=> {
+                this.props.addGame( gamesTempAdd[(Math.floor(Math.random() * 5))] )}
+              }
+              floated='right'
+              size="large"
+              color='blue'
+              content='Add New Game'
+              icon='add'
+              labelPosition='left'
             />
-            <Menu.Item
-              name='Games'
-              active={false}
-              onClick={()=>{ this.go('/games') }}
-              icon='game layout'
-            />
-            <Menu.Item
-              name='Settings'
-              active={false}
-              onClick={()=>{ this.go('/settings') }}
-              icon='setting layout'
-            />
 
-          </Menu>
+          <Button.Group floated='right'>
+            <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
+            <Button.Or text='ou' />
+            <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
+          </Button.Group>
           
-        </Grid.Column>
-        <Grid.Column stretched width={12}>
+          </Segment>
 
-            <Switch>
-              <Route exact path="/studio/:id" component={StudioDashboardView} />
-              <Route exact path="/studio/:id/games" component={StudioGamesView} />
-              <Route exact path="/studio/:id/settings" component={StudioSettingsView} />
-            </Switch>
+          <Card.Group itemsPerRow={this.state.itemsPerRow}>
+
+            {this.props.games.map((game, index) => (
+              <Card 
+                key={`game-${index}`}
+                raised 
+                href='#link'>
+                <Image src={game.thumb} wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>{game.name}</Card.Header>
+                  <Card.Meta>Cadastrado em {game.date}</Card.Meta>
+                  <Card.Description>
+                  {game.resume}
+                  </Card.Description>
+                </Card.Content>
+                {/*
+                <Card.Content extra>
+                  <Icon name='download' />10 Donwloads
+                </Card.Content>
+                */}
+              </Card>
+              ))}
+          </Card.Group>
+
+
           
           </Grid.Column>
         </Grid>
+        </Container>   
 
-      </Container>
+
       </div>
     );
 
@@ -193,5 +209,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudioView)
+)(StudioGamesView)
 
