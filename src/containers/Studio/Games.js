@@ -120,9 +120,8 @@ class StudioGamesView extends Component {
       <Grid columns={1}  stackable>
         <Grid.Column stretched width={16}>
         
-        <Segment size='mini'>
-
-          <Header as='h1' floated='left'>
+        <Segment >
+          <Header floated='left'>
             <Icon name='gamepad' />
             <Header.Content>
               Games {studiosTemp[this.props.match.params.id-1].name}
@@ -135,20 +134,20 @@ class StudioGamesView extends Component {
                 this.props.addGame( gamesTempAdd[(Math.floor(Math.random() * 5))] )}
               }
               floated='right'
-              size="large"
+              //size="mini"
               color='blue'
-              content='Add New Game'
+              content='Add New'
               icon='add'
               labelPosition='left'
             />
 
-          <Button.Group floated='right'>
+          <Button.Group floated='right' >
             <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
-            <Button.Or text='ou' />
+            <Button.Or text='/' />
             <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
           </Button.Group>
           
-          </Segment>
+        </Segment>
 
           <Card.Group itemsPerRow={this.state.itemsPerRow}>
 
@@ -160,7 +159,7 @@ class StudioGamesView extends Component {
                 <Image src={game.thumb} wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>{game.name}</Card.Header>
-                  <Card.Meta>Cadastrado em {game.date}</Card.Meta>
+                  {/*<Card.Meta>Cadastrado em {game.date}</Card.Meta>*/}
                   <Card.Description>
                   {game.resume}
                   </Card.Description>

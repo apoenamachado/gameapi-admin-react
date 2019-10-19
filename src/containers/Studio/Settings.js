@@ -71,10 +71,10 @@ class StudioSettingsView extends Component {
       <Grid columns={1}  stackable>
         <Grid.Column stretched width={16}>
         
-        <Segment size='mini'>
+        <Segment >
 
-          <Header as='h1' floated='left'>
-            <Icon name='gamepad' />
+          <Header as='h3' floated='left'>
+            <Icon name='setting' />
             <Header.Content>
               Settings {studiosTemp[this.props.match.params.id-1].name}
             <Header.Subheader>Manage your Studio</Header.Subheader>

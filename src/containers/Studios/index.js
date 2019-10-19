@@ -14,10 +14,16 @@ import {
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-import { Route } from 'react-router-dom'
+import { Link, BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+// Telas
+import StudiosListView from './List'
+import StudiosAddView from './Add'
+
+
 import {
   setGames,
   addGame,
@@ -33,8 +39,7 @@ const studiosTemp = [
   {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
 ];
 
-
-class StudioDashboardView extends Component {
+class StudiosView extends Component {
 
   constructor(props) {
     super(props);
@@ -44,6 +49,9 @@ class StudioDashboardView extends Component {
   }
 
   componentDidMount(){
+    // Uma vez
+    //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
+    //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
   }
 
   componentWillMount() {
@@ -57,48 +65,66 @@ class StudioDashboardView extends Component {
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
-      //
+      //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
     }
+    //let a = studiosTemp[this.props.match.params.id-1]
     //console.log('componentDidUpdate:', a)
   }
 
   go(url){
-    this.props.history.push(url)
+    this.props.history.push('/studios'+ url)
   }
 
   render(){
     return (
       <div>
-       <Container>
 
-      <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-        
-          <Segment>
+      <Container style={{ marginTop: '3em' }}>
 
-            <Header floated='left'>
-              <Icon name='chart line' />
-              <Header.Content>
-                Dashboard {studiosTemp[this.props.match.params.id-1].name}
-              <Header.Subheader>See statistics for your Studio</Header.Subheader>
-              </Header.Content>
-            </Header>
+      <Grid columns={2}  stackable>
+
+        <Grid.Column width={4}>
+
+          <Menu pointing vertical>
+            <Menu.Item
+              name='List'
+              active={false}
+              onClick={()=>{ this.go('/list') }}
+              icon='list layout'
+            />
+            <Menu.Item
+              name='Add'
+              active={false}
+              onClick={()=>{ this.go('/add') }}
+              icon='add'
+            />
+          </Menu>
           
-          </Segment>
+        </Grid.Column>
+        <Grid.Column stretched width={12}>
 
+            <Switch>
+              <Route exact path="/studios/list" component={StudiosListView} />
+              <Route exact path="/studios/add" component={StudiosAddView} />
+              <Route exact path="/studios/:id/edit" component={StudiosListView} />
+            </Switch>
+          
           </Grid.Column>
         </Grid>
-        </Container>   
+
+      </Container>
       </div>
     );
 
   }
  }
 
- const mapStateToProps = ({ games }) => ({
+ const mapStateToProps = ({ games, user }) => ({
   games: games.games,
   isAdd: games.isAdd,
-  isRemove: games.isRemove
+  isRemove: games.isRemove,
+  token: user.token,
+  isAuthenticated:user.isAuthenticated
 })
 
 const mapDispatchToProps = dispatch =>
@@ -117,5 +143,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudioDashboardView)
+)(StudiosView)
 

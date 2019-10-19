@@ -4,6 +4,8 @@ import {
   Container,
   Header,
   Grid,
+  Form,
+  Checkbox,
   Image,
   Card,
   Icon,
@@ -33,14 +35,27 @@ const studiosTemp = [
   {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
 ];
 
+class StudiosAddView extends Component {
 
-class StudioDashboardView extends Component {
+
 
   constructor(props) {
     super(props);
-    this.state = {
-      itemsPerRow:3
-    };
+  }
+
+  state = { 
+    name: '', 
+    resume: '', 
+    thumb: '', 
+    submittedName: '', 
+    submittedResume: '' 
+  }
+
+  handleChange = (e, { name, value, thumb }) => this.setState({ [name]: value })
+
+  handleSubmit = () => {
+    const { name, resume, thumb } = this.state
+    this.setState({ submittedName: name, submittedResume: resume })
   }
 
   componentDidMount(){
@@ -57,9 +72,7 @@ class StudioDashboardView extends Component {
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
-      //
     }
-    //console.log('componentDidUpdate:', a)
   }
 
   go(url){
@@ -67,6 +80,11 @@ class StudioDashboardView extends Component {
   }
 
   render(){
+    const { 
+      name, 
+      resume, 
+      submittedName, 
+      submittedResume } = this.state
     return (
       <div>
        <Container>
@@ -74,21 +92,53 @@ class StudioDashboardView extends Component {
       <Grid columns={1}  stackable>
         <Grid.Column stretched width={16}>
         
-          <Segment>
+        <Segment >
 
-            <Header floated='left'>
-              <Icon name='chart line' />
-              <Header.Content>
-                Dashboard {studiosTemp[this.props.match.params.id-1].name}
-              <Header.Subheader>See statistics for your Studio</Header.Subheader>
-              </Header.Content>
-            </Header>
+          <Header as='h3' floated='left'>
+            <Icon name='setting' />
+            <Header.Content>
+              Add Studio
+            <Header.Subheader>Manage your Studio</Header.Subheader>
+            </Header.Content>
+          </Header>
           
           </Segment>
+
+
+
+            <Form onSubmit={this.handleSubmit}>
+
+          <Form.Field>
+            <label>Name</label>
+            <Form.Input
+                placeholder='Name'
+                name='name'
+                value={name}
+                onChange={this.handleChange}
+              />
+          </Form.Field>
+          <Form.Field>
+            <label>Resume</label>
+            <Form.Input
+                placeholder='Resume'
+                name='resume'
+                value={resume}
+                onChange={this.handleChange}
+              />
+          </Form.Field>
+          <Form.Button content='Submit' />
+
+          </Form>
+          <strong>onChange:</strong>
+          <pre>{JSON.stringify({ name, resume }, null, 2)}</pre>
+          <strong>onSubmit:</strong>
+          <pre>{JSON.stringify({ submittedName, submittedResume }, null, 2)}</pre>
 
           </Grid.Column>
         </Grid>
         </Container>   
+
+
       </div>
     );
 
@@ -117,5 +167,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudioDashboardView)
+)(StudiosAddView)
 

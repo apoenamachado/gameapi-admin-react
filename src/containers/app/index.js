@@ -8,6 +8,9 @@ import {
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
 // Paginas
 import Home from '../home'
 import About from '../about'
@@ -15,12 +18,14 @@ import CardsView from '../Cards'
 import TablesView from '../Tables'
 import LabelsView from '../Labels'
 import StudioView from '../Studio'
+import StudiosView from '../Studios'
 import LoginView from '../Auth/index'
 
 //import Adminlayout from '../../layouts/AdminLayout'
 import AdminNavbar from '../../components/NavBar/AdminNavbar'
+import PublicNavbar from '../../components/NavBar/PublicNavbar'
 
-var isAuthenticated = false 
+//var isAuthenticated = false 
 
 // feito com esse modelo https://github.com/notrab/create-react-app-redux
 
@@ -33,12 +38,13 @@ class App extends Component {
     console.log('Apoena testando')
   }
 
-  privateRoute({ component, ...rest }) {
+  privateRoute({ component, ...rest}) {
+
     return (
       <Route
         {...rest}
         render={props =>
-          isAuthenticated ? (
+          props.isAuthenticated ? (
             React.createElement(component, props)
           ) : (
             <Redirect to={{ pathname: "/login", state: {from: props.location, },}}/>
@@ -49,11 +55,12 @@ class App extends Component {
   }
 
   publicRoute({ component, ...rest }) {
+
     return (
       <Route
         {...rest}
         render={props =>
-          isAuthenticated ? (
+          props.isAuthenticated ? (
             <Redirect to={{ pathname: "/",}}
             />
           ) : (
@@ -65,33 +72,53 @@ class App extends Component {
   }
 
   render(){
-    return (
-      <div>
-         <Container style={{ marginTop: '1em' }}>
 
-            {<AdminNavbar />}
-
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={LoginView} />
-              <Route exact path="/components/cards" component={CardsView} />
-              <Route exact path="/components/tables" component={TablesView} />
-              <Route exact path="/components/labels" component={LabelsView} />
-
-              <this.publicRoute path="/studio/:id" component={StudioView} />
-              <this.publicRoute path="/about-us" component={About} />
-              <this.privateRoute path="/teste" component={About} />
-
-            </Switch>
-          
-        </Container>
-    </div>
-    );
+    if (this.props.isAuthenticated){
+      return (
+        <div>
+           <Container style={{ marginTop: '1em' }}>
+              {<AdminNavbar />}
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/studios"    component={StudiosView} />
+                <Route path="/studio/:id" component={StudioView}  />
+                <Route path="/teste"      component={About}       />  
+              </Switch>
+          </Container>
+      </div>
+      )
+    }else{
+      return (
+        <div>
+           <Container style={{ marginTop: '1em' }}>
+  
+              {<PublicNavbar />}
+  
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/login" component={LoginView} />
+                <Route exact path="/components/cards" component={CardsView} />
+                <Route exact path="/components/tables" component={TablesView} />
+                <Route exact path="/components/labels" component={LabelsView} />  
+                <Route path="/about-us" component={About} />
+              </Switch>
+          </Container>
+      </div>
+      )
+    }
   }
  }
 
 
+ const mapStateToProps = ({ user }) => ({
+  user: user,
+  token: user.token,
+  isAuthenticated:user.isAuthenticated
+})
 
-
+export default connect(
+  mapStateToProps
+  //mapDispatchToProps
+)(App)
  
-export default App
+//export default App
