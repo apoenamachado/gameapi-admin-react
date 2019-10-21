@@ -14,7 +14,7 @@ import {
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -152,8 +152,10 @@ class StudiosListView extends Component {
             {studiosTemp.map((studio, index) => (
               <Card 
                 key={`game-${index}`}
+                to={`/studio/${studio.id}`} 
+                as={Link}
                 raised 
-                href='#link'>
+                >
                 <Image src={studio.thumb} wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>{studio.name}</Card.Header>
