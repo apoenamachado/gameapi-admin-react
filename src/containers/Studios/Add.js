@@ -21,44 +21,51 @@ import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  setGames,
-  addGame,
-  addGameAsync,
-  removeGame,
-  removeGameAsync
-} from '../../modules/games'
-
-// Apenas para adicionar randomicamente
-const studiosTemp = [
-  {id:1, name: "Studio 1", resume: 'Resumo estúdio 1', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:2, name: "Studio 2", resume: 'Resumo estúdio 2', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
-];
+  addStudio
+} from '../../modules/studio'
 
 class StudiosAddView extends Component {
-
-
 
   constructor(props) {
     super(props);
   }
 
   state = { 
+    id: '', 
     name: '', 
-    resume: '', 
-    thumb: '', 
+    slug: '', 
+    description: '', 
+    image: '', 
     submittedName: '', 
-    submittedResume: '' 
+    submitteddescription: '' 
   }
 
-  handleChange = (e, { name, value, thumb }) => this.setState({ [name]: value })
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  //handleChangeFile = (e, { name, files }) => this.setState({ [name]: files })
+
+  handleChangeFile = (e) => {
+    console.log(e.target.files[0])
+    console.log(e.target.name)
+    this.setState({ [e.target.name]: e.target.files[0] })
+  }
 
   handleSubmit = () => {
-    const { name, resume, thumb } = this.state
-    this.setState({ submittedName: name, submittedResume: resume })
+    const { name, slug, description, image } = this.state
+    this.setState({ 
+      submittedName: name, 
+      submittedSlug: slug, 
+      submittedDescription: description,
+      submittedImage: image  
+    })
+
+    this.enviar()
   }
 
   componentDidMount(){
+  }
+
+  enviar(){
+    this.props.addStudio(this.state, this.props.token)
   }
 
   componentWillMount() {
@@ -82,9 +89,14 @@ class StudiosAddView extends Component {
   render(){
     const { 
       name, 
-      resume, 
+      slug, 
+      description, 
+      image,
       submittedName, 
-      submittedResume } = this.state
+      submittedSlug, 
+      submittedDescription,
+      submittedImage, 
+    } = this.state
     return (
       <div>
        <Container>
@@ -97,14 +109,12 @@ class StudiosAddView extends Component {
           <Header as='h3' floated='left'>
             <Icon name='setting' />
             <Header.Content>
-              Add Studio
+              Add Studio {this.props.token}
             <Header.Subheader>Manage your Studio</Header.Subheader>
             </Header.Content>
           </Header>
           
           </Segment>
-
-
 
             <Form onSubmit={this.handleSubmit}>
 
@@ -118,21 +128,36 @@ class StudiosAddView extends Component {
               />
           </Form.Field>
           <Form.Field>
-            <label>Resume</label>
+            <label>Slug</label>
             <Form.Input
-                placeholder='Resume'
-                name='resume'
-                value={resume}
+                placeholder='Slug'
+                name='slug'
+                value={slug}
                 onChange={this.handleChange}
               />
+          </Form.Field>
+          <Form.Field>
+            <label>description</label>
+            <Form.Input
+                placeholder='description'
+                name='description'
+                value={description}
+                onChange={this.handleChange}
+              />
+          </Form.Field>
+
+          <Form.Field >
+            <label>Image</label>
+            <input type="file" name="image" onChange={this.handleChangeFile} />
+            
           </Form.Field>
           <Form.Button content='Submit' />
 
           </Form>
           <strong>onChange:</strong>
-          <pre>{JSON.stringify({ name, resume }, null, 2)}</pre>
+          <pre>{JSON.stringify({ name, slug, description, image }, null, 2)}</pre>
           <strong>onSubmit:</strong>
-          <pre>{JSON.stringify({ submittedName, submittedResume }, null, 2)}</pre>
+          <pre>{JSON.stringify({ submittedName, submittedSlug,  submittedDescription, submittedImage }, null, 2)}</pre>
 
           </Grid.Column>
         </Grid>
@@ -145,20 +170,15 @@ class StudiosAddView extends Component {
   }
  }
 
- const mapStateToProps = ({ games }) => ({
-  games: games.games,
-  isAdd: games.isAdd,
-  isRemove: games.isRemove
+ const mapStateToProps = ({ user }) => ({
+  //games: games.games,
+  token: user.token,
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setGames,
-      addGame,
-      addGameAsync,
-      removeGame,
-      removeGameAsync,
+      addStudio,
       changePage: () => push('/studio')
     },
     dispatch
