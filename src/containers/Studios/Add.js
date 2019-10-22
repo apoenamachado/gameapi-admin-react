@@ -35,45 +35,24 @@ class StudiosAddView extends Component {
     name: '', 
     slug: '', 
     description: '', 
-    image: '', 
-    submittedName: '', 
-    submitteddescription: '' 
+    image: ''
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
-  //handleChangeFile = (e, { name, files }) => this.setState({ [name]: files })
-
   handleChangeFile = (e) => {
-    console.log(e.target.files[0])
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.files[0] })
   }
 
   handleSubmit = () => {
-    const { name, slug, description, image } = this.state
-    this.setState({ 
-      submittedName: name, 
-      submittedSlug: slug, 
-      submittedDescription: description,
-      submittedImage: image  
-    })
-
     this.enviar()
   }
 
   componentDidMount(){
-  }
-
-  enviar(){
-    this.props.addStudio(this.state, this.props.token)
+    console.log('componentDidMount')
   }
 
   componentWillMount() {
     console.log('componentWillMount')
-  }
-
-  componentWillUpdate(){
-    console.log('componentWillUpdate')
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -82,87 +61,93 @@ class StudiosAddView extends Component {
     }
   }
 
+  enviar(){
+    this.props.addStudio(this.state, this.props.token)
+  }
+
   go(url){
     this.props.history.push(url)
   }
 
   render(){
     const { 
+      id,
       name, 
       slug, 
       description, 
       image,
-      submittedName, 
-      submittedSlug, 
-      submittedDescription,
-      submittedImage, 
     } = this.state
     return (
       <div>
        <Container>
 
-      <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-        
-        <Segment >
-
-          <Header as='h3' floated='left'>
-            <Icon name='setting' />
-            <Header.Content>
-              Add Studio {this.props.token}
-            <Header.Subheader>Manage your Studio</Header.Subheader>
-            </Header.Content>
-          </Header>
+        <Grid columns={1}  stackable>
+          <Grid.Column stretched width={16}>
           
-          </Segment>
+            <Segment >
 
-            <Form onSubmit={this.handleSubmit}>
+              <Header as='h3' floated='left'>
+                <Icon name='setting' />
+                <Header.Content>
+                  Add Studio
+                <Header.Subheader>Manage your Studio</Header.Subheader>
+                </Header.Content>
+              </Header>
+              
+            </Segment>
 
-          <Form.Field>
-            <label>Name</label>
-            <Form.Input
-                placeholder='Name'
-                name='name'
-                value={name}
-                onChange={this.handleChange}
-              />
-          </Form.Field>
-          <Form.Field>
-            <label>Slug</label>
-            <Form.Input
-                placeholder='Slug'
-                name='slug'
-                value={slug}
-                onChange={this.handleChange}
-              />
-          </Form.Field>
-          <Form.Field>
-            <label>description</label>
-            <Form.Input
-                placeholder='description'
-                name='description'
-                value={description}
-                onChange={this.handleChange}
-              />
-          </Form.Field>
+            <Segment >
+              <Form onSubmit={this.handleSubmit} loading={false}>
 
-          <Form.Field >
-            <label>Image</label>
-            <input type="file" name="image" onChange={this.handleChangeFile} />
-            
-          </Form.Field>
-          <Form.Button content='Submit' />
+              <Form.Field>
+                <label>Name</label>
+                <Form.Input
+                    placeholder='Name'
+                    name='name'
+                    value={name}
+                    onChange={this.handleChange}
+                  />
+              </Form.Field>
+              <Form.Field>
+                <label>Slug</label>
+                <Form.Input
+                    placeholder='Slug'
+                    name='slug'
+                    value={slug}
+                    onChange={this.handleChange}
+                  />
+              </Form.Field>
+              <Form.Field>
+                <label>Description</label>
+                <Form.Input
+                    placeholder='description'
+                    name='description'
+                    value={description}
+                    onChange={this.handleChange}
+                  />
+              </Form.Field>
 
-          </Form>
-          <strong>onChange:</strong>
-          <pre>{JSON.stringify({ name, slug, description, image }, null, 2)}</pre>
-          <strong>onSubmit:</strong>
-          <pre>{JSON.stringify({ submittedName, submittedSlug,  submittedDescription, submittedImage }, null, 2)}</pre>
+              <Form.Field >
+                <label>Image</label>
+                <input type="file" name="image" onChange={this.handleChangeFile} />
+                
+              </Form.Field>
+              <Form.Button content='Submit' />
 
-          </Grid.Column>
-        </Grid>
+              </Form>
+
+              </Segment>
+
+            {/*
+            <strong>onChange:</strong>
+            <pre>{JSON.stringify({ name, slug, description, image }, null, 2)}</pre>
+            <strong>onSubmit:</strong>
+            <pre>{JSON.stringify(this.state)}</pre>
+            */}
+
+            </Grid.Column>
+          </Grid>
         </Container>   
-
 
       </div>
     );
