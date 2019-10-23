@@ -5,6 +5,12 @@ import {
   Container,
   Dropdown,
   Menu,
+
+  Responsive,
+  Visibility,
+  Segment,
+  Header,
+  Icon
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -20,6 +26,10 @@ import LabelsView from '../Labels'
 import StudioView from '../Studio'
 import StudiosView from '../Studios'
 import LoginView from '../Auth/index'
+
+
+// Site
+import SiteHomeView from '../Site/Home'
 
 //import Adminlayout from '../../layouts/AdminLayout'
 import AdminNavbar from '../../components/NavBar/AdminNavbar'
@@ -39,7 +49,6 @@ class App extends Component {
   }
 
   privateRoute({ component, ...rest}) {
-
     return (
       <Route
         {...rest}
@@ -55,14 +64,12 @@ class App extends Component {
   }
 
   publicRoute({ component, ...rest }) {
-
     return (
       <Route
         {...rest}
         render={props =>
           props.isAuthenticated ? (
-            <Redirect to={{ pathname: "/",}}
-            />
+            <Redirect to={{ pathname: "/",}}/>
           ) : (
             React.createElement(component, props)
           )
@@ -89,6 +96,22 @@ class App extends Component {
       )
     }else{
       return (
+        <div> 
+              {<PublicNavbar />}
+
+              <Switch>
+                <Route exact path="/" component={SiteHomeView} />
+                <Route exact path="/login" component={LoginView} />
+                <Route exact path="/components/cards" component={CardsView} />
+                <Route exact path="/components/tables" component={TablesView} />
+                <Route exact path="/components/labels" component={LabelsView} />  
+                <Route path="/about-us" component={About} />
+              </Switch>
+        </div>
+      )
+
+        /*
+      return (
         <div>
            <Container style={{ marginTop: '1em' }}>
   
@@ -105,6 +128,7 @@ class App extends Component {
           </Container>
       </div>
       )
+      */
     }
   }
  }

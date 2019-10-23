@@ -28,6 +28,7 @@ class LoginView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading:false,
       username:'apoena',
       password:'reggae123',
       token: null
@@ -50,7 +51,10 @@ class LoginView extends Component {
 
   login(){
     let that = this
+    this.setState({loading:true})
+
     this.props.login( this.state.username, this.state.password, (success)=>{
+      this.setState({loading:false})
       if(success){
         this.go('/studios/list')
       }else{
@@ -60,12 +64,14 @@ class LoginView extends Component {
   }
 
   render(){
+
     return(
       <div>
-      <Segment placeholder>
+      <Container style={{ marginTop: '3em' }}>
+      <Segment placeholder basic>
       <Grid columns={2} relaxed='very' stackable>
         <Grid.Column>
-          <Form>
+          <Form loading={this.state.loading}>
             <Form.Input
               icon='user'
               iconPosition='left'
@@ -92,43 +98,45 @@ class LoginView extends Component {
   
       <Divider vertical>Or</Divider>
     </Segment>
+    </Container>  
     </div>
     )
 
-
     return (
       <div>
- <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='blue' textAlign='center'>
-        <Image src='/logo192.png' /> Log-in to your account {this.props.token}
-      </Header>
-      <Form size='large'>
-        <Segment stacked>
-          <Form.Input 
-            fluid icon='user' 
-            iconPosition='left' 
-            placeholder='E-mail address' 
-            onChange={a => this.setUser(a.target.value)}/>
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Password'
-            type='password'
-            onChange={e => this.setPassword(e.target.value)}
-          />
+        <Container style={{ marginTop: '3em' }}>
+          <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as='h2' color='blue' textAlign='center'>
+                <Image src='/logo192.png' /> Log-in to your account {this.props.token}
+              </Header>
+              <Form size='large'>
+                <Segment stacked>
+                  <Form.Input 
+                    fluid icon='user' 
+                    iconPosition='left' 
+                    placeholder='E-mail address' 
+                    onChange={a => this.setUser(a.target.value)}/>
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                    onChange={e => this.setPassword(e.target.value)}
+                  />
 
-          <Button color='blue' fluid size='large' type="submit" onClick={ ()=> { this.login() } }>
-            Login
-          </Button>
-        </Segment>
-      </Form>
-      <Message>
-        New to us? <a href='#'>Sign Up</a>
-      </Message>
-    </Grid.Column>
-  </Grid>
+                  <Button color='blue' fluid size='large' type="submit" onClick={ ()=> { this.login() } }>
+                    Login
+                  </Button>
+                </Segment>
+              </Form>
+              <Message>
+                New to us? <a href='#'>Sign Up</a>
+              </Message>
+            </Grid.Column>
+          </Grid>
+          </Container>
       </div>
     );
 
