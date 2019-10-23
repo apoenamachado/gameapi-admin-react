@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   Button,
   Container,
@@ -10,7 +10,8 @@ import {
   Feed,
   Menu,
   Segment,
-  Divider
+  Divider,
+  Popup
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -19,7 +20,8 @@ import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  listStudio
+  listStudio,
+  removeStudio
 } from '../../modules/studio'
 
 class StudiosListView extends Component {
@@ -52,6 +54,10 @@ class StudiosListView extends Component {
 
   go(url){
     this.props.history.push('/studios'+ url)
+  }
+
+  removeStudio(studio){
+    this.props.removeStudio(studio, this.props.token)
   }
 
   render(){
@@ -88,28 +94,38 @@ class StudiosListView extends Component {
             
           </Segment>
 
-            <Card.Group itemsPerRow={this.state.itemsPerRow}>
+            <Card.Group itemsPerRow={this.state.itemsPerRow} doubling>
 
               {this.props.studios.map((studio, index) => (
                 <Card 
                   key={`game-${index}`}
-                  to={`/studio/${studio.id}`} 
-                  as={Link}
+                  //to={`/studio/${studio.id}`} 
+                  //as={Link}
                   raised 
+                  color='blue'
                   >
-                  <Image src={studio.image} wrapped ui={false} />
+                  
+                  {/*<Image src={studio.image} wrapped ui={false} />*/}
+
                   <Card.Content>
-                    <Card.Header>{studio.name}</Card.Header>
-                    {/*<Card.Meta>Cadastrado em {game.date}</Card.Meta>*/}
-                    <Card.Description>
-                    {studio.description}
-                    </Card.Description>
+                    <Fragment>
+                      {/*<Image floated='right' size='tiny' src={studio.image} />*/}
+                      <Card.Header>{studio.name}</Card.Header>
+                      {/*<Card.Description>{studio.description}</Card.Description>*/}
+                      {/*<Card.Meta>{studio.created_at}</Card.Meta>*/}
+                    </Fragment>
                   </Card.Content>
-                  {/*
-                  <Card.Content extra>
-                    <Icon name='calendar alternate outline' />{studio.created_at}
+                  <Card.Content extra >
+
+                    <Button.Group basic size='medium' floated='right'>
+                      <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeStudio(studio) } } />} content='Remove'/>
+                      <Popup trigger={ <Button icon='users' />} content='Users'/>
+                      <Popup trigger={ <Button icon='settings' as={Link} to={`/studio/${studio.id}/settings`} />}  content='Settings'/>
+                      <Popup trigger={ <Button icon='game' as={Link} to={`/studio/${studio.id}/games`} />}  content='Games'/>
+                      <Popup trigger={ <Button icon='edit' as={Link} to={`/studio/${studio.id}`} />}  content='Edit'/>
+                    </Button.Group>
+
                   </Card.Content>
-                  */}
                 </Card>
                 ))}
             </Card.Group>
@@ -132,6 +148,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       listStudio,
+      removeStudio,
       changePage: () => push('/studio')
     },
     dispatch

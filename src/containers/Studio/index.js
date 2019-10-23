@@ -122,7 +122,7 @@ class StudioView extends Component {
     return (
       <div>
 
-      <Container style={{ marginTop: '3em' }}>
+      <Container style={{ marginTop: '1em' }}>
 
       <Grid columns={2}  stackable>
 

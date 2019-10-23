@@ -28,10 +28,12 @@ export default (state = studioInitialState, action) => {
         studios: action.studios
       }
     case STUDIO_REMOVE:
-      return {
-        ...state,
-        studios: []
-      }
+      console.log('STUDIO_REMOVE: ', action.studio)
+      return Object.assign({}, state, {
+        studios: [
+          ...state.studios.filter(row => row.id != action.studio.id)
+        ]
+      })
     default:
       return state
   }
@@ -46,7 +48,7 @@ export default (state = studioInitialState, action) => {
  * @param {*} studio 
  * @param {*} token 
  */
-export const addStudio = (studio, token) => {
+export const addStudio = (studio, token, onSuccess, onError) => {
   return dispatch => {
 
     // Form Data
@@ -66,18 +68,31 @@ export const addStudio = (studio, token) => {
     }).then(function(response) {
       if(response.ok){
         return response.json();
+      }else{
+        console.log('Erro 1', response)
+        onError(response)
+        return false;
       }
-      return false;
     }).then(function(data) {
-      dispatch({
-        type: STUDIO_ADD,
-        studio: data
-      })
-      return true
-    }).catch(function (err) {
-      //callback(false)
+      console.log('Data', data)
+      if(data){
+        dispatch({
+          type: STUDIO_ADD,
+          studio: data
+        })
+        onSuccess(data)
+        return true
+      }
+    })
+    /*.catch(function (err) {
+
+      err.then(function(result) {
+          console.log('Erro 3', result['PromiseValue'])  
+        onError(result.value)
+      });
       return false
     })
+    */
   }
 }
 
@@ -109,10 +124,39 @@ export const listStudio = (token) => {
   }
 }
 
-export const removeStudio = () => {
+
+/**
+ * Remove Studio
+ * @param {*} token 
+ */
+export const removeStudio = (studio, token) => {
   return dispatch => {
-    dispatch({
-      type: STUDIO_REMOVE
+
+    return fetch('https://apoena.org/studio/'+studio.id+'/', {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token '+token
+      },
+      /*
+      body: {
+        id: studio.id
+      },
+      */
+    }).then(function(response) {
+      if(response.ok){
+        console.log('removeStudio: ', response)
+        console.log('Removendo studio: ', studio)
+        dispatch({
+          type: STUDIO_REMOVE,
+          studio: studio
+        })
+        return true
+      }
+      return false;
+
+    }).catch(function (err) {
+      return false
     })
   }
 }

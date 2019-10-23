@@ -10,7 +10,8 @@ import {
   Feed,
   Menu,
   Segment,
-  Divider
+  Divider,
+  Breadcrumb
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -23,7 +24,7 @@ import { connect } from 'react-redux'
 import StudiosListView from './List'
 import StudiosAddView from './Add'
 
-
+/*
 import {
   setGames,
   addGame,
@@ -31,13 +32,14 @@ import {
   removeGame,
   removeGameAsync
 } from '../../modules/games'
+*/
+// Teste
+const sections = [
+  { key: 'home', content: 'Home', link: true },
+  { key: 'studios', content: 'Studios', link: true },
+  { key: 'list', content: 'List', active: true },
+]
 
-// Apenas para adicionar randomicamente
-const studiosTemp = [
-  {id:1, name: "Studio 1", resume: 'Resumo estúdio 1', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:2, name: "Studio 2", resume: 'Resumo estúdio 2', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
-];
 
 class StudiosView extends Component {
 
@@ -50,8 +52,6 @@ class StudiosView extends Component {
 
   componentDidMount(){
     // Uma vez
-    //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
-    //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
   }
 
   componentWillMount() {
@@ -65,10 +65,8 @@ class StudiosView extends Component {
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
-      //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
+      //
     }
-    //let a = studiosTemp[this.props.match.params.id-1]
-    //console.log('componentDidUpdate:', a)
   }
 
   go(url){
@@ -79,7 +77,9 @@ class StudiosView extends Component {
     return (
       <div>
 
-      <Container style={{ marginTop: '3em' }}>
+      {/*<Breadcrumb divider='/' sections={sections} />  */}
+
+      <Container style={{ marginTop: '1em' }}>
 
       <Grid columns={2}  stackable>
 
@@ -119,10 +119,8 @@ class StudiosView extends Component {
   }
  }
 
- const mapStateToProps = ({ games, user }) => ({
-  games: games.games,
-  isAdd: games.isAdd,
-  isRemove: games.isRemove,
+ const mapStateToProps = ({ user }) => ({
+
   token: user.token,
   isAuthenticated:user.isAuthenticated
 })
@@ -130,11 +128,6 @@ class StudiosView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setGames,
-      addGame,
-      addGameAsync,
-      removeGame,
-      removeGameAsync,
       changePage: () => push('/studio')
     },
     dispatch

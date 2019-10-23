@@ -12,7 +12,8 @@ import {
   Feed,
   Menu,
   Segment,
-  Divider
+  Divider,
+  Message
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -31,6 +32,9 @@ class StudiosAddView extends Component {
   }
 
   state = { 
+    loading:false, 
+    message:false,
+    error:false,
     id: '', 
     name: '', 
     slug: '', 
@@ -61,8 +65,35 @@ class StudiosAddView extends Component {
     }
   }
 
+  reset(){
+    this.setState({
+      id:'',
+      name:'',
+      slug:'',
+      description:'',
+      image:'',
+      loading:false
+    })
+  }
+
   enviar(){
-    this.props.addStudio(this.state, this.props.token)
+    this.setState({loading:true, message:false, error:false})
+    this.props.addStudio(this.state, this.props.token, 
+      (data)=>{
+        if(data){
+          console.log('Sucesso: ', data)
+          this.setState({message:true, loading:false})
+          this.go('/studios/list')
+          this.reset()
+        }
+      }, 
+      (err)=>{
+        err.json().then(function(data) {
+          console.log('Erro: ', data.name)
+        })
+        this.setState({message:false, error:true, loading:false})
+        //this.reset()
+      })
   }
 
   go(url){
@@ -85,7 +116,6 @@ class StudiosAddView extends Component {
           <Grid.Column stretched width={16}>
           
             <Segment >
-
               <Header as='h3' floated='left'>
                 <Icon name='setting' />
                 <Header.Content>
@@ -93,11 +123,29 @@ class StudiosAddView extends Component {
                 <Header.Subheader>Manage your Studio</Header.Subheader>
                 </Header.Content>
               </Header>
-              
             </Segment>
 
             <Segment >
-              <Form onSubmit={this.handleSubmit} loading={false}>
+
+              {
+                this.state.message? 
+                <Message
+                  success
+                  header='Studio successfully added!'
+                  content='Select studio from the list to manage it.'/>
+                :null
+              }
+
+              {
+                this.state.error? 
+                <Message
+                  error
+                  header='Error adding studio!'
+                  content='Check the fields and try again.'/>
+                :null
+              }
+
+              <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
 
               <Form.Field>
                 <label>Name</label>
@@ -119,7 +167,7 @@ class StudiosAddView extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Description</label>
-                <Form.Input
+                <Form.TextArea
                     placeholder='description'
                     name='description'
                     value={description}
@@ -132,7 +180,7 @@ class StudiosAddView extends Component {
                 <input type="file" name="image" onChange={this.handleChangeFile} />
                 
               </Form.Field>
-              <Form.Button content='Submit' />
+              <Form.Button content='Save' primary floated='right' size='large' />
 
               </Form>
 

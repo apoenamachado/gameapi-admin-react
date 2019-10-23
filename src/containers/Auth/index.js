@@ -60,6 +60,42 @@ class LoginView extends Component {
   }
 
   render(){
+    return(
+      <div>
+      <Segment placeholder>
+      <Grid columns={2} relaxed='very' stackable>
+        <Grid.Column>
+          <Form>
+            <Form.Input
+              icon='user'
+              iconPosition='left'
+              label='Username'
+              placeholder='Username'
+              onChange={a => this.setUser(a.target.value)}/>
+           
+            <Form.Input
+              icon='lock'
+              iconPosition='left'
+              label='Password'
+              type='password'
+              onChange={e => this.setPassword(e.target.value)}
+            />
+  
+            <Button content='Login' primary size='large' type="submit" onClick={ ()=> { this.login() } } />
+          </Form>
+        </Grid.Column>
+  
+        <Grid.Column verticalAlign='middle'>
+          <Button content='Sign up' icon='signup' size='big' />
+        </Grid.Column>
+      </Grid>
+  
+      <Divider vertical>Or</Divider>
+    </Segment>
+    </div>
+    )
+
+
     return (
       <div>
  <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
