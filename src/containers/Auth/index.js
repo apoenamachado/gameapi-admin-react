@@ -20,7 +20,8 @@ import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
-  login
+  login,
+  logout
 } from '../../modules/user'
 
 class LoginView extends Component {
@@ -143,14 +144,15 @@ class LoginView extends Component {
   }
  }
 
- const mapStateToProps = ({ user }) => ({ 
+const mapStateToProps = ({ user }) => ({ 
   token: user.token
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      login
+      login,
+      logout
       //changePage: () => push('/index')
     },
     dispatch

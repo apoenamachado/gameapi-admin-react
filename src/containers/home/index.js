@@ -11,6 +11,8 @@ import {
 
 const Home = props => (
   <div>
+
+    {/*
     <h1>Home</h1>
     <p>Count: {props.count}</p>
 
@@ -33,6 +35,7 @@ const Home = props => (
         Go to about page via redux
       </button>
     </p>
+    */}
   </div>
 )
 

@@ -135,7 +135,6 @@ class StudiosListView extends Component {
         </Container>
       </div>
     );
-
   }
  }
 

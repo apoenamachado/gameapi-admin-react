@@ -10,7 +10,8 @@ import {
   Feed,
   Menu,
   Segment,
-  Divider
+  Divider,
+  Loader
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -18,32 +19,25 @@ import { Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+/*
 import {
-  setGames,
-  addGame,
-  addGameAsync,
-  removeGame,
-  removeGameAsync
 } from '../../modules/games'
-
-// Apenas para adicionar randomicamente
-const studiosTemp = [
-  {id:1, name: "Studio 1", resume: 'Resumo estúdio 1', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:2, name: "Studio 2", resume: 'Resumo estúdio 2', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
-];
-
+*/
 
 class StudioDashboardView extends Component {
 
+  // TODO: remover esse loading, deixar somente na index
   constructor(props) {
     super(props);
     this.state = {
-      itemsPerRow:3
+      loading:true,
+      studio: null
     };
   }
 
   componentDidMount(){
+    this.getStudio()
   }
 
   componentWillMount() {
@@ -58,8 +52,18 @@ class StudioDashboardView extends Component {
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
       //
+      this.getStudio()
     }
-    //console.log('componentDidUpdate:', a)
+  }
+
+  getStudio(){
+    this.setState({loading:true})  
+    let studio = this.props.studios.filter(row => row.id == this.props.match.params.id)
+    setTimeout(() => {
+      this.setState({studio: studio[0] , loading:false})  
+      return true
+    }, 10);
+    
   }
 
   go(url){
@@ -67,48 +71,50 @@ class StudioDashboardView extends Component {
   }
 
   render(){
-    return (
-      <div>
-       <Container>
+    if(this.state.loading){
+      return(
+        <Segment>
+          <Loader active />
+        </Segment>
+      )
+    }else{
 
-      <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-        
-          <Segment>
+      return (
+        <div>
+        <Container>
 
-            <Header floated='left'>
-              <Icon name='chart line' />
-              <Header.Content>
-                Dashboard {studiosTemp[this.props.match.params.id-1].name}
-              <Header.Subheader>See statistics for your Studio</Header.Subheader>
-              </Header.Content>
-            </Header>
+        <Grid columns={1}  stackable>
+          <Grid.Column stretched width={16}>
           
-          </Segment>
+            <Segment>
 
-          </Grid.Column>
-        </Grid>
-        </Container>   
-      </div>
-    );
+              <Header floated='left'>
+                <Icon name='chart line' />
+                <Header.Content>
+                  Dashboard {this.state.studio.name}
+                <Header.Subheader>See statistics for your Studio</Header.Subheader>
+                </Header.Content>
+              </Header>
+            
+            </Segment>
+
+            </Grid.Column>
+          </Grid>
+          </Container>   
+        </div>
+      )
+    }
 
   }
  }
 
- const mapStateToProps = ({ games }) => ({
-  games: games.games,
-  isAdd: games.isAdd,
-  isRemove: games.isRemove
+ const mapStateToProps = ({ user, studio, games }) => ({
+  studios: studio.studios
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setGames,
-      addGame,
-      addGameAsync,
-      removeGame,
-      removeGameAsync,
       changePage: () => push('/studio')
     },
     dispatch

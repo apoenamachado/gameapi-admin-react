@@ -2,7 +2,8 @@
  * CONTANTS
  ***********************************************************************/
 export const STUDIO_ADD = 'STUDIO/ADD'
-export const STUDIO_SET = 'STUDIO/SET'
+export const STUDIOS_SET = 'STUDIOS/SET'
+export const STUDIO_SET_CURRENT = 'STUDIO/SET_CURRENT'
 export const STUDIO_REMOVE = 'STUDIO/REMOVE'
 
 /**********************************************************************
@@ -10,7 +11,8 @@ export const STUDIO_REMOVE = 'STUDIO/REMOVE'
  ***********************************************************************/
 
 const studioInitialState = { 
-  studios:[]
+  studios:[],
+  studio:null
 }
 
 export default (state = studioInitialState, action) => {
@@ -22,11 +24,16 @@ export default (state = studioInitialState, action) => {
           action.studio
         ]
       })
-    case STUDIO_SET:
+    case STUDIOS_SET:
       return {
         ...state,
         studios: action.studios
       }
+      case STUDIO_SET_CURRENT:
+          return {
+            ...state,
+            studio: action.studio
+          }
     case STUDIO_REMOVE:
       console.log('STUDIO_REMOVE: ', action.studio)
       return Object.assign({}, state, {
@@ -114,13 +121,26 @@ export const listStudio = (token) => {
       return false;
     }).then(function(data) {
       dispatch({
-        type: STUDIO_SET,
+        type: STUDIOS_SET,
         studios: data
       })
       return true
     }).catch(function (err) {
       return false
     })
+  }
+}
+
+/**
+ * Set Current Studio
+ * @param {*} studio 
+ */
+export const setCurrentStudio = (studio) => {
+  return dispatch => {
+      dispatch({
+        type: STUDIO_SET_CURRENT,
+        studio: studio
+      })
   }
 }
 
