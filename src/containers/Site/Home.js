@@ -66,8 +66,6 @@ class SiteHomeView extends Component {
                 Use an API to manage game services and configure metadata to authorize and authenticate your game. Integrate popular features into your Mobile, Web and Desktop games using as our API.
                 </p>
 
-
-
               <Button primary size='huge' to="/login"  as={Link} >
                 Get Started
                 <Icon name='right arrow' />
@@ -81,7 +79,6 @@ class SiteHomeView extends Component {
 
               </Grid.Column>
             </Grid>
-
 
           </Container>
             }
