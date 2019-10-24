@@ -20,11 +20,13 @@ class PublicNavbar extends React.Component {
     const fixed = true;
     return (
       <>
-        <Segment basic inverted attached >
+        <Segment inverted attached color='violet' style={{border:'0px'}}>
+        <Container >
         <Menu 
+          Container
           color='violet'
           stackable
-          fixed={fixed ? 'top' : null}
+          //fixed={fixed ? 'top' : null}
           inverted={fixed}
           //pointing={fixed}
           secondary={fixed}
@@ -57,6 +59,7 @@ class PublicNavbar extends React.Component {
                 </Menu.Item>
             </Menu.Menu>
         </Menu>
+        </Container>
         </Segment>
       </>
     );

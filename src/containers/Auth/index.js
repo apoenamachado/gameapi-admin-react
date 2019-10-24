@@ -84,11 +84,12 @@ class LoginView extends Component {
               icon='lock'
               iconPosition='left'
               label='Password'
+              placeholder='Password'
               type='password'
               onChange={e => this.setPassword(e.target.value)}
             />
   
-            <Button content='Login' primary size='large' type="submit" onClick={ ()=> { this.login() } } />
+            <Button content='Login' primary fluid size='large' type="submit" onClick={ ()=> { this.login() } } />
           </Form>
         </Grid.Column>
   
