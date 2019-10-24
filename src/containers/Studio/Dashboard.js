@@ -31,31 +31,23 @@ class StudioDashboardView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading:true,
-      studio: null
+      loading:false
     };
   }
 
   componentDidMount(){
-    this.getStudio()
-  }
-
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  componentWillUpdate(){
-    console.log('componentWillUpdate')
+    //this.getStudio()
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
-    // Toda vez
+    /*
     if(prevProps.location.pathname !== this.props.location.pathname){
-      //
       this.getStudio()
     }
+    */
   }
 
+  /*
   getStudio(){
     this.setState({loading:true})  
     let studio = this.props.studios.filter(row => row.id == this.props.match.params.id)
@@ -65,6 +57,7 @@ class StudioDashboardView extends Component {
     }, 10);
     
   }
+  */
 
   go(url){
     this.props.history.push(url)
@@ -78,38 +71,29 @@ class StudioDashboardView extends Component {
         </Segment>
       )
     }else{
-
       return (
         <div>
         <Container>
-
-        <Grid columns={1}  stackable>
-          <Grid.Column stretched width={16}>
-          
-            <Segment>
-
-              <Header floated='left'>
-                <Icon name='chart line' />
-                <Header.Content>
-                  Dashboard {this.state.studio.name}
-                <Header.Subheader>See statistics for your Studio</Header.Subheader>
-                </Header.Content>
-              </Header>
-            
-            </Segment>
-
-            </Grid.Column>
-          </Grid>
+          <Grid columns={1}  stackable>
+            <Grid.Column stretched width={16}>
+                <Segment>
+                  <Header as='h3' floated='left'
+                      icon='chart line'
+                      content={'Dashboard: '+ this.props.studio.name}
+                      subheader='See statistics for your Studio'
+                    />            
+                </Segment>
+              </Grid.Column>
+            </Grid>
           </Container>   
         </div>
       )
     }
-
   }
  }
 
- const mapStateToProps = ({ user, studio, games }) => ({
-  studios: studio.studios
+ const mapStateToProps = ({ user, studio }) => ({
+  studio: studio.studio
 })
 
 const mapDispatchToProps = dispatch =>

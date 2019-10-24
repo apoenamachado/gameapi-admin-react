@@ -47,6 +47,13 @@ class AdminNavbar extends React.Component {
     this.props.listStudio(this.props.token)
   }
 
+  componentDidUpdate( prevProps, prevState, snapshot){
+    if(prevProps.studio !== this.props.studio){
+      //this.props.listStudio(this.props.token)  
+      console.log('Atualiza AdminNavbar: ', this.props.studios, this.props.studio)
+    }
+  }
+
   render() {
     return (
       <>
@@ -55,6 +62,12 @@ class AdminNavbar extends React.Component {
                 <Link to="/" style={{color:'#000'}} >GAMEAPI</Link>
             </Menu.Item>
 
+
+            <Menu.Item as={Link} to="/studios/list">
+              Studios
+            </Menu.Item>
+
+            {/*
             <Dropdown item text='Studios'>
                 <Dropdown.Menu >
                     <Dropdown.Item to="/studios/list" as={Link} text="Studios"/>
@@ -67,7 +80,21 @@ class AdminNavbar extends React.Component {
                       />
                     ))}
                 </Dropdown.Menu>
-            </Dropdown>   
+            </Dropdown> 
+            */}          
+
+            {this.props.studio?
+              <Dropdown item text={this.props.studio.name}>
+                <Dropdown.Menu >
+                    <Dropdown.Item to={'/studio/'+this.props.studio.id} as={Link} text="Dashboard" icon='line graph layout'/>
+                    <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/games'} as={Link} text="Games" icon='game layout'/>
+                    <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/settings'} as={Link} text="Settings" icon='setting layout'/>
+                    <Dropdown.Divider />
+                    <Dropdown.Item to={'/studios/add'} as={Link} text="Add New Studio" icon='add'/>
+                </Dropdown.Menu>
+              </Dropdown> 
+            :null}
+
 
             <Menu.Menu position='right'> 
 
@@ -87,7 +114,8 @@ class AdminNavbar extends React.Component {
 
 const mapStateToProps = ({ user, studio }) => ({ 
   token: user.token,
-  studios: studio.studios
+  studios: studio.studios,
+  studio: studio.studio
 })
 
 const mapDispatchToProps = dispatch =>

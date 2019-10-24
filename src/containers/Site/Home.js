@@ -92,26 +92,26 @@ class SiteHomeView extends Component {
             }
         </Segment>
 
-    <Segment basic raised color='violet'>
-    <Container style={{ marginTop: '-5.5em' , marginBottom:'3em'}}>
+      <Segment basic raised color='violet'>
+        <Container style={{ marginTop: '-5.5em' , marginBottom:'3em'}}>
 
-      <Card.Group itemsPerRow={3}>
+          <Card.Group itemsPerRow={3}>
 
-          {features.map((item, i)=>(
-            <Card  
-              raised
-              href='#card-example-link-card'
-              header={item.name}
-              //meta='Friend'
-              //color={item.color}
-              description={item.description}
-              style={{padding:'1em'}}
-          />              
-          ))}
+              {features.map((item, i)=>(
+                <Card  
+                  raised
+                  href='#card-example-link-card'
+                  header={item.name}
+                  //meta='Friend'
+                  //color={item.color}
+                  description={item.description}
+                  style={{padding:'1em'}}
+              />              
+              ))}
 
-      </Card.Group >
+          </Card.Group >
   
-      </Container>
+        </Container>
       </Segment>
       </div>
     );

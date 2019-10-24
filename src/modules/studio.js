@@ -2,6 +2,7 @@
  * CONTANTS
  ***********************************************************************/
 export const STUDIO_ADD = 'STUDIO/ADD'
+export const STUDIO_UPDATE = 'STUDIO/UPDATE'
 export const STUDIOS_SET = 'STUDIOS/SET'
 export const STUDIO_SET_CURRENT = 'STUDIO/SET_CURRENT'
 export const STUDIO_REMOVE = 'STUDIO/REMOVE'
@@ -29,11 +30,12 @@ export default (state = studioInitialState, action) => {
         ...state,
         studios: action.studios
       }
-      case STUDIO_SET_CURRENT:
-          return {
-            ...state,
-            studio: action.studio
-          }
+    case STUDIO_SET_CURRENT:
+        console.log('STUDIO_SET_CURRENT: ', action.studio)
+        return {
+          ...state,
+          studio: action.studio
+        }
     case STUDIO_REMOVE:
       console.log('STUDIO_REMOVE: ', action.studio)
       return Object.assign({}, state, {
@@ -41,6 +43,18 @@ export default (state = studioInitialState, action) => {
           ...state.studios.filter(row => row.id != action.studio.id)
         ]
       })
+    /*  
+    case STUDIO_UPDATE:
+        console.log('STUDIO_UPDATE: ', ...action.studios)
+        let studios  = ...state.studios
+        const key = Object.keys(studios).find(id => studios[id] === action.studio.id);
+        console.log('chave: ', key, studios[key])
+
+        studios.filter(row => row.id != action.studio.id)
+        return Object.assign({}, state, {
+          studios: state.studios
+        })
+        */
     default:
       return state
   }
@@ -64,7 +78,9 @@ export const addStudio = (studio, token, onSuccess, onError) => {
     formData.append('name', studio.name);
     formData.append('slug', studio.slug);
     formData.append('description', studio.description);
-    formData.append(`image`, studio.image); // File
+    if (studio.image) {
+      formData.append(`image`, studio.image); // File
+    }
 
     return fetch('https://apoena.org/studio/', {
       method: 'post',
@@ -102,6 +118,68 @@ export const addStudio = (studio, token, onSuccess, onError) => {
     */
   }
 }
+
+export const updateStudio = (studio, token, onSuccess, onError) => {
+  return dispatch => {
+
+    console.log('studio: ', studio)
+
+    // Form Data
+    var formData = new FormData();
+    formData.append('id', studio.id);
+    formData.append('name', studio.name);
+    formData.append('slug', studio.slug);
+    formData.append('description', studio.description);
+    if(studio.image ) {
+      console.log('Tipo da imagem: ', (typeof studio.image))
+      if(typeof studio.image === 'object'){
+        formData.append(`image`, studio.image); // File
+      }      
+    }
+
+    return fetch('https://apoena.org/studio/'+studio.id+'/', {
+      method: 'put',
+      headers: {
+        'Authorization': 'Token '+token
+      },
+      body: formData,
+    }).then(function(response) {
+      if(response.ok){
+        return response.json();
+      }else{
+        console.log('updateStudio: Erro 1', response)
+        onError(response)
+        return false;
+      }
+    }).then(function(data) {
+      console.log('updateStudio: data: ', data)
+      if(data){
+        dispatch({
+          type: STUDIO_SET_CURRENT,
+          studio: data
+        })
+        /*
+        dispatch({
+          type: STUDIO_UPDATE,
+          studio: data
+        })
+        */
+        onSuccess(data)
+        return true
+      }
+    })
+    /*.catch(function (err) {
+
+      err.then(function(result) {
+          console.log('Erro 3', result['PromiseValue'])  
+        onError(result.value)
+      });
+      return false
+    })
+    */
+  }
+}
+
 
 /**
  * Get Studio List

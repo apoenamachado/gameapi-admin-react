@@ -26,13 +26,6 @@ import {
   removeGameAsync
 } from '../../modules/games'
 
-// Apenas para adicionar randomicamente
-const studiosTemp = [
-  {id:1, name: "Studio 1", resume: 'Resumo estúdio 1', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:2, name: "Studio 2", resume: 'Resumo estúdio 2', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' },
-  {id:3, name: "Studio 3", resume: 'Resumo estúdio 3', thumb:'https://gizblog.it/wp-content/uploads/2017/11/marvel_logo.jpg' }
-];
-
 const gamesTempAdd = [
   { name: "Game Name 1", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://www.mmotube.net/wp-content/uploads/2017/02/Preparing-For-Plays-SkySaga.png' },
   { name: "Game Name 2", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", thumb:'https://i.ytimg.com/vi/Xdes4VYvmlI/maxresdefault.jpg'  },
@@ -82,30 +75,16 @@ class StudioGamesView extends Component {
   }
 
   componentDidMount(){
+    console.log('this.props.studio: ', this.props.studio)
     // Uma vez
-    this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
-  }
-
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  componentWillUpdate(){
-    console.log('componentWillUpdate')
+    this.props.setGames( gamesTemp[(Math.floor(Math.random() * gamesTemp.length))] )  
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
-      this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
+      this.props.setGames( gamesTemp[(Math.floor(Math.random() * gamesTemp.length))] )  
     }
-    //let a = studiosTemp[this.props.match.params.id-1]
-    //console.log('componentDidUpdate:', a)
-  }
-
-  teste(){
-    this.props.history.push("/login")
-    console.log('Apoena testando')
   }
 
   go(url){
@@ -116,91 +95,69 @@ class StudioGamesView extends Component {
     return (
       <div>
        <Container>
+        <Grid columns={1}  stackable>
+          <Grid.Column stretched width={16}>
+            <Segment>
+              <Header as='h3' floated='left'
+                      icon='gamepad'
+                      content={'Games: '+ this.props.studio.name}
+                      subheader='Manage your Games'
+              />
 
-      <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-        
-        <Segment >
-          <Header floated='left'>
-            <Icon name='gamepad' />
-            <Header.Content>
-              Games {studiosTemp[this.props.match.params.id-1].name}
-            <Header.Subheader>Manage your Games</Header.Subheader>
-            </Header.Content>
-          </Header>
+              <Button
+                onClick={ ()=> {
+                  this.props.addGame( gamesTempAdd[(Math.floor(Math.random() * 5))] )}
+                }
+                floated='right'
+                //size="mini"
+                color='blue'
+                content='Add New'
+                icon='add'
+                labelPosition='left'
+              />
 
-            <Button
-              onClick={ ()=> {
-                this.props.addGame( gamesTempAdd[(Math.floor(Math.random() * 5))] )}
-              }
-              floated='right'
-              //size="mini"
-              color='blue'
-              content='Add New'
-              icon='add'
-              labelPosition='left'
-            />
+              <Button.Group floated='right' >
+                <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
+                <Button.Or text='/' />
+                <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
+              </Button.Group>
+              
+            </Segment>
+            <Card.Group itemsPerRow={this.state.itemsPerRow}>
 
-          <Button.Group floated='right' >
-            <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
-            <Button.Or text='/' />
-            <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
-          </Button.Group>
-          
-        </Segment>
+                {/* GAME LIST */}
+                {this.props.games.map((game, index) => (
+                  <Card
+                    raised 
+                    image={game.thumb}
+                    header={game.name}
+                    //meta='Friend'
+                    description={game.resume}
+                    //extra={extra}
+                  />
+                ))}
+                {/* GAME LIST */}
 
-          <Card.Group itemsPerRow={this.state.itemsPerRow}>
-
-            {this.props.games.map((game, index) => (
-              <Card 
-                key={`game-${index}`}
-                raised 
-                href='#link'>
-                <Image src={game.thumb} wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>{game.name}</Card.Header>
-                  {/*<Card.Meta>Cadastrado em {game.date}</Card.Meta>*/}
-                  <Card.Description>
-                  {game.resume}
-                  </Card.Description>
-                </Card.Content>
-                {/*
-                <Card.Content extra>
-                  <Icon name='download' />10 Donwloads
-                </Card.Content>
-                */}
-              </Card>
-              ))}
-          </Card.Group>
-
-
-          
-          </Grid.Column>
-        </Grid>
+              </Card.Group>
+            </Grid.Column>
+          </Grid>
         </Container>   
-
-
       </div>
     );
-
   }
  }
 
- const mapStateToProps = ({ games }) => ({
-  games: games.games,
-  isAdd: games.isAdd,
-  isRemove: games.isRemove
+ const mapStateToProps = ({ user, studio, games }) => ({
+  studio: studio.studio,
+  games: games.games
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setGames,
-      addGame,
-      addGameAsync,
-      removeGame,
-      removeGameAsync,
-      changePage: () => push('/studio')
+      addGame
+      //changePage: () => push('/studio')
     },
     dispatch
   )

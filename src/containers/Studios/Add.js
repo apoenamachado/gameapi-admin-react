@@ -52,7 +52,7 @@ class StudiosAddView extends Component {
   }
 
   componentDidMount(){
-    console.log('componentDidMount')
+    console.log('componentDidMount: ', this.props.match.params)
   }
 
   componentWillMount() {
@@ -119,7 +119,7 @@ class StudiosAddView extends Component {
               <Header as='h3' floated='left'>
                 <Icon name='setting' />
                 <Header.Content>
-                  Add Studio
+                  Studio
                 <Header.Subheader>Manage your Studio</Header.Subheader>
                 </Header.Content>
               </Header>

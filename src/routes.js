@@ -1,5 +1,5 @@
 // Paginas
-import Home from 'containers/home/index'
+import Home from 'containers/Site'
 import About from 'containers/about'
 import CardsView from 'containers/Cards'
 import TablesView from 'containers/Tables'

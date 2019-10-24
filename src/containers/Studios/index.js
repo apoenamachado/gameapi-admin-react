@@ -24,22 +24,17 @@ import { connect } from 'react-redux'
 import StudiosListView from './List'
 import StudiosAddView from './Add'
 
-/*
+
 import {
-  setGames,
-  addGame,
-  addGameAsync,
-  removeGame,
-  removeGameAsync
-} from '../../modules/games'
-*/
+  setCurrentStudio
+} from '../../modules/studio'
+
 // Teste
 const sections = [
   { key: 'home', content: 'Home', link: true },
   { key: 'studios', content: 'Studios', link: true },
   { key: 'list', content: 'List', active: true },
 ]
-
 
 class StudiosView extends Component {
 
@@ -51,15 +46,8 @@ class StudiosView extends Component {
   }
 
   componentDidMount(){
-    // Uma vez
-  }
-
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  componentWillUpdate(){
-    console.log('componentWillUpdate')
+    // Reseta current studio
+    this.props.setCurrentStudio(null)
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -106,7 +94,7 @@ class StudiosView extends Component {
             <Switch>
               <Route exact path="/studios/list" component={StudiosListView} />
               <Route exact path="/studios/add" component={StudiosAddView} />
-              <Route exact path="/studios/:id/edit" component={StudiosListView} />
+              <Route exact path="/studios/:id/edit" component={StudiosAddView} />
             </Switch>
           
           </Grid.Column>
@@ -128,6 +116,7 @@ class StudiosView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setCurrentStudio,
       changePage: () => push('/studio')
     },
     dispatch
@@ -137,4 +126,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(StudiosView)
-
