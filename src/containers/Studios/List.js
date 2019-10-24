@@ -94,7 +94,7 @@ class StudiosListView extends Component {
             
           </Segment>
 
-            <Card.Group itemsPerRow={this.state.itemsPerRow} doubling>
+            <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
 
               {this.props.studios.map((studio, index) => (
                 <Card 

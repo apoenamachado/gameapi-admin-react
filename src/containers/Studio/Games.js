@@ -123,7 +123,7 @@ class StudioGamesView extends Component {
               </Button.Group>
               
             </Segment>
-            <Card.Group itemsPerRow={this.state.itemsPerRow}>
+            <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
 
                 {/* GAME LIST */}
                 {this.props.games.map((game, index) => (

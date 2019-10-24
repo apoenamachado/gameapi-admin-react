@@ -13,14 +13,13 @@ import {
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-
 const features = [
-  {name:'USER ACCOUNTS', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'violet', url:null, image:null},
-  {name:'LEADERBOARDS', description:'Leaderboards are a great way to add a social and competitive element to any game.', color:'violet', url:null, image:null},
-  {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'violet', url:null, image:null},
-  {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'violet', url:null, image:null},
-  {name:'DLC (Download Content)', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'violet', url:null, image:null},
-  {name:'STÚDIOS (ORGANIZATIONS)', description:'Crie estúdios (organização) e cadastre os jogos de forma independente.', color:'violet', url:null, image:null}
+  {name:'USER ACCOUNTS', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'grey', url:null, image:null},
+  {name:'STÚDIOS (ORGANIZATIONS)', description:'Create studios (organization) and register the games independently.', color:'grey', url:null, image:null},
+  {name:'LEADERBOARDS', description:'Leaderboards are a great way to add a social and competitive element to any game.', color:'grey', url:null, image:null},
+  {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'grey', url:null, image:null},
+  {name:'DLC (Download Content)', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'grey', url:null, image:null},
+  {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'grey', url:null, image:null}
 ]
 
 class SiteHomeView extends Component {
@@ -41,7 +40,7 @@ class SiteHomeView extends Component {
           color='violet'
           textAlign='center'
           style={{ minHeight: 650, padding: '0em 0em' }}
-          vertical
+          vertical          
         >
           {
           <Container >
@@ -92,23 +91,21 @@ class SiteHomeView extends Component {
             }
         </Segment>
 
-      <Segment basic raised color='violet'>
+      <Segment  attached>
         <Container style={{ marginTop: '-5.5em' , marginBottom:'3em'}}>
 
           <Card.Group itemsPerRow={3}>
-
               {features.map((item, i)=>(
                 <Card  
                   raised
                   href='#card-example-link-card'
                   header={item.name}
-                  //meta='Friend'
-                  //color={item.color}
+                  ////meta='Friend'
+                  color={item.color}
                   description={item.description}
                   style={{padding:'1em'}}
               />              
               ))}
-
           </Card.Group >
   
         </Container>

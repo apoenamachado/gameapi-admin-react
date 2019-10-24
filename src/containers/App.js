@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import {
   Container,
 } from 'semantic-ui-react'
@@ -24,6 +24,8 @@ import SiteHomeView from './Site/Home'
 //import Adminlayout from '../../layouts/AdminLayout'
 import AdminNavbar from '../components/NavBar/AdminNavbar'
 import PublicNavbar from '../components/NavBar/PublicNavbar'
+import AdminFooter from '../components/Footer/AdminFooter'
+import PublicFooter from '../components/Footer/PublicFooter'
 
 //var isAuthenticated = false 
 
@@ -82,20 +84,33 @@ class App extends Component {
                 <Route path="/teste"      component={About}       />  
               </Switch>
           </Container>
+          
       </div>
       )
     }else{
       return (
         <div> 
-              {<PublicNavbar />}
+              {<PublicNavbar />}    
+
               <Switch>
-                <Route exact path="/" component={SiteHomeView} />
-                <Route exact path="/login" component={LoginView} />
-                <Route exact path="/components/cards" component={CardsView} />
+                <Route exact path="/home" component={SiteHomeView} />
+                <Route exact path="/" >
+                  <Redirect to='/home'/>
+                </Route>
+                {
+                <Route exact path="/gameapi-admin-react" >
+                  <Redirect to='/home' />
+                </Route>
+                }
+                <Route path="/login" component={LoginView} />
+                <Route path="/components/cards" component={CardsView} />
                 <Route exact path="/components/tables" component={TablesView} />
                 <Route exact path="/components/labels" component={LabelsView} />  
                 <Route path="/about-us" component={About} />
+                <Route component={SiteHomeView} />
               </Switch>
+
+              {<PublicFooter />}
         </div>
       )
 
