@@ -68,9 +68,9 @@ class LoginView extends Component {
 
     return(
       <div>
-      <Container style={{ marginTop: '3em' }}>
-      <Segment placeholder basic>
-      <Grid columns={2} relaxed='very' stackable>
+      <Container style={{ marginTop: '3em' }} >
+      <Segment placeholder basic >
+      <Grid columns={2}  stackable>
         <Grid.Column>
           <Form loading={this.state.loading}>
             <Form.Input
