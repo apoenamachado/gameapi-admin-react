@@ -25,6 +25,9 @@ import {
   addStudio
 } from '../../modules/studio'
 
+
+import campos from './fields.json'
+
 class StudiosAddView extends Component {
 
   constructor(props) {
@@ -60,8 +63,8 @@ class StudiosAddView extends Component {
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
-    // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
+      // Toda vez
     }
   }
 
@@ -81,18 +84,13 @@ class StudiosAddView extends Component {
     this.props.addStudio(this.state, this.props.token, 
       (data)=>{
         if(data){
-          console.log('Sucesso: ', data)
           this.setState({message:true, loading:false})
           this.go('/studios/list')
           this.reset()
         }
       }, 
       (err)=>{
-        err.json().then(function(data) {
-          console.log('Erro: ', data.name)
-        })
-        this.setState({message:false, error:true, loading:false})
-        //this.reset()
+        this.setState({message:false, error:err, loading:false})
       })
   }
 
@@ -100,7 +98,71 @@ class StudiosAddView extends Component {
     this.props.history.push(url)
   }
 
+  /**************************************************************
+   * TODO:  Mover para arquivo centralizado
+   **************************************************************/
+  montaCampos(){
+    let obj = campos.POST
+    let _campos  = []
+    let that = this
+    Object.keys(obj).forEach(function(index){
+      let temp = obj[index]
+      temp.name = index
+      _campos.push(temp)
+    })
+    return _campos.map( (field, index)=>{
+      return that.campo(field)
+    })
+  }
+
+  campo(field){
+    if(!['uuid','id','url','created_at'].includes(field.name) ){
+      switch (field.type) {
+        case 'slug':
+        case 'string':
+            return(
+              <Form.Field>
+              <label>{field.label} Dinamico</label>
+              <Form.Input
+                  placeholder={field.label}
+                  name={field.name}
+                  value={this.state[field.name]}
+                  onChange={this.handleChange}
+                />
+              </Form.Field>
+            )
+          break;
+        case 'image upload':
+            return(
+              <Form.Field >
+                <label>{field.name} Dinamico</label>
+                <input type="file" name={field.name} onChange={this.handleChangeFile} />
+              </Form.Field>
+            )
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  erros(){
+    let obj = this.state.error
+    let _erros  = []
+    Object.keys(obj).forEach(function(index){
+      let temp = {name: index, msgs: obj[index][0]}
+      _erros.push(temp)
+    })
+    return _erros.map( (item, index)=>(
+      <p> - {item.name}: {item.msgs}</p>
+    ))
+  }
+  /**************************************************************
+   * /Mover para arquivo centralizado
+   **************************************************************/
+
   render(){
+    const fields = campos.POST;
     const { 
       id,
       name, 
@@ -141,58 +203,60 @@ class StudiosAddView extends Component {
                 <Message
                   error
                   header='Error adding studio!'
-                  content='Check the fields and try again.'/>
+                  //content='Check the fields and try again.'
+                  content={this.erros()}
+                  />
                 :null
               }
 
               <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
 
-              <Form.Field>
-                <label>Name</label>
-                <Form.Input
-                    placeholder='Name'
-                    name='name'
-                    value={name}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
-              <Form.Field>
-                <label>Slug</label>
-                <Form.Input
-                    placeholder='Slug'
-                    name='slug'
-                    value={slug}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
-              <Form.Field>
-                <label>Description</label>
-                <Form.TextArea
-                    placeholder='description'
-                    name='description'
-                    value={description}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
+                {this.montaCampos()}
 
-              <Form.Field >
-                <label>Image</label>
-                <input type="file" name="image" onChange={this.handleChangeFile} />
-                
-              </Form.Field>
-              <Form.Button content='Save' primary floated='right' size='large' />
+                {/*
+                <Form.Field>
+                  <label>Name</label>
+                  <Form.Input
+                      placeholder='Name'
+                      name='name'
+                      value={name}
+                      onChange={this.handleChange}
+                    />
+                </Form.Field>
+                <Form.Field>
+                  <label>Slug</label>
+                  <Form.Input
+                      placeholder='Slug'
+                      name='slug'
+                      value={slug}
+                      onChange={this.handleChange}
+                    />
+                </Form.Field>
+                <Form.Field>
+                  <label>Description</label>
+                  <Form.TextArea
+                      placeholder='description'
+                      name='description'
+                      value={description}
+                      onChange={this.handleChange}
+                    />
+                </Form.Field>
 
-              </Form>
+                <Form.Field >
+                  <label>Image</label>
+                  <input type="file" name="image" onChange={this.handleChangeFile} />
+                </Form.Field>
+                */}
 
+                <Form.Button content='Save' primary floated='right' size='large' />
+                </Form>
               </Segment>
 
-            {/*
-            <strong>onChange:</strong>
-            <pre>{JSON.stringify({ name, slug, description, image }, null, 2)}</pre>
-            <strong>onSubmit:</strong>
-            <pre>{JSON.stringify(this.state)}</pre>
-            */}
-
+              {/*  
+              <strong>onChange:</strong>
+              <pre>{JSON.stringify(this.state)}</pre>
+              */}
+            
             </Grid.Column>
           </Grid>
         </Container>   

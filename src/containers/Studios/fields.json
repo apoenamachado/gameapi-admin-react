@@ -1,0 +1,61 @@
+{
+    "POST": {
+      "id": {
+        "type": "integer",
+        "required": false,
+        "read_only": true,
+        "label": "Id"
+      },
+      "owner": {
+        "type": "field",
+        "required": false,
+        "read_only": true,
+        "label": "Owner"
+      },
+      "uuid": {
+        "type": "string",
+        "required": false,
+        "read_only": true,
+        "label": "UUID"
+      },
+      "name": {
+        "type": "string",
+        "required": true,
+        "read_only": false,
+        "label": "Name",
+        "max_length": 64
+      },
+      "slug": {
+        "type": "slug",
+        "required": true,
+        "read_only": false,
+        "label": "Slug",
+        "max_length": 64
+      },
+      "description": {
+        "type": "string",
+        "required": true,
+        "read_only": false,
+        "label": "Description"
+      },
+      "image": {
+        "type": "image upload",
+        "required": false,
+        "read_only": false,
+        "label": "Image",
+        "max_length": 100
+      },
+      "url": {
+        "type": "field",
+        "required": false,
+        "read_only": true,
+        "label": "Url"
+      },
+      "created_at": {
+        "type": "datetime",
+        "required": false,
+        "read_only": true,
+        "label": "Created at"
+      }
+    }
+  }

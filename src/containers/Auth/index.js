@@ -30,19 +30,19 @@ class LoginView extends Component {
     super(props);
     this.state = {
       loading:false,
-      username:'apoena',
-      password:'reggae123',
+      username:'',
+      password:'',
       token: null
     };
   }
 
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
   setUser(value){
-    console.log('setUser: ', value)
     this.setState({username:value})
   }
 
   setPassword(value){
-    console.log('setPassword: ', value)
     this.setState({password:value})
   }
 
@@ -78,15 +78,18 @@ class LoginView extends Component {
               iconPosition='left'
               label='Username'
               placeholder='Username'
-              onChange={a => this.setUser(a.target.value)}/>
-           
+              name='username'
+              onChange={this.handleChange}
+              />
+              
             <Form.Input
               icon='lock'
               iconPosition='left'
               label='Password'
               placeholder='Password'
               type='password'
-              onChange={e => this.setPassword(e.target.value)}
+              name='password'
+              onChange={this.handleChange}
             />
   
             <Button content='Login' primary fluid size='large' type="submit" onClick={ ()=> { this.login() } } />

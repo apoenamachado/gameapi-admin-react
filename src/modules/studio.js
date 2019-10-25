@@ -63,7 +63,6 @@ export default (state = studioInitialState, action) => {
 /**********************************************************************
  * ACTIONS
  ***********************************************************************/
-
 /**
  * Add Studio
  * @param {*} studio 
@@ -92,12 +91,12 @@ export const addStudio = (studio, token, onSuccess, onError) => {
       if(response.ok){
         return response.json();
       }else{
-        console.log('Erro 1', response)
-        onError(response)
-        return false;
+        response.json().then(function(value){
+          onError(value)
+          return false;
+        })        
       }
     }).then(function(data) {
-      console.log('Data', data)
       if(data){
         dispatch({
           type: STUDIO_ADD,
@@ -106,16 +105,12 @@ export const addStudio = (studio, token, onSuccess, onError) => {
         onSuccess(data)
         return true
       }
-    })
-    /*.catch(function (err) {
-
-      err.then(function(result) {
-          console.log('Erro 3', result['PromiseValue'])  
-        onError(result.value)
-      });
       return false
     })
-    */
+    .catch(function (err) {
+      console.log('Erro: ', err)
+      //onError(err)
+    })
   }
 }
 
@@ -258,4 +253,3 @@ export const removeStudio = (studio, token) => {
     })
   }
 }
-
