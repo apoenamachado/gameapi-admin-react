@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import studio from './studio'
-import games from './games'
+import game from './game'
 import user from './user'
 
 export default combineReducers({
   studio,
-  games,
+  game,
   user
 })

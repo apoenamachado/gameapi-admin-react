@@ -24,10 +24,6 @@ const features = [
 
 class SiteHomeView extends Component {
 
-  teste(){
-    console.log('Apoena testando')
-  }
-
   render(){
     const mobile = false
     return (
@@ -97,6 +93,7 @@ class SiteHomeView extends Component {
           <Card.Group itemsPerRow={3}>
               {features.map((item, i)=>(
                 <Card  
+                  key={toString(i)}
                   raised
                   href='#card-example-link-card'
                   header={item.name}

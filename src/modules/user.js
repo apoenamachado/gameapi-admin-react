@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
 
 export const login = (username, password, callback) => {
   return dispatch => {
-    return fetch('https://apoena.org/api-token-auth/', {
+    return fetch(`${process.env.REACT_APP_API_URL}/api-token-auth/`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({

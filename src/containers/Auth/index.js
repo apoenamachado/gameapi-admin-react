@@ -34,6 +34,8 @@ class LoginView extends Component {
       password:'',
       token: null
     };
+
+    console.log('API_URL', process.env.REACT_APP_API_URL)
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })

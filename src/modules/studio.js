@@ -7,6 +7,8 @@ export const STUDIOS_SET = 'STUDIOS/SET'
 export const STUDIO_SET_CURRENT = 'STUDIO/SET_CURRENT'
 export const STUDIO_REMOVE = 'STUDIO/REMOVE'
 
+const API_URL = process.env.REACT_APP_API_URL
+
 /**********************************************************************
  * REDUX 
  ***********************************************************************/
@@ -73,7 +75,7 @@ export const addStudio = (studio, token, onSuccess, onError) => {
 
     // Form Data
     var formData = new FormData();
-    formData.append('id', studio.id);
+    //formData.append('id', studio.id);
     formData.append('name', studio.name);
     formData.append('slug', studio.slug);
     formData.append('description', studio.description);
@@ -81,7 +83,7 @@ export const addStudio = (studio, token, onSuccess, onError) => {
       formData.append(`image`, studio.image); // File
     }
 
-    return fetch('https://apoena.org/studio/', {
+    return fetch(`${API_URL}/studio/`, {
       method: 'post',
       headers: {
         'Authorization': 'Token '+token
@@ -132,7 +134,7 @@ export const updateStudio = (studio, token, onSuccess, onError) => {
       }      
     }
 
-    return fetch('https://apoena.org/studio/'+studio.id+'/', {
+    return fetch(`${API_URL}/studio/${studio.id}/`, {
       method: 'put',
       headers: {
         'Authorization': 'Token '+token
@@ -182,7 +184,7 @@ export const updateStudio = (studio, token, onSuccess, onError) => {
  */
 export const listStudio = (token) => {
   return dispatch => {
-    return fetch('https://apoena.org/studio/', {
+    return fetch(`${API_URL}/studio/`, {
       method: 'get',
       headers: {
         'Authorization': 'Token '+token
@@ -225,7 +227,7 @@ export const setCurrentStudio = (studio) => {
 export const removeStudio = (studio, token) => {
   return dispatch => {
 
-    return fetch('https://apoena.org/studio/'+studio.id+'/', {
+    return fetch(`${API_URL}/studio/${studio.id}`, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
