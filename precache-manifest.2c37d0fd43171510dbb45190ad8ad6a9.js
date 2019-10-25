@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "9f1a0c17be0bdf848505",
+    "revision": "5744b2a932e74b3604f5",
     "url": "/gameapi-admin-react/static/css/main.a02303d2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "8930711461298ce823c0",
-    "url": "/gameapi-admin-react/static/js/2.dee92ad0.chunk.js"
+    "revision": "a4d45eb88a48aa13e61f",
+    "url": "/gameapi-admin-react/static/js/2.5e789547.chunk.js"
   },
   {
     "revision": "cd6c777f1945164224dee082abaea03a",
@@ -44,8 +44,8 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/icons.0ab54153.woff2"
   },
   {
-    "revision": "9f1a0c17be0bdf848505",
-    "url": "/gameapi-admin-react/static/js/main.8d5adc63.chunk.js"
+    "revision": "5744b2a932e74b3604f5",
+    "url": "/gameapi-admin-react/static/js/main.42e4b4fa.chunk.js"
   },
   {
     "revision": "e8c322de9658cbeb8a774b6624167c2c",
@@ -80,11 +80,11 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/icons.962a1bf3.svg"
   },
   {
-    "revision": "8930711461298ce823c0",
-    "url": "/gameapi-admin-react/static/css/2.ed50d766.chunk.css"
+    "revision": "a4d45eb88a48aa13e61f",
+    "url": "/gameapi-admin-react/static/css/2.11e607b1.chunk.css"
   },
   {
-    "revision": "7dcd41b47c0e44e4c0d45494152a74c9",
+    "revision": "a415a70b57fda49e2b91a1c5abf5634a",
     "url": "/gameapi-admin-react/index.html"
   }
 ];
