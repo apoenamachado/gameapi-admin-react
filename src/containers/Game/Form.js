@@ -4,16 +4,15 @@ import {
   Container,
   Header,
   Grid,
-  Form,
-  Checkbox,
   Image,
   Card,
   Icon,
   Feed,
   Menu,
+  Message,
+  Form,
   Segment,
-  Divider,
-  Message
+  Divider
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -21,14 +20,30 @@ import { Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+
 import {
-  addStudio
-} from '../../modules/studio'
+  addGame,
+  updateGame
+} from '../../modules/game'
 
-
+// Campos
 import campos from './fields.json'
 
-class StudiosAddView extends Component {
+// Exibe Imagem
+const ImgCurrent = (props)=>{
+    return(
+      props.element.image?
+        <p style={{padding:'1em'}}>
+          <a href={props.element.image} target='_blank'>
+            <Image src={props.element.image} size='medium' wrapped rounded />
+          </a>
+        </p>
+      :null
+    )
+}   
+
+class GameFormView extends Component {
 
   constructor(props) {
     super(props);
@@ -38,9 +53,11 @@ class StudiosAddView extends Component {
     loading:false, 
     message:false,
     error:false,
+    studio:'',
     id: '', 
     name: '', 
-    slug: '', 
+    resume: '', 
+    genre: '', 
     description: '', 
     image: ''
   }
@@ -51,42 +68,50 @@ class StudiosAddView extends Component {
   }
 
   handleSubmit = () => {
-    this.enviar()
+    this.state.id?this.update():this.add()
   }
 
   componentDidMount(){
     console.log('componentDidMount: ', this.props.match.params)
-  }
+    this.setState({studio:this.props.studio.url})
 
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  componentDidUpdate( prevProps, prevState, snapshot){
-    if(prevProps.location.pathname !== this.props.location.pathname){
-      // Toda vez
+    if(this.props.match.params.id){
+      this.setState(this.props.game)
     }
   }
 
-  reset(){
-    this.setState({
-      id:'',
-      name:'',
-      slug:'',
-      description:'',
-      image:'',
-      loading:false
-    })
+  componentDidUpdate( prevProps, prevState, snapshot){
+    // Toda vez
+    if(prevProps.location.pathname !== this.props.location.pathname){
+      if(this.state.id){
+        this.setState(this.props.game)
+      }
+      
+    }
   }
 
-  enviar(){
+  add(){
     this.setState({loading:true, message:false, error:false})
-    this.props.addStudio(this.state, this.props.token, 
+    this.props.addGame(this.state, this.props.token, 
+      (data)=>{
+        if(data){
+          console.log(data)
+          this.setState({message:true, loading:false})
+          this.go(`/studio/${this.props.studio.id}/games`)
+          //this.reset()
+        }
+      }, 
+      (err)=>{
+        this.setState({message:false, error:err, loading:false})
+      })
+  }
+
+  update(){
+    this.setState({loading:true, message:false, error:false})
+    this.props.updateGame(this.state, this.props.token, 
       (data)=>{
         if(data){
           this.setState({message:true, loading:false})
-          this.go('/studios/list')
-          this.reset()
         }
       }, 
       (err)=>{
@@ -98,7 +123,7 @@ class StudiosAddView extends Component {
     this.props.history.push(url)
   }
 
-  /**************************************************************
+ /**************************************************************
    * TODO:  Mover para arquivo centralizado
    **************************************************************/
   montaCampos(){
@@ -120,9 +145,10 @@ class StudiosAddView extends Component {
       switch (field.type) {
         case 'slug':
         case 'string':
+        case 'choice': 
             return(
-              <Form.Field>
-              <label>{field.label} Dinamico</label>
+              <Form.Field key={field.name}>
+              <label>{field.label}</label>
               <Form.Input
                   placeholder={field.label}
                   name={field.name}
@@ -132,11 +158,12 @@ class StudiosAddView extends Component {
               </Form.Field>
             )
           break;
-        case 'image upload':
+        case 'image upload':            
             return(
-              <Form.Field >
-                <label>{field.name} Dinamico</label>
+              <Form.Field key={field.name}>
+                <label>{field.name}</label>
                 <input type="file" name={field.name} onChange={this.handleChangeFile} />
+                {this.state.id?<ImgCurrent element={this.props.game} />:null}
               </Form.Field>
             )
           break;
@@ -162,120 +189,60 @@ class StudiosAddView extends Component {
    **************************************************************/
 
   render(){
-    const fields = campos.POST;
-    const { 
-      id,
-      name, 
-      slug, 
-      description, 
-      image,
-    } = this.state
     return (
       <div>
        <Container>
-
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
-          
-            <Segment >
-              <Header as='h3' floated='left'>
-                <Icon name='setting' />
-                <Header.Content>
-                  Studio
-                <Header.Subheader>Manage your Studio</Header.Subheader>
-                </Header.Content>
-              </Header>
+            <Segment attached>
+              <Header as='h3' floated='left'
+                icon='setting'
+                content={'Game'}
+                subheader='Manage your Game'
+              />
             </Segment>
 
-            <Segment >
-
-              {
-                this.state.message? 
+            <Segment>
+              {this.state.message? 
                 <Message
                   success
-                  header='Studio successfully added!'
-                  content='Select studio from the list to manage it.'/>
-                :null
-              }
-
-              {
-                this.state.error? 
-                <Message
-                  error
-                  header='Error adding studio!'
-                  //content='Check the fields and try again.'
-                  content={this.erros()}
-                  />
-                :null
-              }
-
+                  header='Game successfully saved!'
+                  content='Select game from the list to manage it.'/>
+                :null}
+              {this.state.error? 
+              <Message
+                error
+                header='Error adding game!'
+                //content='Check the fields and try again.'
+                content={this.erros()}
+                />
+              :null
+             }
               <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
-
-                {this.montaCampos()}
-
-                {/*
-                <Form.Field>
-                  <label>Name</label>
-                  <Form.Input
-                      placeholder='Name'
-                      name='name'
-                      value={name}
-                      onChange={this.handleChange}
-                    />
-                </Form.Field>
-                <Form.Field>
-                  <label>Slug</label>
-                  <Form.Input
-                      placeholder='Slug'
-                      name='slug'
-                      value={slug}
-                      onChange={this.handleChange}
-                    />
-                </Form.Field>
-                <Form.Field>
-                  <label>Description</label>
-                  <Form.TextArea
-                      placeholder='description'
-                      name='description'
-                      value={description}
-                      onChange={this.handleChange}
-                    />
-                </Form.Field>
-
-                <Form.Field >
-                  <label>Image</label>
-                  <input type="file" name="image" onChange={this.handleChangeFile} />
-                </Form.Field>
-                */}
-
+                {this.montaCampos()}  
                 <Form.Button content='Save' primary floated='right' size='large' />
-                </Form>
+              </Form>
               </Segment>
-
-              {/*  
-              <strong>onChange:</strong>
-              <pre>{JSON.stringify(this.state)}</pre>
-              */}
-            
             </Grid.Column>
           </Grid>
         </Container>   
-
       </div>
     );
 
   }
  }
 
- const mapStateToProps = ({ user }) => ({
-  //games: games.games,
-  token: user.token,
+ const mapStateToProps = ({ user, studio, game }) => ({
+  token: user.token, 
+  studio: studio.studio,
+  game: game.game
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      addStudio,
+      addGame,
+      updateGame,
       changePage: () => push('/studio')
     },
     dispatch
@@ -284,5 +251,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudiosAddView)
+)(GameFormView)
 

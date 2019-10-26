@@ -118,7 +118,8 @@ class StudioSettingsView extends Component {
        <Container>
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
-            <Segment >
+
+            <Segment attached>
               <Header as='h3' floated='left'
                 icon='setting'
                 content={'Settings: '+ this.props.studio.name}

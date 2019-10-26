@@ -23,7 +23,6 @@ class PublicNavbar extends React.Component {
         <Segment inverted attached color='violet' style={{border:'0px'}}>
         <Container >
         <Menu 
-          Container
           color='violet'
           stackable
           //fixed={fixed ? 'top' : null}

@@ -69,13 +69,9 @@ class StudioDashboardView extends Component {
   render(){
     return (
       <div>
-       <Container>
-
       <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-        
+        <Grid.Column stretched width={16}>        
           <Segment>
-
             <Header floated='left'>
               <Icon name='chart line' />
               <Header.Content>
@@ -83,12 +79,9 @@ class StudioDashboardView extends Component {
               <Header.Subheader>See statistics for your Studio</Header.Subheader>
               </Header.Content>
             </Header>
-          
           </Segment>
-
           </Grid.Column>
         </Grid>
-        </Container>   
       </div>
     );
 

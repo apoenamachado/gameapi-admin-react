@@ -77,11 +77,7 @@ class GameSettingsView extends Component {
         }
       }, 
       (err)=>{
-        err.json().then(function(data) {
-          console.log('Erro: ', data.name)
-        })
         this.setState({message:false, error:true, loading:false})
-        //this.reset()
       })
   }
 
@@ -103,7 +99,7 @@ class GameSettingsView extends Component {
        <Container>
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
-            <Segment >
+            <Segment attached>
               <Header as='h3' floated='left'
                 icon='setting'
                 content={'Settings: '+ this.props.game.name}

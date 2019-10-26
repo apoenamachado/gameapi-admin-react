@@ -61,13 +61,21 @@ class StudiosListView extends Component {
   }
 
   render(){
+    if(this.props.studios.length===0){
+      return(
+          <Segment placeholder>
+          <Header icon>
+            <Icon name='game' />
+              You have no studio. Register a studio and start managing your games
+          </Header>
+          <Button primary onClick={()=>{ this.go('/add') }} >Add Studio</Button>
+        </Segment>
+        )
+    }
     return (
       <div>
-       <Container>
-
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
-          
           <Segment >
             <Header floated='left'>
               <Icon name='gamepad' />
@@ -85,22 +93,19 @@ class StudiosListView extends Component {
                 icon='add'
                 labelPosition='left'
               />
-
             <Button.Group floated='right' >
               <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
               <Button.Or text='/' />
               <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
             </Button.Group>
-            
           </Segment>
 
             <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
-
               {this.props.studios.map((studio, index) => (
                 <Card 
                   key={`game-${index}`}
                   //to={`/studio/${studio.id}`} 
-                  //as={Link}
+                  as={'a'}
                   raised 
                   color='blue'
                   >
@@ -119,7 +124,7 @@ class StudiosListView extends Component {
 
                     <Button.Group basic size='medium' floated='right'>
                       <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeStudio(studio) } } />} content='Remove'/>
-                      <Popup trigger={ <Button icon='users' />} content='Users'/>
+                      {/*<Popup trigger={ <Button icon='users' />} content='Users'/>*/}
                       <Popup trigger={ <Button icon='settings' as={Link} to={`/studio/${studio.id}/settings`} />}  content='Settings'/>
                       <Popup trigger={ <Button icon='game' as={Link} to={`/studio/${studio.id}/games`} />}  content='Games'/>
                       <Popup trigger={ <Button icon='edit' as={Link} to={`/studio/${studio.id}`} />}  content='Edit'/>
@@ -132,7 +137,6 @@ class StudiosListView extends Component {
 
             </Grid.Column>
           </Grid>
-        </Container>
       </div>
     );
   }

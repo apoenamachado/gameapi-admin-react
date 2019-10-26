@@ -24,9 +24,12 @@ import { connect } from 'react-redux'
 // Telas
 import StudioDashboardView from './Dashboard'
 import StudioGamesView from './Games'
-import StudioSettingsView from './Settings'
+//import StudioSettingsView from './Settings'
+import StudioFormView from './Form'
+import GameFormView from '../Game/Form'
 
 import {
+  getStudio,
   setCurrentStudio
 } from '../../modules/studio'
 
@@ -41,27 +44,36 @@ class StudioView extends Component {
   }
 
   componentDidMount(){
-    // Uma vez
-    //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
-    console.log('Studio:Index: props: ', this.props)
     this.getStudio()
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
-      this.getStudio()
+      //this.getStudio()
     }
   }
 
   getStudio(){
     this.setState({loading:true})  
+    this.props.getStudio({id:this.props.match.params.id}, this.props.token, (dados)=>{
+      this.props.setCurrentStudio(dados)
+      this.setState({loading:false})  
+    },
+    (err)=>{
+      console.log('GetStudio CallbackError: ', err)
+      this.setState({loading:false})  
+      this.props.history.goBack()
+    })
+
+    /*
+    this.setState({loading:true})  
     let studio = this.props.studios.filter(row => row.id == this.props.match.params.id)
     setTimeout(() => {
       this.props.setCurrentStudio(studio[0])
       this.setState({loading:false})  
-    }, 500); // Tempo de loading fake
-    
+    }, 300); // Tempo de loading fake
+    */
   }
 
   go(url){
@@ -108,7 +120,9 @@ class StudioView extends Component {
                 <Switch>
                   <Route exact path="/studio/:id" component={StudioDashboardView} />
                   <Route exact path="/studio/:id/games" component={StudioGamesView} />
-                  <Route exact path="/studio/:id/settings" component={StudioSettingsView} />
+                  {/*<Route exact path="/studio/:id/settings" component={StudioSettingsView} />*/}
+                  <Route exact path="/studio/:id/settings" component={StudioFormView} />
+                  <Route exact path="/studio/:id/game-add" component={GameFormView} />
                 </Switch>
               </Grid.Column>
             </Grid>
@@ -127,6 +141,7 @@ class StudioView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      getStudio,
       setCurrentStudio,
       changePage: () => push('/studio')
     },

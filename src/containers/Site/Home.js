@@ -93,7 +93,7 @@ class SiteHomeView extends Component {
           <Card.Group itemsPerRow={3}>
               {features.map((item, i)=>(
                 <Card  
-                  key={toString(i)}
+                  key={'item_'+i}
                   raised
                   href='#card-example-link-card'
                   header={item.name}

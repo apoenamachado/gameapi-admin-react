@@ -73,7 +73,6 @@ class StudioDashboardView extends Component {
     }else{
       return (
         <div>
-        <Container>
           <Grid columns={1}  stackable>
             <Grid.Column stretched width={16}>
                 <Segment>
@@ -85,7 +84,6 @@ class StudioDashboardView extends Component {
                 </Segment>
               </Grid.Column>
             </Grid>
-          </Container>   
         </div>
       )
     }

@@ -151,9 +151,10 @@ export const updateGame = (game, token, onSuccess, onError) => {
       if(response.ok){
         return response.json();
       }else{
-        console.log('updateGame: Erro 1', response)
-        onError(response)
-        return false;
+        response.json().then(function(value){
+          onError(value)
+          return false;
+        })  
       }
     }).then(function(data) {
       console.log('updateGame: data: ', data)
@@ -272,7 +273,7 @@ export const setCurrentGame = (game) => {
  * Remove Game
  * @param {*} token 
  */
-export const removeGame = (game, token) => {
+export const removeGame = (game, token, onSuccess) => {
   return dispatch => {
 
     return fetch(`${API_URL}/game/${game.id}`, {
@@ -292,6 +293,7 @@ export const removeGame = (game, token) => {
           type: GAME_REMOVE,
           game: game
         })
+        onSuccess()
         return true
       }
       return false;

@@ -24,6 +24,7 @@ import { connect } from 'react-redux'
 // Telas
 import GameDashboardView from './Dashboard'
 import GameSettingsView from './Settings'
+import GameFormView from './Form'
 
 // Game Modules
 //import DlcView from './Dlc'
@@ -80,12 +81,10 @@ class GameView extends Component {
   componentDidMount(){
     // Uma vez
     //this.props.setGames( gamesTemp[(this.props.match.params.id-1)] )  
-    console.log('Game:Index: props: ', this.props)
     this.getGame()
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
-    // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
       //this.getGame()
     }
@@ -96,19 +95,21 @@ class GameView extends Component {
 
     this.props.getGame({id:this.props.match.params.id}, this.props.token, (dados)=>{
       this.props.setCurrentGame(dados)
+      this.setState({loading:false})  
     },
     (err)=>{
       console.log('GetGame CallbackError: ', err)
+      this.setState({loading:false})  
       this.props.history.goBack()
     })
 
+    /*
     let game = this.props.games.filter(row => row.id == this.props.match.params.id)
     setTimeout(() => {
-      
       this.props.setCurrentGame(game[0])
       this.setState({loading:false})  
-    }, 10); // Tempo de loading fake
-    
+    }, 300); // Tempo de loading fake
+    */
   }
 
   go(url){
@@ -129,8 +130,26 @@ class GameView extends Component {
         <div>
         <Container style={{ marginTop: '1em' }}>
           <Grid columns={2}  stackable>
+
             <Grid.Column width={4}>
-              <Menu pointing vertical>
+
+              <Menu vertical >
+                <Image src={this.props.game.image} 
+                  rounded
+                  wrapped 
+                  label={{
+                    as: 'a',
+                    onClick: ()=>{ this.go('/settings') },
+                    color: 'black',
+                    content: this.props.game.name,
+                    //icon: 'game',
+                    ribbon: 'true',
+                }}
+                />
+              </Menu>
+
+              <Menu vertical>
+
                 <Menu.Item
                     name='Dashboard'
                     active={false}
@@ -169,7 +188,7 @@ class GameView extends Component {
                   <Route exact path="/game/:id/leaderboard" component={LeaderBoardView} />
                   <Route exact path="/game/:id/dlc" component={DlcView} />
                   <Route exact path="/game/:id/storage" component={StorageView} />
-                  <Route exact path="/game/:id/settings" component={GameSettingsView} />
+                  <Route exact path="/game/:id/settings" component={GameFormView} />
                 </Switch>
               </Grid.Column>
             </Grid>

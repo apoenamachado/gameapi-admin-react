@@ -22,8 +22,8 @@ import { connect } from 'react-redux'
 
 // Telas
 import StudiosListView from './List'
-import StudiosAddView from './Add'
-
+//import StudiosAddView from './Add'
+import StudioFormView from '../Studio/Form'
 
 import {
   setCurrentStudio
@@ -66,7 +66,6 @@ class StudiosView extends Component {
       <div>
 
       {/*<Breadcrumb divider='/' sections={sections} />  */}
-
       <Container style={{ marginTop: '1em' }}>
 
       <Grid columns={2}  stackable>
@@ -90,13 +89,11 @@ class StudiosView extends Component {
           
         </Grid.Column>
         <Grid.Column stretched width={12}>
-
             <Switch>
               <Route exact path="/studios/list" component={StudiosListView} />
-              <Route exact path="/studios/add" component={StudiosAddView} />
-              <Route exact path="/studios/:id/edit" component={StudiosAddView} />
+              <Route exact path="/studios/add" component={StudioFormView} />
+              {/*<Route exact path="/studios/:id/edit" component={StudiosAddView} />*/}
             </Switch>
-          
           </Grid.Column>
         </Grid>
 

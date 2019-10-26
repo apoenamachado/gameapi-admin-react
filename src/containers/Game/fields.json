@@ -1,0 +1,158 @@
+{
+  "POST": {
+      "id": {
+          "type": "integer",
+          "required": false,
+          "read_only": false,
+          "label": "Id"
+      },
+      "uuid": {
+          "type": "string",
+          "required": false,
+          "read_only": true,
+          "label": "UUID"
+      },
+      "studio": {
+          "type": "field",
+          "required": false,
+          "read_only": false,
+          "label": "Studio"
+      },
+      "name": {
+          "type": "string",
+          "required": true,
+          "read_only": false,
+          "label": "Name",
+          "max_length": 200
+      },
+      "resume": {
+          "type": "string",
+          "required": false,
+          "read_only": false,
+          "label": "Resume"
+      },
+      "genre": {
+          "type": "choice",
+          "required": true,
+          "read_only": false,
+          "label": "Genre",
+          "choices": [
+              {
+                  "value": "ACTION",
+                  "display_name": "Action"
+              },
+              {
+                  "value": "ADVENTURE",
+                  "display_name": "Adventure"
+              },
+              {
+                  "value": "ARCADE",
+                  "display_name": "Arcade"
+              },
+              {
+                  "value": "CARD",
+                  "display_name": "Card / board"
+              },
+              {
+                  "value": "CASINO",
+                  "display_name": "Casino"
+              },
+              {
+                  "value": "CASUAL",
+                  "display_name": "Casual"
+              },
+              {
+                  "value": "EDU",
+                  "display_name": "Educational"
+              },
+              {
+                  "value": "FIGHT",
+                  "display_name": "Fighting"
+              },
+              {
+                  "value": "FPS",
+                  "display_name": "First Person"
+              },
+              {
+                  "value": "IDLE",
+                  "display_name": "Idle"
+              },
+              {
+                  "value": "PUZZLE",
+                  "display_name": "Puzzle"
+              },
+              {
+                  "value": "PLATFORM",
+                  "display_name": "Platform"
+              },
+              {
+                  "value": "RACE",
+                  "display_name": "Racing / flying"
+              },
+              {
+                  "value": "RTS",
+                  "display_name": "Real-time strategy"
+              },
+              {
+                  "value": "MUSIC",
+                  "display_name": "Rhythm / dance"
+              },
+              {
+                  "value": "RPG",
+                  "display_name": "Roling Playng game"
+              },
+              {
+                  "value": "SURVIVAL",
+                  "display_name": "Sandbox / survival"
+              },
+              {
+                  "value": "SHOOTER",
+                  "display_name": "Shooter"
+              },
+              {
+                  "value": "SIM",
+                  "display_name": "Simulation"
+              },
+              {
+                  "value": "SPORT",
+                  "display_name": "Sports"
+              },
+              {
+                  "value": "TBS",
+                  "display_name": "Turn-based strategy"
+              }
+          ]
+      },
+      "description": {
+          "type": "string",
+          "required": false,
+          "read_only": false,
+          "label": "Description"
+      },
+      "image": {
+          "type": "image upload",
+          "required": false,
+          "read_only": false,
+          "label": "Image",
+          "max_length": 100
+      },
+      "user_tag": {
+          "type": "field",
+          "required": false,
+          "read_only": true,
+          "label": "User tag"
+      },
+      "url": {
+          "type": "field",
+          "required": false,
+          "read_only": true,
+          "label": "Url"
+      },
+      "teste_apoena": {
+          "type": "field",
+          "required": false,
+          "read_only": true,
+          "label": "Teste apoena"
+      }
+  }
+}

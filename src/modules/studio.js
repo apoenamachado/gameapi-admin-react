@@ -96,7 +96,7 @@ export const addStudio = (studio, token, onSuccess, onError) => {
         response.json().then(function(value){
           onError(value)
           return false;
-        })        
+        })
       }
     }).then(function(data) {
       if(data){
@@ -144,9 +144,10 @@ export const updateStudio = (studio, token, onSuccess, onError) => {
       if(response.ok){
         return response.json();
       }else{
-        console.log('updateStudio: Erro 1', response)
-        onError(response)
-        return false;
+        response.json().then(function(value){
+          onError(value)
+          return false;
+        })  
       }
     }).then(function(data) {
       console.log('updateStudio: data: ', data)
@@ -177,6 +178,47 @@ export const updateStudio = (studio, token, onSuccess, onError) => {
   }
 }
 
+
+export const getStudio = (studio, token, onSuccess, onError) => {
+  return dispatch => {
+
+    return fetch(`${API_URL}/studio/${studio.id}/`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'Token '+token
+      }
+    }).then(function(response) {
+      if(response.ok){
+        return response.json();
+      }else{
+        console.log('getStudio: Erro 1', response)
+        onError(response)
+        return false;
+      }
+    }).then(function(data) {
+      console.log('getStudio: data: ', data)
+      if(data){
+        /*
+        dispatch({
+          type: STUDIO_SET_CURRENT,
+          game: data
+        })
+        */
+        onSuccess(data)
+        return true
+      }
+    })
+    /*.catch(function (err) {
+
+      err.then(function(result) {
+          console.log('Erro 3', result['PromiseValue'])  
+        onError(result.value)
+      });
+      return false
+    })
+    */
+  }
+}
 
 /**
  * Get Studio List
