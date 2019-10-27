@@ -17,6 +17,7 @@ import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
+  setCurrentGame,
   listGame,
   addGame,
   removeGame
@@ -49,6 +50,7 @@ class StudioGamesView extends Component {
     this.props.listGame(this.props.token, this.props.studio, ()=>{
       this.setState({loading:false})
     })
+    this.props.setCurrentGame(null)
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -185,6 +187,7 @@ class StudioGamesView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setCurrentGame,
       listGame,
       addGame,
       removeGame
