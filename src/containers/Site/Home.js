@@ -17,7 +17,7 @@ const features = [
   {name:'USER ACCOUNTS', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'grey', url:null, image:null},
   {name:'STÚDIOS (ORGANIZATIONS)', description:'Create studios (organization) and register the games independently.', color:'grey', url:null, image:null},
   {name:'LEADERBOARDS', description:'Leaderboards are a great way to add a social and competitive element to any game.', color:'grey', url:null, image:null},
-  {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'grey', url:null, image:null},
+  {name:'Players', description:'Players interacting with your game. They can set records, save games, buy and sell items. What do you imagine.', color:'grey', url:null, image:null},
   {name:'DLC (Download Content)', description:'Every user is registered and has a profile for other users to find and become friends or join groups and chat.', color:'grey', url:null, image:null},
   {name:'DATA STORAGE', description:'Save the game data to the cloud. The Storage service offers a simple way to save your players game data to the server.', color:'grey', url:null, image:null}
 ]
