@@ -67,7 +67,7 @@ class StudioGamesView extends Component {
     this.setState({loading2:true})
     setTimeout(() => {
       this.props.removeGame(game, this.props.token, ()=>{this.setState({loading2:false})})  
-    }, 200);
+    }, 150);
     
   }
 
@@ -80,7 +80,7 @@ class StudioGamesView extends Component {
       )
     }else{
 
-      /*
+      
       if(this.props.games.length===0){
         return(
             <Segment placeholder>
@@ -91,8 +91,7 @@ class StudioGamesView extends Component {
             <Button primary onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }} >Add Game</Button>
           </Segment>
         )
-      } 
-      */   
+      }else{
         return (
           <div>
             <Grid columns={1}  stackable>
@@ -174,6 +173,7 @@ class StudioGamesView extends Component {
               </Grid>
           </div>
         );
+      }
     }
   }
  }

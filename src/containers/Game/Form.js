@@ -11,6 +11,8 @@ import {
   Menu,
   Message,
   Form,
+  Select,
+  TextArea,
   Segment,
   Divider
 } from 'semantic-ui-react'
@@ -145,18 +147,41 @@ class GameFormView extends Component {
       switch (field.type) {
         case 'slug':
         case 'string':
-        case 'choice': 
-            return(
-              <Form.Field key={field.name}>
-              <label>{field.label}</label>
+          return(
+            <Form.Field key={field.name}>
+            <label>{field.label}</label>
+            
+            {field.max_length?
               <Form.Input
-                  placeholder={field.label}
-                  name={field.name}
-                  value={this.state[field.name]}
-                  onChange={this.handleChange}
-                />
-              </Form.Field>
-            )
+                placeholder={field.label}
+                name={field.name}
+                value={this.state[field.name]}
+                onChange={this.handleChange}
+              />
+              :
+              <Form.TextArea 
+                placeholder={field.label}
+                name={field.name}
+                value={this.state[field.name]}
+                onChange={this.handleChange}
+              />
+              }
+            </Form.Field>
+          )
+          break;
+        case 'choice': 
+          return(
+            <Form.Field key={field.name}>
+            <label>{field.label}</label>
+            <Select 
+              placeholder={field.label} 
+              name={field.name}
+              options={this.choicesToSelect(field.choices)} 
+              value={this.state[field.name]}
+              onChange={this.handleChange}
+              />
+            </Form.Field>
+          )
           break;
         case 'image upload':            
             return(
@@ -171,6 +196,20 @@ class GameFormView extends Component {
           break;
       }
     }
+  }
+
+  choicesToSelect(choices){
+    let select = [];
+    choices.map((item)=>{
+      select.push(
+        {
+          key: item.value,
+          value:item.value,
+          text:item.display_name
+        }
+      )
+    })
+    return select
   }
 
   erros(){
