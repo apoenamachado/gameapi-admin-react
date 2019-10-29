@@ -73,7 +73,7 @@ class StudioDashboardView extends Component {
     }else{
       return (
         <div>
-          <Container >
+          <Container style={{marginTop:'1em'}}>
             <Header as='h3' floated='left'
                 icon='chart line'
                 content={'Dashboard: '}

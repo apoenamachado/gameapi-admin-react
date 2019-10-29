@@ -76,23 +76,19 @@ class App extends Component {
     if (this.props.isAuthenticated){
       return (
         <div>
-           <Container style={{ marginTop: '1em' }}>
-              {<AdminNavbar />}
-              <Switch>
-                <Route exact path="/" component={About} />
-                <Route path="/studios"    component={StudiosView} />
-                <Route path="/studio/:id" component={StudioView}  />
-                <Route path="/game/:id"  component={GameView} />
-              </Switch>
-          </Container>
-          
+          {<AdminNavbar />}
+          <Switch>
+            <Route exact path="/" component={About} />
+            <Route path="/studios"    component={StudiosView} />
+            <Route path="/studio/:id" component={StudioView}  />
+            <Route path="/game/:id"  component={GameView} />
+          </Switch>
       </div>
       )
     }else{
       return (
         <div> 
               {<PublicNavbar />}    
-
               <Switch>
                 <Route exact path="/home" component={SiteHomeView} />
                 <Route exact path="/" >
@@ -110,7 +106,6 @@ class App extends Component {
                 <Route path="/about-us" component={About} />
                 <Route component={SiteHomeView} />
               </Switch>
-
               {<PublicFooter />}
         </div>
       )

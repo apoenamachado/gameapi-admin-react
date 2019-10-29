@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
-  //Container,
+  Container,
   Dropdown,
   Image,
   Menu,
   Header,
+  Segment
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -20,6 +21,9 @@ import {
 import {
   listStudio
 } from '../../modules/studio'
+
+// Images
+const logoInverted = require('../../assets/images/logo-inverted.svg')
 
 class AdminNavbar extends React.Component {
     constructor(props) {
@@ -58,13 +62,15 @@ class AdminNavbar extends React.Component {
   render() {
     return (
       <>
-        <Menu stackable >
+        <Segment inverted attached color='violet' style={{border:'0px'}}>
+        <Container >
+        <Menu stackable secondary={true} inverted={true}>
             <Menu.Item header>
-                <Link to="/studios/list" style={{color:'#000'}} >GAMEAPI</Link>
+                <Image src={logoInverted} wrapped size='tiny' as={Link} to="/studios/list" />
             </Menu.Item>
 
             {this.props.studio?
-              <Dropdown item text={this.props.studio.name}>
+              <Dropdown item text={this.props.studio.name} inverted>
                 <Dropdown.Menu >
                     <Dropdown.Item to={'/studio/'+this.props.studio.id} as={Link} text="Dashboard" icon='line graph layout'/>
                     <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/games'} as={Link} text="Games" icon='game layout'/>
@@ -76,9 +82,10 @@ class AdminNavbar extends React.Component {
             :null}
 
             {this.props.game?  
-            <Menu.Item>
-                      <Header as='h3' 
+            <Menu.Item inverted>
+                      <Header as='h4' 
                       //icon='game'
+                      inverted
                       image={this.props.game.image}
                       content={this.props.game.name + ' Game'}
                       //subheader={this.props.game.resume}
@@ -86,7 +93,7 @@ class AdminNavbar extends React.Component {
             </Menu.Item>
             :null}
 
-            <Menu.Menu position='right'> 
+            <Menu.Menu position='right' inverted> 
             <Dropdown item text={this.trigger}
               //trigger={this.trigger}
               //options={this.options}
@@ -106,6 +113,8 @@ class AdminNavbar extends React.Component {
               </Dropdown>
             </Menu.Menu>
         </Menu>
+        </Container>
+        </Segment>
       </>
     );
   }

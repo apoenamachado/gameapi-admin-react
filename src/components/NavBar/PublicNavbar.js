@@ -10,6 +10,9 @@ import {
   } from 'semantic-ui-react'
   import 'semantic-ui-css/semantic.min.css'
 
+// Images
+const logoInverted = require('../../assets/images/logo-inverted.svg')
+
 class PublicNavbar extends React.Component {
     constructor(props) {
         super(props);
@@ -34,7 +37,7 @@ class PublicNavbar extends React.Component {
          >
           <Menu.Item header>
               <Link to="/" style={{}} >
-                GAMEAPI
+                <Image src={logoInverted} wrapped size='tiny' />
               </Link>
           </Menu.Item>
 

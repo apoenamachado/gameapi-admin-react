@@ -66,7 +66,7 @@ class StudioDashboardView extends Component {
   render(){
     if(this.state.loading){
       return(
-        <Segment>
+        <Segment placeholder basic>
           <Loader active />
         </Segment>
       )

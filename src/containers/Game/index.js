@@ -23,7 +23,6 @@ import { connect } from 'react-redux'
 
 // Telas
 import GameDashboardView from './Dashboard'
-import GameSettingsView from './Settings'
 import GameFormView from './Form'
 
 // Game Modules
@@ -67,6 +66,10 @@ const DlcView = ()=> {
 const StorageView = ()=> {
   return( <TempHeader name='Storage' description='Manage data for your games'/>)
 }
+const PlayersView = ()=> {
+  return( <TempHeader name='Players' description='Players interacting with your game.'/>)
+}
+
 
 class GameView extends Component {
 
@@ -120,7 +123,7 @@ class GameView extends Component {
     if(this.state.loading){
       return(
         <Container style={{ marginTop: '4em' }}>
-          <Segment basic>
+          <Segment basic placeholder>
               <Loader active>Loading Game...</Loader>
           </Segment>
         </Container>
@@ -128,7 +131,7 @@ class GameView extends Component {
     }else{
       return (
         <div>
-        <Container style={{ marginTop: '1em' }}>
+          <Container style={{marginTop:'1em'}}>
           <Grid columns={2}  stackable>
 
             <Grid.Column width={4}>
@@ -171,8 +174,14 @@ class GameView extends Component {
                 <Menu.Item
                     name='Storage'
                     active={false}
-                    onClick={()=>{ this.go('/Storage') }}
+                    onClick={()=>{ this.go('/storage') }}
                     icon='database'
+                  />
+                <Menu.Item
+                    name='Players'
+                    active={false}
+                    onClick={()=>{ this.go('/players') }}
+                    icon='users'
                   />
                 <Menu.Item
                     name='Settings'
@@ -189,10 +198,11 @@ class GameView extends Component {
                   <Route exact path="/game/:id/dlc" component={DlcView} />
                   <Route exact path="/game/:id/storage" component={StorageView} />
                   <Route exact path="/game/:id/settings" component={GameFormView} />
+                  <Route exact path="/game/:id/players" component={PlayersView} />
                 </Switch>
               </Grid.Column>
             </Grid>
-          </Container>
+            </Container>
         </div>
       )
     }

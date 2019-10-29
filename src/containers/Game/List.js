@@ -74,7 +74,7 @@ class GamesListView extends Component {
   render(){
     if(this.state.loading){
       return(
-        <Segment>
+        <Segment placeholder basic>
           <Loader active />
         </Segment>
       )
@@ -83,6 +83,7 @@ class GamesListView extends Component {
       
       if(this.props.games.length===0){
         return(
+          <Container style={{marginTop:'1em'}}>
             <Segment placeholder>
             <Header icon>
               <Icon name='game' />
@@ -90,12 +91,12 @@ class GamesListView extends Component {
             </Header>
             <Button primary onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }} >Add Game</Button>
           </Segment>
+          </Container>
         )
       }else{
         return (
           <div>
-
-                <Container basic>
+              <Container style={{marginTop:'1em'}} basic>
                   <Header as='h3' floated='left'
                           icon='gamepad'
                           content={'Games'}

@@ -189,7 +189,7 @@ class StudioFormView extends Component {
   render(){
     return (
       <div>
-      <Container>
+      <Container style={{marginTop:'1em'}}>
         <Header as='h3' floated='left'
           icon='setting'
           content={'Studio'}

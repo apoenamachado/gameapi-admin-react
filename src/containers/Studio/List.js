@@ -69,7 +69,7 @@ class StudiosListView extends Component {
 
     if(this.state.loading){
       return(
-        <Segment>
+        <Segment placeholder basic>
           <Loader active />
         </Segment>
       )
@@ -88,9 +88,7 @@ class StudiosListView extends Component {
     }
     return (
       <div>
-
-        <Container>
-
+        <Container style={{marginTop:'1em'}}>
           <Header as='h3' 
               icon='gamepad'
               content={'Studios'}
@@ -145,7 +143,6 @@ class StudiosListView extends Component {
                 </Card>
                 ))}
             </Card.Group>
-
             </Container>
       </div>
     );

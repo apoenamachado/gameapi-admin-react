@@ -1,20 +1,8 @@
 import React, {Component} from 'react';
-/*
+
 import {
-  Button,
-  Container,
-  Header,
-  Grid,
-  Image,
-  Card,
-  Icon,
-  Feed,
-  Menu,
-  Segment,
-  Divider,
-  Breadcrumb
+  Container
 } from 'semantic-ui-react'
-*/
 import 'semantic-ui-css/semantic.min.css'
 
 import { Link, BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -55,10 +43,12 @@ class StudiosView extends Component {
   render(){
     return (
       <div>
-      <Switch>
-        <Route exact path="/studios/list" component={StudioListView} />
-        <Route exact path="/studios/add" component={StudioFormView} />
-      </Switch>
+        <Container style={{marginTop:'1em'}}>
+        <Switch>
+          <Route exact path="/studios/list" component={StudioListView} />
+          <Route exact path="/studios/add" component={StudioFormView} />
+        </Switch>
+      </Container>
       </div>
     );
   }

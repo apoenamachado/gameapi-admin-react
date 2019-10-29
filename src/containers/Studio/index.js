@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
 import {
-  Button,
   Container,
-  Header,
-  Grid,
-  Image,
-  Card,
-  Icon,
-  Feed,
-  Menu,
   Segment,
   Divider,
   Loader,
@@ -84,7 +76,7 @@ class StudioView extends Component {
     if(this.state.loading){
       return(
         <Container style={{ marginTop: '4em' }}>
-          <Segment basic>
+          <Segment basic placeholder>
               <Loader active>Loading Studio...</Loader>
           </Segment>
         </Container>
