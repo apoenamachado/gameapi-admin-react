@@ -15,7 +15,7 @@ import CardsView from './Cards'
 import TablesView from './Tables'
 import LabelsView from './Labels'
 import StudioView from './Studio'
-import StudiosView from './Studios'
+import StudiosView from './Admin'
 import GameView from './Game'
 import LoginView from './Auth/index'
 

@@ -31,7 +31,7 @@ class LoginView extends Component {
     this.state = {
       loading:false,
       username:'teste',
-      password:'reggae123',
+      password:'testeteste',
       token: null
     };
 

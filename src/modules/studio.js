@@ -224,7 +224,7 @@ export const getStudio = (studio, token, onSuccess, onError) => {
  * Get Studio List
  * @param {*} token 
  */
-export const listStudio = (token) => {
+export const listStudio = (token, onSuccess) => {
   return dispatch => {
     return fetch(`${API_URL}/studio/`, {
       method: 'get',
@@ -241,6 +241,7 @@ export const listStudio = (token) => {
         type: STUDIOS_SET,
         studios: data
       })
+      onSuccess(data)
       return true
     }).catch(function (err) {
       return false

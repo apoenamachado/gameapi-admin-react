@@ -90,7 +90,7 @@ class SiteHomeView extends Component {
       <Segment  attached>
         <Container style={{ marginTop: '-5.5em' , marginBottom:'3em'}}>
 
-          <Card.Group itemsPerRow={3}>
+          <Card.Group itemsPerRow={3} stackable >
               {features.map((item, i)=>(
                 <Card  
                   key={'item_'+i}

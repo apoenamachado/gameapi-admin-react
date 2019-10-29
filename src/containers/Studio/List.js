@@ -11,7 +11,8 @@ import {
   Menu,
   Segment,
   Divider,
-  Popup
+  Popup,
+  Loader
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -29,12 +30,16 @@ class StudiosListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading:false,
       itemsPerRow:3
     };
   }
 
   componentDidMount(){
-    this.props.listStudio(this.props.token)
+    this.setState({loading:true})
+    this.props.listStudio(this.props.token, ()=>{
+      this.setState({loading:false})
+    })
   }
 
   componentWillMount() {
@@ -61,6 +66,15 @@ class StudiosListView extends Component {
   }
 
   render(){
+
+    if(this.state.loading){
+      return(
+        <Segment>
+          <Loader active />
+        </Segment>
+      )
+    }
+
     if(this.props.studios.length===0){
       return(
           <Segment placeholder>
@@ -77,6 +91,8 @@ class StudiosListView extends Component {
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
           <Segment >
+
+            {
             <Header floated='left'>
               <Icon name='gamepad' />
               <Header.Content>
@@ -84,6 +100,7 @@ class StudiosListView extends Component {
               <Header.Subheader>Manage your Studios</Header.Subheader>
               </Header.Content>
             </Header>
+            }
 
               <Button
                 onClick={()=>{ this.go('/add') }}
