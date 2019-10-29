@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/brand-icons.e8c322de.woff2"
   },
   {
-    "revision": "0ba52b9f70d75e5a7674",
-    "url": "/gameapi-admin-react/static/css/main.a02303d2.chunk.css"
+    "revision": "c39a72037e0ba58914d6",
+    "url": "/gameapi-admin-react/static/css/main.23e3699e.chunk.css"
   },
   {
     "revision": "244e5f072731e84bd750",
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/logo-inverted.21cb5c5c.svg"
   },
   {
-    "revision": "0ea159d3a1605455484e",
-    "url": "/gameapi-admin-react/static/js/2.3625ac90.chunk.js"
+    "revision": "d77ffa074f19d65cb1dd",
+    "url": "/gameapi-admin-react/static/js/2.97dd45ea.chunk.js"
   },
   {
     "revision": "cd6c777f1945164224dee082abaea03a",
@@ -44,8 +44,8 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "0ba52b9f70d75e5a7674",
-    "url": "/gameapi-admin-react/static/js/main.0ba80a3d.chunk.js"
+    "revision": "c39a72037e0ba58914d6",
+    "url": "/gameapi-admin-react/static/js/main.da2c021e.chunk.js"
   },
   {
     "revision": "a046592bac8f2fd96e994733faf3858c",
@@ -56,12 +56,12 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/flags.9c74e172.png"
   },
   {
-    "revision": "b87b9ba532ace76ae9f6edfe9f72ded2",
-    "url": "/gameapi-admin-react/static/media/icons.b87b9ba5.ttf"
-  },
-  {
     "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
     "url": "/gameapi-admin-react/static/media/icons.8e3c7f55.eot"
+  },
+  {
+    "revision": "b87b9ba532ace76ae9f6edfe9f72ded2",
+    "url": "/gameapi-admin-react/static/media/icons.b87b9ba5.ttf"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
@@ -84,11 +84,11 @@ self.__precacheManifest = [
     "url": "/gameapi-admin-react/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "0ea159d3a1605455484e",
-    "url": "/gameapi-admin-react/static/css/2.11e607b1.chunk.css"
+    "revision": "d77ffa074f19d65cb1dd",
+    "url": "/gameapi-admin-react/static/css/2.7d70185d.chunk.css"
   },
   {
-    "revision": "f081d20693824bd7a1984af5565335f9",
+    "revision": "436165159256a901f06161b5a9742e35",
     "url": "/gameapi-admin-react/index.html"
   }
 ];
