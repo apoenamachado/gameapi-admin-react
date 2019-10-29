@@ -23,9 +23,9 @@ import { connect } from 'react-redux'
 
 // Telas
 import StudioDashboardView from './Dashboard'
-import StudioGamesView from './Games'
 //import StudioSettingsView from './Settings'
 import StudioFormView from './Form'
+import GameListView from '../Game/List'
 import GameFormView from '../Game/Form'
 
 import {
@@ -92,41 +92,12 @@ class StudioView extends Component {
     }else{
       return (
         <div>
-        <Container style={{ marginTop: '1em' }}>
-          <Grid columns={2}  stackable>
-            <Grid.Column width={4}>
-              <Menu pointing vertical>
-                <Menu.Item
-                    name='Dashboard'
-                    active={false}
-                    onClick={()=>{ this.go('') }}
-                    icon='line graph layout'
-                  />
-                <Menu.Item
-                    name='Games'
-                    active={false}
-                    onClick={()=>{ this.go('/games') }}
-                    icon='game layout'
-                  />
-                <Menu.Item
-                    name='Settings'
-                    active={false}
-                    onClick={()=>{ this.go('/settings') }}
-                    icon='setting layout'
-                  />
-              </Menu>
-            </Grid.Column>
-            <Grid.Column stretched width={12}>
-                <Switch>
-                  <Route exact path="/studio/:id" component={StudioDashboardView} />
-                  <Route exact path="/studio/:id/games" component={StudioGamesView} />
-                  {/*<Route exact path="/studio/:id/settings" component={StudioSettingsView} />*/}
-                  <Route exact path="/studio/:id/settings" component={StudioFormView} />
-                  <Route exact path="/studio/:id/game-add" component={GameFormView} />
-                </Switch>
-              </Grid.Column>
-            </Grid>
-          </Container>
+          <Switch>
+            <Route exact path="/studio/:id" component={StudioDashboardView} />
+            <Route exact path="/studio/:id/games" component={GameListView} />
+            <Route exact path="/studio/:id/settings" component={StudioFormView} />
+            <Route exact path="/studio/:id/game-add" component={GameFormView} />
+          </Switch>
         </div>
       )
     }

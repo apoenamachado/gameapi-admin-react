@@ -73,17 +73,14 @@ class StudioDashboardView extends Component {
     }else{
       return (
         <div>
-          <Grid columns={1}  stackable>
-            <Grid.Column stretched width={16}>
-                <Segment>
-                  <Header as='h3' floated='left'
-                      icon='chart line'
-                      content={'Dashboard: '+ this.props.studio.name}
-                      subheader='See statistics for your Studio'
-                    />            
-                </Segment>
-              </Grid.Column>
-            </Grid>
+          <Container >
+            <Header as='h3' floated='left'
+                icon='chart line'
+                content={'Dashboard: '}
+                subheader='See statistics for your Studio'
+              />            
+              <Divider clearing />
+          </Container>
         </div>
       )
     }

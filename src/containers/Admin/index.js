@@ -30,6 +30,10 @@ import {
   setCurrentStudio
 } from '../../modules/studio'
 
+import {
+  setCurrentGame
+} from '../../modules/game'
+
 class StudiosView extends Component {
 
   constructor(props) {
@@ -41,6 +45,7 @@ class StudiosView extends Component {
   componentDidMount(){
     // Reseta current studio
     this.props.setCurrentStudio(null)
+    this.props.setCurrentGame(null)
   }
 
   go(url){
@@ -68,6 +73,7 @@ class StudiosView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setCurrentGame,
       setCurrentStudio,
       changePage: () => push('/studio')
     },

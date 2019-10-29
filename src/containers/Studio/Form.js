@@ -95,7 +95,7 @@ class StudioFormView extends Component {
           console.log('Studio Cadastrado: ', data)
           this.setState({message:true, loading:false})
           this.go('/studios/list')
-          this.reset()
+          //this.reset()
         }
       }, 
       (err)=>{
@@ -110,6 +110,7 @@ class StudioFormView extends Component {
         if(data){
           console.log('Studio Atualizado: ', data)
           this.setState({message:true, loading:false})
+          this.go(`/studio/${this.props.studio.id}/games`)
         }
       }, 
       (err)=>{
@@ -188,95 +189,41 @@ class StudioFormView extends Component {
   render(){
     return (
       <div>
-       <Container>
-        <Grid columns={1}  stackable>
-          <Grid.Column stretched width={16}>
+      <Container>
+        <Header as='h3' floated='left'
+          icon='setting'
+          content={'Studio'}
+          subheader='Manage your Studio'
+        />
+        <Divider clearing />
 
-            <Segment attached>
-              <Header as='h3' floated='left'
-                icon='setting'
-                content={'Studio'}
-                subheader='Manage your Studio'
+        <Segment  >
+
+          {this.state.message? 
+            <Message
+              success
+              header='Studio successfully saved!'
+              content='Select studio from the list to manage it.'/>
+            :null}
+
+            {this.state.error? 
+            <Message
+              error
+              header='Error adding studio!'
+              //content='Check the fields and try again.'
+              content={this.erros()}
               />
-            </Segment>
+            :null
+            }
 
-            <Segment>
-
-              {this.state.message? 
-                <Message
-                  success
-                  header='Studio successfully saved!'
-                  content='Select studio from the list to manage it.'/>
-                :null}
-
-              {this.state.error? 
-              <Message
-                error
-                header='Error adding studio!'
-                //content='Check the fields and try again.'
-                content={this.erros()}
-                />
-              :null
-             }
-
-              <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
-
-              {this.montaCampos()}  
-
-              {/*
-              <Form.Field>
-                <label>Name</label>
-                <Form.Input
-                    placeholder='Name'
-                    name='name'
-                    value={name}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
-              <Form.Field>
-                <label>Slug</label>
-                <Form.Input
-                    placeholder='Slug'
-                    name='slug'
-                    value={slug}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
-              <Form.Field>
-                <label>Description</label>
-                <Form.TextArea
-                    placeholder='description'
-                    name='description'
-                    value={description}
-                    onChange={this.handleChange}
-                  />
-              </Form.Field>
-
-              <Form.Field fluid>
-                <label>Image</label>
-                <input type="file" name="image" onChange={this.handleChangeFile} />
-
-                  {this.props.studio.image?
-                    <p style={{padding:'1em'}}>
-                      <a href={this.props.studio.image} target='_blank'>
-                        <Image src={this.props.studio.image} size='medium' wrapped rounded />
-                      </a>
-                    </p>
-                  :null}
-              </Form.Field>
-                  */}
-              <Form.Button content='Save' primary floated='right' size='large' />
-
-              </Form>
-
-              </Segment>
-
-            </Grid.Column>
-          </Grid>
-        </Container>   
+            <Form onSubmit={this.handleSubmit} loading={this.state.loading} >
+              {this.montaCampos()}                
+              <Form.Button content='Save' primary size='large' floated='right'/>
+            </Form>
+          </Segment>
+      </Container>
       </div>
     );
-
   }
  }
 

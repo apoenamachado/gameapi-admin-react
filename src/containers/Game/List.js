@@ -8,7 +8,8 @@ import {
   Segment,
   Loader,
   Popup,
-  Icon
+  Icon,
+  Divider
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -22,7 +23,6 @@ import {
   addGame,
   removeGame
 } from '../../modules/game'
-import { setTimeout } from 'core-js';
 
 const gamesTempAdd = [
   { name: "Game Name 1", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://www.mmotube.net/wp-content/uploads/2017/02/Preparing-For-Plays-SkySaga.png' },
@@ -33,12 +33,12 @@ const gamesTempAdd = [
   { name: "Game Name 6", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://fiverr-res.cloudinary.com/t_mobile_web_2,q_auto,f_auto/gigs/125670607/original/b9d2b7682aaf776d570f8396ecc463eb10b2ba96.jpg'  }
 ];
 
-class StudioGamesView extends Component {
+class GamesListView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      itemsPerRow:3,
+      itemsPerRow:4,
       loading:false,
       loading2:false
     };
@@ -94,16 +94,17 @@ class StudioGamesView extends Component {
       }else{
         return (
           <div>
-            <Grid columns={1}  stackable>
-              <Grid.Column stretched width={16}>
-                <Segment>
+
+                <Container basic>
                   <Header as='h3' floated='left'
                           icon='gamepad'
                           content={'Games'}
                           subheader='Manage your Games'
                   />
 
+                  <Divider clearing />
 
+                {/*
                   <Button
                     onClick={ ()=> {
                       let tempGame = gamesTempAdd[(Math.floor(Math.random() * 5))]
@@ -123,7 +124,6 @@ class StudioGamesView extends Component {
                     labelPosition='left'
                   />
 
-
                     <Button
                     onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
                     floated='right'
@@ -134,17 +134,33 @@ class StudioGamesView extends Component {
                     labelPosition='left'
                     />
 
-
-  
                   <Button.Group floated='right' >
                     <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
                     <Button.Or text='/' />
                     <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
                   </Button.Group>
-                  
-                </Segment>
+                  */}
   
                 <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
+
+
+                  <Card 
+                    style={{textAlign:'center', justifycontent:'middle'}}
+                    raised
+                    key={`game-add`}
+                    as={'a'}
+                    onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+                    color='blue'
+                    header={(
+                        <p style={{textAlign:'center', justifycontent:'middle'}}>
+                        <Icon name='add'/> 
+                        Add New Game
+                        </p>
+                      )}
+                    description='Add and start managing the resources of your games.'
+                  />
+
+
                     {/* GAME LIST */}
                     {this.props.games.map((game, index) => (
                       <Card
@@ -169,8 +185,8 @@ class StudioGamesView extends Component {
                     {/* GAME LIST */}
   
                   </Card.Group>
-                </Grid.Column>
-              </Grid>
+
+                  </Container>
           </div>
         );
       }
@@ -199,5 +215,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StudioGamesView)
+)(GamesListView)
 

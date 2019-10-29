@@ -99,13 +99,13 @@ class GameSettingsView extends Component {
        <Container>
         <Grid columns={1}  stackable>
           <Grid.Column stretched width={16}>
-            <Segment attached>
-              <Header as='h3' floated='left'
+            
+              <Header as='h2' floated='left'
                 icon='setting'
                 content={'Settings: '+ this.props.game.name}
                 subheader='Manage your Game'
               />
-            </Segment>
+            
 
             <Segment>
 

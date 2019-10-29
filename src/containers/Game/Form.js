@@ -236,7 +236,7 @@ class GameFormView extends Component {
             <Segment attached>
               <Header as='h3' floated='left'
                 icon='setting'
-                content={'Game'}
+                content={'Settings'}
                 subheader='Manage your Game'
               />
             </Segment>

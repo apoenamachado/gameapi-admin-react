@@ -79,7 +79,7 @@ class StudioDashboardView extends Component {
                 <Segment>
                   <Header as='h3' floated='left'
                       icon='chart line'
-                      content={'Dashboard: '+ this.props.game.name}
+                      content={'Dashboard'}
                       subheader='See statistics for your Game'
                     />            
                 </Segment>

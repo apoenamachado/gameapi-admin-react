@@ -31,7 +31,7 @@ class StudiosListView extends Component {
     super(props);
     this.state = {
       loading:false,
-      itemsPerRow:3
+      itemsPerRow:4
     };
   }
 
@@ -88,53 +88,47 @@ class StudiosListView extends Component {
     }
     return (
       <div>
-        <Grid columns={1}  stackable>
-          <Grid.Column stretched width={16}>
-          <Segment >
 
-            {
-            <Header floated='left'>
-              <Icon name='gamepad' />
-              <Header.Content>
-                Studios
-              <Header.Subheader>Manage your Studios</Header.Subheader>
-              </Header.Content>
-            </Header>
-            }
+        <Container>
 
-              <Button
-                onClick={()=>{ this.go('/add') }}
-                floated='right'
-                color='blue'
-                content='Add New'
-                icon='add'
-                labelPosition='left'
-              />
-            <Button.Group floated='right' >
-              <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
-              <Button.Or text='/' />
-              <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
-            </Button.Group>
-          </Segment>
+          <Header as='h3' 
+              icon='gamepad'
+              content={'Studios'}
+              subheader='Manage your Studios'
+            />
+
+            <Divider clearing />
 
             <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
+
+            <Card 
+                style={{textAlign:'center', justifycontent:'middle'}}
+                raised
+                key={`game-add`}
+                as={Link}
+                to={'/studios/add'}
+                color='blue'
+                header={(
+                    <p style={{textAlign:'center', justifycontent:'middle'}}>
+                    <Icon name='add'/> 
+                    Add Studio
+                    </p>
+                  )}
+                description='Studios are organizations or teams. Workgroups for your games.'
+              />
+
               {this.props.studios.map((studio, index) => (
                 <Card 
                   key={`game-${index}`}
                   //to={`/studio/${studio.id}`} 
                   as={'a'}
-                  raised 
-                  color='blue'
+                  //color='blue'
                   >
-                  
-                  {/*<Image src={studio.image} wrapped ui={false} />*/}
-
                   <Card.Content>
                     <Fragment>
-                      {/*<Image floated='right' size='tiny' src={studio.image} />*/}
                       <Card.Header>{studio.name}</Card.Header>
                       {/*<Card.Description>{studio.description}</Card.Description>*/}
-                      {/*<Card.Meta>{studio.created_at}</Card.Meta>*/}
+                      {<Card.Meta>{studio.created_at}</Card.Meta>}
                     </Fragment>
                   </Card.Content>
                   <Card.Content extra >
@@ -152,8 +146,7 @@ class StudiosListView extends Component {
                 ))}
             </Card.Group>
 
-            </Grid.Column>
-          </Grid>
+            </Container>
       </div>
     );
   }

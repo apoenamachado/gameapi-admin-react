@@ -6,6 +6,7 @@ import {
   Dropdown,
   Image,
   Menu,
+  Header,
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -59,29 +60,8 @@ class AdminNavbar extends React.Component {
       <>
         <Menu stackable >
             <Menu.Item header>
-                <Link to="/" style={{color:'#000'}} >GAMEAPI</Link>
+                <Link to="/studios/list" style={{color:'#000'}} >GAMEAPI</Link>
             </Menu.Item>
-
-
-            <Menu.Item as={Link} to="/studios/list">
-              Studios
-            </Menu.Item>
-
-            {/*
-            <Dropdown item text='Studios'>
-                <Dropdown.Menu >
-                    <Dropdown.Item to="/studios/list" as={Link} text="Studios"/>
-                    <Dropdown.Divider />
-                    {this.props.studios.map((studio, index) => (
-                      <Dropdown.Item 
-                        to={'/studio/'+studio.id} as={Link} 
-                        text={studio.name}
-                        icon='game'
-                      />
-                    ))}
-                </Dropdown.Menu>
-            </Dropdown> 
-            */}          
 
             {this.props.studio?
               <Dropdown item text={this.props.studio.name}>
@@ -90,21 +70,40 @@ class AdminNavbar extends React.Component {
                     <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/games'} as={Link} text="Games" icon='game layout'/>
                     <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/settings'} as={Link} text="Settings" icon='setting layout'/>
                     <Dropdown.Divider />
-                    <Dropdown.Item to={'/studios/add'} as={Link} text="Add New Studio" icon='add'/>
+                    <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/game-add'} as={Link} text="Add New Game" icon='add'/>
                 </Dropdown.Menu>
               </Dropdown> 
             :null}
 
+            {this.props.game?  
+            <Menu.Item>
+                      <Header as='h3' 
+                      //icon='game'
+                      image={this.props.game.image}
+                      content={this.props.game.name + ' Game'}
+                      //subheader={this.props.game.resume}
+                    />  
+            </Menu.Item>
+            :null}
 
             <Menu.Menu position='right'> 
-
-            <Dropdown item
-              trigger={this.trigger}
-              options={this.options}
-              pointing='top left'
-              icon={null}
-              />
-
+            <Dropdown item text={this.trigger}
+              //trigger={this.trigger}
+              //options={this.options}
+              //pointing='top left'
+              >
+                <Dropdown.Menu >
+                  <Dropdown.Item to={'/studios/add'} as={Link} text="Add New Studio" icon='add'/>
+                  <Dropdown.Divider />
+                  <Dropdown.Item to={'/studios/add'} as={Link} text="Account" icon='user'/>
+                  <Dropdown.Item to={'/studios/add'} as={Link} text="Settings" icon='settings'/>
+                  <Dropdown.Divider />
+                  <Dropdown.Item text="Sign Out" icon='sign out' 
+                    onClick={ ()=>{
+                      this.props.logout(()=>{})
+                    }}/>
+                </Dropdown.Menu>
+              </Dropdown>
             </Menu.Menu>
         </Menu>
       </>
@@ -112,10 +111,11 @@ class AdminNavbar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user, studio }) => ({ 
+const mapStateToProps = ({ user, studio, game }) => ({ 
   token: user.token,
   studios: studio.studios,
-  studio: studio.studio
+  studio: studio.studio,
+  game: game.game
 })
 
 const mapDispatchToProps = dispatch =>
