@@ -5,11 +5,13 @@ import {
   Header,
   Grid,
   Card,
+  List,
   Segment,
   Loader,
   Popup,
   Icon,
-  Divider
+  Divider,
+  Image
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -38,6 +40,7 @@ class GamesListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      layoutGrid:true,
       itemsPerRow:4,
       loading:false,
       loading2:false
@@ -68,7 +71,84 @@ class GamesListView extends Component {
     setTimeout(() => {
       this.props.removeGame(game, this.props.token, ()=>{this.setState({loading2:false})})  
     }, 150);
-    
+  }
+
+  toggleLayout(grid){
+    this.setState({layoutGrid:grid})
+
+    if(this.state.layoutGrid){
+      //this.setState({itemsPerRow:1})
+    }else{
+      //this.setState({itemsPerRow:3})
+    }
+  }
+
+
+  renderGrid(){
+    return(
+      this.props.games.map((game, index) => (                      
+        <Card
+          loading={this.state.loading2}
+          raised 
+          image={game.image}
+          header={game.name}
+          //meta='Friend'
+          //description={game.resume}
+          meta={game.resume}
+          as={Link}
+          //to={`/game/${game.id}`}
+          extra={(
+            <Button.Group basic size='medium' floated='right'>
+              <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
+              <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
+              <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+            </Button.Group>
+          )}
+        />
+        )
+      )
+    )
+  }
+
+  renderList(){
+    return(      
+      <Segment raised>
+
+<List divided verticalAlign='middle'>
+      <List.Item>
+        <List.Content floated='right'>
+          <Button>Add</Button>
+        </List.Content>
+        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lena.png' />
+        <List.Content>Lena</List.Content>
+      </List.Item>
+      <List.Item>
+        <List.Content floated='right'>
+          <Button>Add</Button>
+        </List.Content>
+        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lindsay.png' />
+        <List.Content>Lindsay</List.Content>
+      </List.Item>
+      <List.Item>
+        <List.Content floated='right'>
+          <Button>Add</Button>
+        </List.Content>
+        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/mark.png' />
+        <List.Content>Mark</List.Content>
+      </List.Item>
+      <List.Item>
+        <List.Content floated='right'>
+          <Button>Add</Button>
+        </List.Content>
+        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/molly.png' />
+        <List.Content>Molly</List.Content>
+      </List.Item>
+    </List>
+
+
+      </Segment>
+      
+    )
   }
 
   render(){
@@ -102,6 +182,11 @@ class GamesListView extends Component {
                           content={'Games'}
                           subheader='Manage your Games'
                   />
+
+                  <Button.Group basic size='medium' floated='right'>
+                    <Popup trigger={ <Button color='red' icon='grid layout' onClick={()=>{ this.toggleLayout(true) } } active={this.state.layoutGrid} />} content='Grid' />
+                    <Popup trigger={ <Button color='red' icon='list layout' onClick={()=>{ this.toggleLayout(false) } } active={!this.state.layoutGrid} />} content='List' />
+                  </Button.Group>
 
                   <Divider clearing />
 
@@ -161,30 +246,11 @@ class GamesListView extends Component {
                     description='Add and start managing the resources of your games.'
                   />
 
+                   {this.state.layoutGrid?
+                    this.renderGrid():
+                    this.renderList()
+                   }   
 
-                    {/* GAME LIST */}
-                    {this.props.games.map((game, index) => (
-                      <Card
-                        loading={this.state.loading2}
-                        raised 
-                        image={game.image}
-                        header={game.name}
-                        //meta='Friend'
-                        //description={game.resume}
-                        meta={game.resume}
-                        as={Link}
-                        //to={`/game/${game.id}`}
-                        extra={(
-                          <Button.Group basic size='medium' floated='right'>
-                            <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-                            <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-                            <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
-                          </Button.Group>
-                        )}
-                      />
-                    ))}
-                    {/* GAME LIST */}
-  
                   </Card.Group>
 
                   </Container>

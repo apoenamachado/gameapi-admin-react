@@ -6,7 +6,8 @@ import {
     Segment,
     Dropdown,
     Menu,
-    Image
+    Image,
+    Icon
   } from 'semantic-ui-react'
   import 'semantic-ui-css/semantic.min.css'
 
@@ -52,12 +53,18 @@ class PublicNavbar extends React.Component {
           </Dropdown>              
 
           <Menu.Menu position='right'> 
+              {/*
               <Menu.Item>
                   <Link to="/login"  >Login</Link>
               </Menu.Item>
-              <Menu.Item>
-                  <Button to="/login" color='blue'>Signup</Button>
+              */}
+              <Menu.Item >
+                  <Button to="/login"  as={Link} color='blue'>
+                    <Icon name='sign-in'></Icon>
+                    Login 
+                  </Button>
               </Menu.Item>
+              
           </Menu.Menu>
         </Menu>
         </Container>

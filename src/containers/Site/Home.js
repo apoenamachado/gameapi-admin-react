@@ -36,7 +36,7 @@ class SiteHomeView extends Component {
           color='violet'
           textAlign='center'
           style={{ minHeight: 650, padding: '0em 0em' }}
-          vertical          
+          vertical
         >
           {
           <Container >

@@ -78,8 +78,8 @@ class StudioDashboardView extends Component {
                 icon='chart line'
                 content={'Dashboard: '}
                 subheader='See statistics for your Studio'
+                dividing
               />            
-              <Divider clearing />
           </Container>
         </div>
       )

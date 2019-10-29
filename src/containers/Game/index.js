@@ -40,19 +40,18 @@ import {
 const TempHeader = (props)=> {
   return( 
     <div>
-    
-      <Grid columns={1}  stackable>
-        <Grid.Column stretched width={16}>
-            <Segment>
-              <Header as='h3' floated='left'
-                  icon='chart line'
-                  content={props.name}
-                  subheader={props.description}
-                />            
-            </Segment>
-          </Grid.Column>
-        </Grid>
-    
+        <Container style={{marginTop:'1em'}} basic>
+        <Header as='h3' floated='left'
+            icon='chart line'
+            content={props.name}
+            subheader={props.description}
+            
+          />
+          <Divider clearing />
+          <Segment>
+            
+          </Segment>
+        </Container>
     </div>
   )
 }

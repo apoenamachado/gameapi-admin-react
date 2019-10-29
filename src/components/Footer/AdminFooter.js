@@ -7,6 +7,7 @@ import {
   Header,
   List,
   Image,
+  Divider
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -19,8 +20,10 @@ class AdminFooter extends React.Component {
   render() {
     return (
       <>
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+      
+      <Segment basic style={{padding: '2em 0em', marginBottom:'1em'}}>
 
+        
         {/*
           <Container>
             <Grid divided inverted stackable>

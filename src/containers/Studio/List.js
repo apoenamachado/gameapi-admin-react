@@ -93,9 +93,8 @@ class StudiosListView extends Component {
               icon='gamepad'
               content={'Studios'}
               subheader='Manage your Studios'
+              dividing
             />
-
-            <Divider clearing />
 
             <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
 
@@ -105,7 +104,7 @@ class StudiosListView extends Component {
                 key={`game-add`}
                 as={Link}
                 to={'/studios/add'}
-                color='blue'
+                //color='violet'
                 header={(
                     <p style={{textAlign:'center', justifycontent:'middle'}}>
                     <Icon name='add'/> 
@@ -119,6 +118,7 @@ class StudiosListView extends Component {
                 <Card 
                   key={`game-${index}`}
                   //to={`/studio/${studio.id}`} 
+                  raised
                   as={'a'}
                   //color='blue'
                   >

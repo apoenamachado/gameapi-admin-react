@@ -148,7 +148,7 @@ class GameFormView extends Component {
         case 'slug':
         case 'string':
           return(
-            <Form.Field key={field.name}>
+            <Form.Field key={field.name} required={field.required}>
             <label>{field.label}</label>
             
             {field.max_length?
@@ -171,7 +171,7 @@ class GameFormView extends Component {
           break;
         case 'choice': 
           return(
-            <Form.Field key={field.name}>
+            <Form.Field key={field.name} required={field.required}>
             <label>{field.label}</label>
             <Select 
               placeholder={field.label} 
@@ -185,7 +185,7 @@ class GameFormView extends Component {
           break;
         case 'image upload':            
             return(
-              <Form.Field key={field.name}>
+              <Form.Field key={field.name} required={field.required}>
                 <label>{field.name}</label>
                 <input type="file" name={field.name} onChange={this.handleChangeFile} />
                 {this.state.id?<ImgCurrent element={this.props.game} />:null}
@@ -230,16 +230,14 @@ class GameFormView extends Component {
   render(){
     return (
       <div>
-       <Container>
-        <Grid columns={1}  stackable>
-          <Grid.Column stretched width={16}>
-            <Segment attached>
-              <Header as='h3' floated='left'
-                icon='setting'
-                content={'Settings'}
-                subheader='Manage your Game'
-              />
-            </Segment>
+       <Container style={{marginTop:'1em'}}>
+       
+            <Header as='h3' floated='left'
+              icon='setting'
+              content={'Settings'}
+              subheader='Manage your Game'
+            />
+            <Divider clearing />
 
             <Segment>
               {this.state.message? 
@@ -258,12 +256,11 @@ class GameFormView extends Component {
               :null
              }
               <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
-                {this.montaCampos()}  
                 <Form.Button content='Save' primary floated='right' size='large' />
+                {this.montaCampos()}  
+                
               </Form>
               </Segment>
-            </Grid.Column>
-          </Grid>
         </Container>   
       </div>
     );

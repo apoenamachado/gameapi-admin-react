@@ -145,7 +145,7 @@ class StudioFormView extends Component {
         case 'slug':
         case 'string':
             return(
-              <Form.Field key={field.name}>
+              <Form.Field key={field.name} required={field.required}>
               <label>{field.label}</label>
               <Form.Input
                   placeholder={field.label}
@@ -158,7 +158,7 @@ class StudioFormView extends Component {
           break;
         case 'image upload':            
             return(
-              <Form.Field key={field.name}>
+              <Form.Field key={field.name} required={field.required}>
                 <label>{field.name}</label>
                 <input type="file" name={field.name} onChange={this.handleChangeFile} />
                 {this.state.id?<ImgCurrent element={this.props.studio} />:null}
@@ -195,10 +195,10 @@ class StudioFormView extends Component {
           content={'Studio'}
           subheader='Manage your Studio'
         />
-        <Divider clearing />
 
-        <Segment  >
-
+        <Divider clearing /> 
+          
+        <Segment raised >
           {this.state.message? 
             <Message
               success
@@ -217,8 +217,8 @@ class StudioFormView extends Component {
             }
 
             <Form onSubmit={this.handleSubmit} loading={this.state.loading} >
-              {this.montaCampos()}                
               <Form.Button content='Save' primary size='large' floated='right'/>
+              {this.montaCampos()}                              
             </Form>
           </Segment>
       </Container>

@@ -73,18 +73,18 @@ class StudioDashboardView extends Component {
     }else{
       return (
         <div>
-        <Container>
-          <Grid columns={1}  stackable>
-            <Grid.Column stretched width={16}>
-                <Segment>
-                  <Header as='h3' floated='left'
-                      icon='chart line'
-                      content={'Dashboard'}
-                      subheader='See statistics for your Game'
-                    />            
-                </Segment>
-              </Grid.Column>
-            </Grid>
+        <Container style={{marginTop:'1em'}}>                
+          <Header as='h3' floated='left'
+              icon='chart line'
+              content={'Dashboard'}
+              subheader='See statistics for your Game'  
+            />
+            <Divider clearing />
+
+            <Segment>
+              
+            </Segment>
+            
           </Container>   
         </div>
       )

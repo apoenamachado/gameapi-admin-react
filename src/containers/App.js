@@ -83,6 +83,7 @@ class App extends Component {
             <Route path="/studio/:id" component={StudioView}  />
             <Route path="/game/:id"  component={GameView} />
           </Switch>
+          {<AdminFooter />}
       </div>
       )
     }else{
