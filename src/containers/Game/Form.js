@@ -88,7 +88,6 @@ class GameFormView extends Component {
       if(this.state.id){
         this.setState(this.props.game)
       }
-      
     }
   }
 
@@ -153,6 +152,7 @@ class GameFormView extends Component {
             
             {field.max_length?
               <Form.Input
+                error={this.errorItem(field.name)}
                 placeholder={field.label}
                 name={field.name}
                 value={this.state[field.name]}
@@ -160,6 +160,7 @@ class GameFormView extends Component {
               />
               :
               <Form.TextArea 
+                error={this.errorItem(field.name)}
                 placeholder={field.label}
                 name={field.name}
                 value={this.state[field.name]}
@@ -174,6 +175,7 @@ class GameFormView extends Component {
             <Form.Field key={field.name} required={field.required}>
             <label>{field.label}</label>
             <Select 
+              error={this.errorItem(field.name)}
               placeholder={field.label} 
               name={field.name}
               options={this.choicesToSelect(field.choices)} 
@@ -185,7 +187,10 @@ class GameFormView extends Component {
           break;
         case 'image upload':            
             return(
-              <Form.Field key={field.name} required={field.required}>
+              <Form.Field 
+                key={field.name} 
+                error={this.errorItem(field.name)}
+                required={field.required}>
                 <label>{field.name}</label>
                 <input type="file" name={field.name} onChange={this.handleChangeFile} />
                 {this.state.id?<ImgCurrent element={this.props.game} />:null}
@@ -212,6 +217,7 @@ class GameFormView extends Component {
     return select
   }
 
+  /*
   erros(){
     let obj = this.state.error
     let _erros  = []
@@ -222,6 +228,18 @@ class GameFormView extends Component {
     return _erros.map( (item, index)=>(
       <p> - {item.name}: {item.msgs}</p>
     ))
+  }
+  */
+
+  errorItem(name){
+    let obj = this.state.error
+    if(!obj){
+      return false
+    }
+    if(obj[name]){
+      return { content: obj[name][0]}
+    }
+    return false
   }
   /**************************************************************
    * /Mover para arquivo centralizado
@@ -250,8 +268,8 @@ class GameFormView extends Component {
               <Message
                 error
                 header='Error adding game!'
-                //content='Check the fields and try again.'
-                content={this.erros()}
+                content='Check the fields and try again.'
+                //content={this.erros()}
                 />
               :null
              }

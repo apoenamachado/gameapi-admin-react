@@ -6,6 +6,7 @@ import {
   Grid,
   Card,
   List,
+  Table,
   Segment,
   Loader,
   Popup,
@@ -25,15 +26,6 @@ import {
   addGame,
   removeGame
 } from '../../modules/game'
-
-const gamesTempAdd = [
-  { name: "Game Name 1", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://www.mmotube.net/wp-content/uploads/2017/02/Preparing-For-Plays-SkySaga.png' },
-  { name: "Game Name 2", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://i.ytimg.com/vi/Xdes4VYvmlI/maxresdefault.jpg'  },
-  { name: "Game Name 3", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJ920hatZfWjxhbJ7BqV5TupEewz368J-4cQbJnyR1FvXY17j'  },
-  { name: "Game Name 4", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://www.selectgame.com.br/wp-content/uploads/2012/12/The-Legend-of-Heroes-Trails-in-the-Sky-Wallpaper.jpg'  },
-  { name: "Game Name 5", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://s2.glbimg.com/UDZ7zPZiiIgpNk4Frwq1OBNL33Y=/0x0:592x370/984x0/smart/filters:strip_icc()/s.glbimg.com/po/tt2/f/original/2013/05/20/c5.jpg'  },
-  { name: "Game Name 6", date:'12/12/2018', resume: 'Essa seria uma pequena descrição do jogo. Definida no campo Resume', downloads: "1.500", image:'https://fiverr-res.cloudinary.com/t_mobile_web_2,q_auto,f_auto/gigs/125670607/original/b9d2b7682aaf776d570f8396ecc463eb10b2ba96.jpg'  }
-];
 
 class GamesListView extends Component {
 
@@ -75,7 +67,6 @@ class GamesListView extends Component {
 
   toggleLayout(grid){
     this.setState({layoutGrid:grid})
-
     if(this.state.layoutGrid){
       //this.setState({itemsPerRow:1})
     }else{
@@ -86,68 +77,118 @@ class GamesListView extends Component {
 
   renderGrid(){
     return(
-      this.props.games.map((game, index) => (                      
-        <Card
-          loading={this.state.loading2}
-          raised 
-          image={game.image}
-          header={game.name}
-          //meta='Friend'
-          //description={game.resume}
-          meta={game.resume}
-          as={Link}
-          //to={`/game/${game.id}`}
-          extra={(
-            <Button.Group basic size='medium' floated='right'>
-              <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-              <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-              <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
-            </Button.Group>
-          )}
+      <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
+        <Card 
+          style={{textAlign:'center', justifycontent:'middle'}}
+          raised
+          key={`game-add`}
+          as={'a'}
+          onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+          color='blue'
+          header={(
+              <p style={{textAlign:'center', justifycontent:'middle'}}>
+              <Icon name='add'/> 
+              Add New Game
+              </p>
+            )}
+          description='Add and start managing the resources of your games.'
         />
-        )
-      )
+
+        {this.props.games.map((game, index) => (
+          <Card
+            key={'game_'+index}
+            loading={this.state.loading2}
+            raised 
+            image={game.image}
+            header={game.name}
+            //meta='Friend'
+            //description={game.resume}
+            meta={game.resume}
+            as={Link}
+            //to={`/game/${game.id}`}
+            extra={(
+              <Button.Group basic size='medium' floated='right'>
+                <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
+                <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
+                <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+              </Button.Group>
+            )}
+          />
+          )
+        )}
+      </Card.Group>
     )
   }
 
   renderList(){
     return(      
       <Segment raised>
+        <List divided verticalAlign='middle' size='large'>
+          {this.props.games.map((game, index) => (
+            <List.Item key={'game_'+index}>
+              <List.Content floated='right'>
+                <Button.Group basic size='medium' floated='right'>
+                  <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
+                  <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
+                  <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+                </Button.Group>
+              </List.Content>
+              <Image avatar src={game.image} />
+              <List.Content>{game.name}</List.Content>
+            </List.Item>
+            )
+          )}
+        </List>
+      </Segment>
+    )
+  }
 
-<List divided verticalAlign='middle'>
-      <List.Item>
-        <List.Content floated='right'>
-          <Button>Add</Button>
-        </List.Content>
-        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lena.png' />
-        <List.Content>Lena</List.Content>
-      </List.Item>
-      <List.Item>
-        <List.Content floated='right'>
-          <Button>Add</Button>
-        </List.Content>
-        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/lindsay.png' />
-        <List.Content>Lindsay</List.Content>
-      </List.Item>
-      <List.Item>
-        <List.Content floated='right'>
-          <Button>Add</Button>
-        </List.Content>
-        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/mark.png' />
-        <List.Content>Mark</List.Content>
-      </List.Item>
-      <List.Item>
-        <List.Content floated='right'>
-          <Button>Add</Button>
-        </List.Content>
-        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/molly.png' />
-        <List.Content>Molly</List.Content>
-      </List.Item>
-    </List>
+  renderTable(){
+    return(      
+      <Segment raised>
 
+      <Table basic stackable selectable >
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Genre</Table.HeaderCell>
+              <Table.HeaderCell colSpan='2'>
+                <Button 
+                  onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+                  floated='right' icon labelPosition='left' primary size='small' >
+                <Icon name='add' /> Add New Game
+                </Button>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+          {this.props.games.map((game, index) => (
+            <Table.Row key={'game_'+index}>
+              <Table.Cell>
+                <Header as='h4' image>
+                  <Image src={game.image} rounded size='medium' />
+                  <Header.Content as={Link} to={`/game/${game.id}`}>
+                    {game.name}
+                    <Header.Subheader>{game.resume}</Header.Subheader>
+                  </Header.Content>
+                </Header>
+              </Table.Cell>
+            <Table.Cell>{game.genre}</Table.Cell>
+            <Table.Cell>
+              <Button.Group basic size='large' floated='right'>
+                    <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
+                    <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
+                    <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+                  </Button.Group>
+            </Table.Cell>
+            </Table.Row>
+            )
+          )}
+          </Table.Body>
+        </Table>
 
       </Segment>
-      
     )
   }
 
@@ -190,68 +231,10 @@ class GamesListView extends Component {
 
                   <Divider clearing />
 
-                {/*
-                  <Button
-                    onClick={ ()=> {
-                      let tempGame = gamesTempAdd[(Math.floor(Math.random() * 5))]
-  
-                      tempGame.id = null
-                      tempGame.studio = this.props.studio.url
-                      tempGame.genre = 'ARCADE'
-                      tempGame.Image = null
-  
-                      this.props.addGame( tempGame, this.props.token, ()=>{ console.log('Game Adicionado')}, ()=>{console.log('Erro ao Adicionar Game ')} )}
-                    }
-                    floated='right'
-                    //size="mini"
-                    color='blue'
-                    content='Add New MOc'
-                    icon='add'
-                    labelPosition='left'
-                  />
-
-                    <Button
-                    onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
-                    floated='right'
-                    //size="mini"
-                    color='green'
-                    content='Add New'
-                    icon='add'
-                    labelPosition='left'
-                    />
-
-                  <Button.Group floated='right' >
-                    <Button onClick={()=>{this.setState({itemsPerRow:2})}}>2</Button>
-                    <Button.Or text='/' />
-                    <Button onClick={()=>{this.setState({itemsPerRow:3})}}>3</Button>
-                  </Button.Group>
-                  */}
-  
-                <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
-
-
-                  <Card 
-                    style={{textAlign:'center', justifycontent:'middle'}}
-                    raised
-                    key={`game-add`}
-                    as={'a'}
-                    onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
-                    color='blue'
-                    header={(
-                        <p style={{textAlign:'center', justifycontent:'middle'}}>
-                        <Icon name='add'/> 
-                        Add New Game
-                        </p>
-                      )}
-                    description='Add and start managing the resources of your games.'
-                  />
-
                    {this.state.layoutGrid?
                     this.renderGrid():
-                    this.renderList()
+                    this.renderTable()
                    }   
-
-                  </Card.Group>
 
                   </Container>
           </div>

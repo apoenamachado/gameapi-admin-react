@@ -92,7 +92,6 @@ class StudioFormView extends Component {
     this.props.addStudio(this.state, this.props.token, 
       (data)=>{
         if(data){
-          console.log('Studio Cadastrado: ', data)
           this.setState({message:true, loading:false})
           this.go('/studios/list')
           //this.reset()
@@ -108,7 +107,6 @@ class StudioFormView extends Component {
     this.props.updateStudio(this.state, this.props.token, 
       (data)=>{
         if(data){
-          console.log('Studio Atualizado: ', data)
           this.setState({message:true, loading:false})
           this.go(`/studio/${this.props.studio.id}/games`)
         }
@@ -148,6 +146,7 @@ class StudioFormView extends Component {
               <Form.Field key={field.name} required={field.required}>
               <label>{field.label}</label>
               <Form.Input
+                  error={this.errorItem(field.name)}
                   placeholder={field.label}
                   name={field.name}
                   value={this.state[field.name]}
@@ -158,7 +157,10 @@ class StudioFormView extends Component {
           break;
         case 'image upload':            
             return(
-              <Form.Field key={field.name} required={field.required}>
+              <Form.Field 
+                error={this.errorItem(field.name)}
+                key={field.name} 
+                required={field.required}>
                 <label>{field.name}</label>
                 <input type="file" name={field.name} onChange={this.handleChangeFile} />
                 {this.state.id?<ImgCurrent element={this.props.studio} />:null}
@@ -171,6 +173,7 @@ class StudioFormView extends Component {
     }
   }
 
+  /*
   erros(){
     let obj = this.state.error
     let _erros  = []
@@ -181,6 +184,18 @@ class StudioFormView extends Component {
     return _erros.map( (item, index)=>(
       <p> - {item.name}: {item.msgs}</p>
     ))
+  }
+  */
+
+  errorItem(name){
+    let obj = this.state.error
+    if(!obj){
+      return false
+    }
+    if(obj[name]){
+      return { content: obj[name][0]}
+    }
+    return false
   }
   /**************************************************************
    * /Mover para arquivo centralizado
@@ -210,8 +225,8 @@ class StudioFormView extends Component {
             <Message
               error
               header='Error adding studio!'
-              //content='Check the fields and try again.'
-              content={this.erros()}
+              content='Check the fields and try again.'
+              //content={this.erros()}
               />
             :null
             }

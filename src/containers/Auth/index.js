@@ -34,7 +34,7 @@ class LoginView extends Component {
       loadingLogin:false,
       loadingSignup:false,
       username:'',
-      email:'admin@admin.com',
+      email:'teste@teste.com',
       password:'reggae123',
       password2:'',
       token: null
@@ -110,7 +110,7 @@ class LoginView extends Component {
                 <Form loading={this.state.loadingSignup}>
 
                     <Form.Input
-                      //icon='mail outline'
+                      icon='at'
                       iconPosition='left'
                       label='Email'
                       placeholder='Email'
@@ -173,7 +173,7 @@ class LoginView extends Component {
                       />
                     */}
                     <Form.Input
-                      icon='email'
+                      icon='at'
                       iconPosition='left'
                       label='Email'
                       placeholder='Email'
