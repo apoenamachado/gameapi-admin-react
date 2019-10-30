@@ -1,17 +1,16 @@
 {
   "main.css": "/gameapi-admin-react/static/css/main.23e3699e.chunk.css",
-  "main.js": "/gameapi-admin-react/static/js/main.a1e31598.chunk.js",
-  "main.js.map": "/gameapi-admin-react/static/js/main.a1e31598.chunk.js.map",
+  "main.js": "/gameapi-admin-react/static/js/main.610f14da.chunk.js",
+  "main.js.map": "/gameapi-admin-react/static/js/main.610f14da.chunk.js.map",
   "runtime~main.js": "/gameapi-admin-react/static/js/runtime~main.6d097c93.js",
   "runtime~main.js.map": "/gameapi-admin-react/static/js/runtime~main.6d097c93.js.map",
   "static/css/2.7d70185d.chunk.css": "/gameapi-admin-react/static/css/2.7d70185d.chunk.css",
   "static/js/2.7b55526a.chunk.js": "/gameapi-admin-react/static/js/2.7b55526a.chunk.js",
   "static/js/2.7b55526a.chunk.js.map": "/gameapi-admin-react/static/js/2.7b55526a.chunk.js.map",
   "index.html": "/gameapi-admin-react/index.html",
-  "precache-manifest.17cac4ec3cc8f53aa7ecdc0963eb77de.js": "/gameapi-admin-react/precache-manifest.17cac4ec3cc8f53aa7ecdc0963eb77de.js",
+  "precache-manifest.46967dd71583de603cee77d1a05ea161.js": "/gameapi-admin-react/precache-manifest.46967dd71583de603cee77d1a05ea161.js",
   "service-worker.js": "/gameapi-admin-react/service-worker.js",
   "static/css/2.7d70185d.chunk.css.map": "/gameapi-admin-react/static/css/2.7d70185d.chunk.css.map",
   "static/css/main.23e3699e.chunk.css.map": "/gameapi-admin-react/static/css/main.23e3699e.chunk.css.map",
-  "static/media/semantic.min.css": "/gameapi-admin-react/static/media/outline-icons.ef60a4f6.woff",
-  "static/media/logo-inverted.svg": "/gameapi-admin-react/static/media/logo-inverted.21cb5c5c.svg"
+  "static/media/semantic.min.css": "/gameapi-admin-react/static/media/outline-icons.ef60a4f6.woff"
 }
