@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import {
+  getUser,
   logout
 } from '../../modules/user'
 
@@ -44,12 +45,14 @@ class AdminNavbar extends React.Component {
 
   trigger = (
     <span>
-      <Image avatar src='https://yt3.ggpht.com/a/AGF-l79zD-Uy3Xe772-Np3NlVGHWTTR1JN2EU7P8tA=s900-c-k-c0xffffffff-no-rj-mo' /> Apoena Machado
+      <Image avatar src='https://yt3.ggpht.com/a/AGF-l79zD-Uy3Xe772-Np3NlVGHWTTR1JN2EU7P8tA=s900-c-k-c0xffffffff-no-rj-mo' />
+      {this.props.user.email}
     </span>
   )
 
   componentDidMount(){
     this.props.listStudio(this.props.token)
+    this.props.getUser(this.props.token, (a)=>{console.log(a)}, (b)=>{console.log(b)})
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -94,7 +97,12 @@ class AdminNavbar extends React.Component {
             :null}
 
             <Menu.Menu position='right' inverted> 
-            <Dropdown item text={this.trigger}
+            <Dropdown item text={(
+                      <span>
+                        <Image avatar src='https://yt3.ggpht.com/a/AGF-l79zD-Uy3Xe772-Np3NlVGHWTTR1JN2EU7P8tA=s900-c-k-c0xffffffff-no-rj-mo' />
+                        {this.props.user.email}
+                      </span>
+                    )}
               //trigger={this.trigger}
               //options={this.options}
               //pointing='top left'
@@ -122,6 +130,7 @@ class AdminNavbar extends React.Component {
 
 const mapStateToProps = ({ user, studio, game }) => ({ 
   token: user.token,
+  user: user.user,
   studios: studio.studios,
   studio: studio.studio,
   game: game.game
@@ -130,6 +139,7 @@ const mapStateToProps = ({ user, studio, game }) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      getUser,
       logout,
       listStudio
     },

@@ -21,6 +21,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
   login,
+  signUp,
+  getUser,
   logout
 } from '../../modules/user'
 
@@ -31,9 +33,10 @@ class LoginView extends Component {
     this.state = {
       loadingLogin:false,
       loadingSignup:false,
-      username:'teste',
-      email:'',
-      password:'testeteste',
+      username:'',
+      email:'admin@admin.com',
+      password:'reggae123',
+      password2:'',
       token: null
     };
 
@@ -50,9 +53,9 @@ class LoginView extends Component {
     let that = this
     this.setState({loadingLogin:true})
 
-    this.props.login( this.state.username, this.state.password, (success)=>{
-      this.setState({loadingLogin:false})
-      if(success){
+    this.props.login( this.state.username, this.state.email,  this.state.password, (data)=>{
+      if(data){
+        this.setState({loadingLogin:false})
         this.go('/studios/list')
       }else{
         this.go('/')  
@@ -63,20 +66,15 @@ class LoginView extends Component {
   signUp(){
     let that = this
     this.setState({loadingSignup:true})
-    setTimeout(() => {
+    this.props.signUp( this.state.username, this.state.email,  this.state.password, this.state.password2,  (success)=>{
       this.setState({loadingSignup:false})
-    }, 300);
-
-    /*
-    this.props.login( this.state.username, this.state.password, (success)=>{
-      this.setState({loading:false})
       if(success){
         this.go('/studios/list')
       }else{
-        this.go('/')  
+        console.log('Erro ao cadastrar')
+        //this.go('/')  
       }
     })
-    */
   }
 
   render(){
@@ -112,7 +110,7 @@ class LoginView extends Component {
                 <Form loading={this.state.loadingSignup}>
 
                     <Form.Input
-                      icon='email'
+                      //icon='mail outline'
                       iconPosition='left'
                       label='Email'
                       placeholder='Email'
@@ -138,6 +136,16 @@ class LoginView extends Component {
                       name='password'
                       onChange={this.handleChange}
                     />
+
+                    <Form.Input
+                      icon='lock'
+                      iconPosition='left'
+                      label='Password Confirm'
+                      placeholder='Password Confirm'
+                      type='password'
+                      name='password2'
+                      onChange={this.handleChange}
+                    />
           
                     <Button content='Sign up' fluid size='large' type="submit" onClick={ ()=> { this.signUp() } } icon='signup' />
                   </Form>
@@ -153,12 +161,23 @@ class LoginView extends Component {
                   />
 
                   <Form loading={this.state.loadingLogin}>
+                    
+                    {/*
                     <Form.Input
                       icon='user'
                       iconPosition='left'
                       label='Username'
                       placeholder='Username'
                       name='username'
+                      onChange={this.handleChange}
+                      />
+                    */}
+                    <Form.Input
+                      icon='email'
+                      iconPosition='left'
+                      label='Email'
+                      placeholder='Email'
+                      name='email'
                       onChange={this.handleChange}
                       />
                       
@@ -278,6 +297,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       login,
+      signUp,
+      getUser,
       logout
       //changePage: () => push('/index')
     },
