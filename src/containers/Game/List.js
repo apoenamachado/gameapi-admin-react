@@ -6,6 +6,7 @@ import {
   Grid,
   Card,
   List,
+  Item,
   Table,
   Segment,
   Loader,
@@ -27,12 +28,17 @@ import {
   removeGame
 } from '../../modules/game'
 
+
+const GRID = 1
+const LIST = 2
+const TABLE = 3
+
 class GamesListView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      layoutGrid:true,
+      layout:GRID,
       itemsPerRow:4,
       loading:false,
       loading2:false
@@ -65,15 +71,36 @@ class GamesListView extends Component {
     }, 150);
   }
 
-  toggleLayout(grid){
-    this.setState({layoutGrid:grid})
-    if(this.state.layoutGrid){
-      //this.setState({itemsPerRow:1})
-    }else{
-      //this.setState({itemsPerRow:3})
+  setLayout(layout){
+    this.setState({layout:layout})
+  }
+
+  renderlayout(){
+    switch (this.state.layout) {
+      case GRID:
+        return this.renderGrid()
+        break;
+      case LIST:
+        return this.renderList()
+        break;
+      case TABLE:
+        return this.renderTable()
+        break;
+      default:
+        return this.renderGrid()
+        break;
     }
   }
 
+  renderAction(game){
+    return(
+      <Button.Group basic size='large' floated='right'>
+        <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
+        <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
+        <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+      </Button.Group>
+    )
+  }
 
   renderGrid(){
     return(
@@ -106,13 +133,7 @@ class GamesListView extends Component {
             meta={game.resume}
             as={Link}
             //to={`/game/${game.id}`}
-            extra={(
-              <Button.Group basic size='medium' floated='right'>
-                <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-                <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-                <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
-              </Button.Group>
-            )}
+            extra={this.renderAction(game)}
           />
           )
         )}
@@ -122,34 +143,49 @@ class GamesListView extends Component {
 
   renderList(){
     return(      
-      <Segment raised>
-        <List divided verticalAlign='middle' size='large'>
+          <div>
+          <Segment basic clearing>
+            <Button 
+                floated='right'
+                onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+                floated='right' icon labelPosition='left' primary size='small' >
+                <Icon name='add' /> Add New Game
+            </Button>
+          </Segment>
+
           {this.props.games.map((game, index) => (
-            <List.Item key={'game_'+index}>
-              <List.Content floated='right'>
-                <Button.Group basic size='medium' floated='right'>
-                  <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-                  <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-                  <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
-                </Button.Group>
-              </List.Content>
-              <Image avatar src={game.image} />
-              <List.Content>{game.name}</List.Content>
-            </List.Item>
+
+            <Segment key={'game_'+index} >
+            <Table basic='very' celled unstackable selectable padded>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell width='one'><Image src={game.image} rounded size='small' /></Table.Cell>
+                    <Table.Cell width='seven'>
+                        <Header as='h3'>
+                          <Header.Content as={Link} to={`/game/${game.id}`}>
+                            {game.name}
+                            <Header.Subheader>{game.resume}</Header.Subheader>
+                          </Header.Content>
+                        </Header>
+                    </Table.Cell>
+                    <Table.Cell width='tree'>{game.genre}</Table.Cell>
+                    <Table.Cell textAlign='right' width='one'>{this.renderAction(game)}</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            </Segment>
             )
           )}
-        </List>
-      </Segment>
+          </div>
     )
   }
 
   renderTable(){
     return(      
-      <Segment raised>
-
-      <Table basic stackable selectable >
+      <Table basic stackable selectable>
           <Table.Header>
             <Table.Row>
+              <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Genre</Table.HeaderCell>
               <Table.HeaderCell colSpan='2'>
@@ -165,6 +201,7 @@ class GamesListView extends Component {
           <Table.Body>
           {this.props.games.map((game, index) => (
             <Table.Row key={'game_'+index}>
+              <Table.Cell>{game.id}</Table.Cell>
               <Table.Cell>
                 <Header as='h4' image>
                   <Image src={game.image} rounded size='medium' />
@@ -176,21 +213,16 @@ class GamesListView extends Component {
               </Table.Cell>
             <Table.Cell>{game.genre}</Table.Cell>
             <Table.Cell>
-              <Button.Group basic size='large' floated='right'>
-                    <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-                    <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-                    <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
-                  </Button.Group>
+              {this.renderAction(game)}
             </Table.Cell>
             </Table.Row>
             )
           )}
           </Table.Body>
-        </Table>
-
-      </Segment>
+        </Table>      
     )
   }
+
 
   render(){
     if(this.state.loading){
@@ -225,16 +257,15 @@ class GamesListView extends Component {
                   />
 
                   <Button.Group basic size='medium' floated='right'>
-                    <Popup trigger={ <Button color='red' icon='grid layout' onClick={()=>{ this.toggleLayout(true) } } active={this.state.layoutGrid} />} content='Grid' />
-                    <Popup trigger={ <Button color='red' icon='list layout' onClick={()=>{ this.toggleLayout(false) } } active={!this.state.layoutGrid} />} content='List' />
+                    <Popup trigger={ <Button color='red' icon='grid layout' onClick={()=>{ this.setLayout(GRID) } } active={this.state.layout==GRID} />} content='Grid' />
+                    <Popup trigger={ <Button color='red' icon='list layout' onClick={()=>{ this.setLayout(LIST) } } active={this.state.layout==LIST} />} content='List' />
+                    <Popup trigger={ <Button color='red' icon='table'       onClick={()=>{ this.setLayout(TABLE) } } active={this.state.layout==TABLE} />} content='Table' />
                   </Button.Group>
 
                   <Divider clearing />
 
-                   {this.state.layoutGrid?
-                    this.renderGrid():
-                    this.renderTable()
-                   }   
+
+                   {this.renderlayout()}
 
                   </Container>
           </div>
