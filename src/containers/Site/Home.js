@@ -77,6 +77,8 @@ class SiteHomeView extends Component {
                 </Grid.Column>
                 <Grid.Column width={6}>
                   
+                  {/*<Image src='https://devsquad.com/wp-content/uploads/2019/06/undraw_in_sync_xwsa.png' wrapped ui={false} />*/}
+                  {/*<Image src='https://devsquad.com/wp-content/uploads/2019/07/undraw_operating_system_4lr6_1.png' wrapped ui={false} />*/}
                   {<Image src='https://devsquad.com/wp-content/uploads/2019/06/undraw_deliveries_131a_1.png' wrapped ui={false} />}
                   {/*<Image src='https://ph-files.imgix.net/c82e2d38-f5c6-449f-babd-cc61680a8e49?auto=format'/>*/}
 

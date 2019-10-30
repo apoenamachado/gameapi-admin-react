@@ -66,7 +66,7 @@ class StudioDashboardView extends Component {
   render(){
     if(this.state.loading){
       return(
-        <Segment>
+        <Segment placeholder basic>
           <Loader active />
         </Segment>
       )
@@ -78,8 +78,8 @@ class StudioDashboardView extends Component {
                 icon='chart line'
                 content={'Dashboard: '}
                 subheader='See statistics for your Studio'
-                dividing
-              />            
+              />      
+              <Divider clearing />       
           </Container>
         </div>
       )

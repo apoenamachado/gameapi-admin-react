@@ -88,8 +88,8 @@ class LoginView extends Component {
           inverted
           color='violet'
           textAlign='center'
-          style={{ minHeight: 100, padding: '0em 0em' }}
-          vertical          
+          style={{ minHeight: 100, height:140, padding: '0em 0em' }}
+          vertical
         >
           <Container>
           </Container>
@@ -98,13 +98,15 @@ class LoginView extends Component {
         <Container style={{ marginTop: '-5.5em' , marginBottom:'3em'}}>
 
               <Segment placeholder stackable style={{padding:'3em'}} raised>
+
               <Grid columns={2}  stackable>
                 <Grid.Column>
 
                 <Header as='h3' 
-                  //primary
+                  primary
                   textAlign='center' 
                   content='Sign Up'
+                  subheader="Don't have an account? Sign up in seconds"
                   />
 
                 <Form loading={this.state.loadingSignup}>
@@ -112,7 +114,7 @@ class LoginView extends Component {
                     <Form.Input
                       icon='at'
                       iconPosition='left'
-                      label='Email'
+                      //label='Email'
                       placeholder='Email'
                       name='email'
                       onChange={this.handleChange}
@@ -121,7 +123,7 @@ class LoginView extends Component {
                     <Form.Input
                       icon='user'
                       iconPosition='left'
-                      label='Username'
+                      //label='Username'
                       placeholder='Username'
                       name='username'
                       onChange={this.handleChange}
@@ -130,7 +132,7 @@ class LoginView extends Component {
                     <Form.Input
                       icon='lock'
                       iconPosition='left'
-                      label='Password'
+                      //label='Password'
                       placeholder='Password'
                       type='password'
                       name='password'
@@ -140,14 +142,14 @@ class LoginView extends Component {
                     <Form.Input
                       icon='lock'
                       iconPosition='left'
-                      label='Password Confirm'
+                      //label='Password Confirm'
                       placeholder='Password Confirm'
                       type='password'
                       name='password2'
                       onChange={this.handleChange}
                     />
           
-                    <Button content='Sign up' fluid size='large' type="submit" onClick={ ()=> { this.signUp() } } icon='signup' />
+                    <Button content='Sign up' fluid size='large' color='violet'  type="submit" onClick={ ()=> { this.signUp() } } icon='signup' />
                   </Form>
 
 
@@ -175,7 +177,7 @@ class LoginView extends Component {
                     <Form.Input
                       icon='at'
                       iconPosition='left'
-                      label='Email'
+                      //label='Email'
                       placeholder='Email'
                       name='email'
                       onChange={this.handleChange}
@@ -184,15 +186,17 @@ class LoginView extends Component {
                     <Form.Input
                       icon='lock'
                       iconPosition='left'
-                      label='Password'
+                      //label='Password'
                       placeholder='Password'
                       type='password'
                       name='password'
                       onChange={this.handleChange}
                     />
           
-                    <Button content='Login' color='violet' fluid size='large' type="submit" onClick={ ()=> { this.login() } } />
+                    <Button content='Log in' color='violet' fluid size='large' type="submit" onClick={ ()=> { this.login() } } icon='sign-in'/>
+
                   </Form>
+
                 </Grid.Column>
               </Grid>
           
