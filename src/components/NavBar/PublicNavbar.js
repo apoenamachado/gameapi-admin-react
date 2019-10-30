@@ -12,7 +12,7 @@ import {
   import 'semantic-ui-css/semantic.min.css'
 
 // Images
-const logoInverted = require('../../assets/images/logo-inverted.svg')
+const logoInverted = require('../../assets/images/logo-inverted.png')
 
 class PublicNavbar extends React.Component {
     constructor(props) {

@@ -24,7 +24,7 @@ import {
 } from '../../modules/studio'
 
 // Images
-const logoInverted = require('../../assets/images/logo-inverted.svg')
+const logoInverted = require('../../assets/images/logo-inverted.png')
 
 class AdminNavbar extends React.Component {
     constructor(props) {
