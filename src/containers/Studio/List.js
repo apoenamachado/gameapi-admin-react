@@ -104,7 +104,8 @@ class StudiosListView extends Component {
                 key={`game-add`}
                 as={Link}
                 to={'/studios/add'}
-                //color='violet'
+                color='violet'
+                
                 header={(
                     <p style={{textAlign:'center', justifycontent:'middle'}}>
                     <Icon name='add'/> 
@@ -112,6 +113,19 @@ class StudiosListView extends Component {
                     </p>
                   )}
                 description='Studios are organizations or teams. Workgroups for your games.'
+                /*
+                description={(
+                  <div style={{
+                      textAlign:'center', 
+                      justifycontent:'middle',
+                      marginTop:'40%',
+                      minHeight:150
+                      }}>
+                    <Icon name='add'/> 
+                    Add Studio
+                  </div>
+                  )}
+                  */
               />
 
               {this.props.studios.map((studio, index) => (

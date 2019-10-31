@@ -223,7 +223,6 @@ class GamesListView extends Component {
     )
   }
 
-
   render(){
     if(this.state.loading){
       return(
@@ -233,11 +232,18 @@ class GamesListView extends Component {
       )
     }else{
 
-      
       if(this.props.games.length===0){
         return(
-          <Container style={{marginTop:'1em'}}>
-            <Segment placeholder>
+          <Container style={{marginTop:'1em'}} raised>
+
+            <Header as='h3' floated='left'
+              icon='gamepad'
+              content={'Games'}
+              subheader='Manage your Games'
+             />
+            <Divider clearing />
+
+            <Segment placeholder basic>
             <Header icon>
               <Icon name='game' />
                 You have no game. Add and start managing the resources of your games.
@@ -263,7 +269,6 @@ class GamesListView extends Component {
                   </Button.Group>
 
                   <Divider clearing />
-
 
                    {this.renderlayout()}
 
