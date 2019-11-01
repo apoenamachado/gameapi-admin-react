@@ -47,6 +47,9 @@ class StudioView extends Component {
   }
 
   getStudio(){
+
+    console.log('Match: ', this.props.match)
+
     this.setState({loading:true})  
     this.props.getStudio({id:this.props.match.params.id}, this.props.token, (dados)=>{
       this.props.setCurrentStudio(dados)
@@ -69,7 +72,7 @@ class StudioView extends Component {
   }
 
   go(url){
-    this.props.history.push('/studio/'+ (this.props.match.params.id) + url)
+    this.props.history.push(this.props.match.url + url)
   }
 
   render(){
@@ -85,10 +88,17 @@ class StudioView extends Component {
       return (
         <div>
           <Switch>
+            {/*
             <Route exact path="/studio/:id" component={StudioDashboardView} />
             <Route exact path="/studio/:id/games" component={GameListView} />
             <Route exact path="/studio/:id/settings" component={StudioFormView} />
             <Route exact path="/studio/:id/game-add" component={GameFormView} />
+            */}
+            <Route exact path={this.props.match.url} component={StudioDashboardView} />
+            <Route exact path={`${this.props.match.url}/games`} component={GameListView} />
+            <Route exact path={`${this.props.match.url}/settings`} component={StudioFormView} />
+            <Route exact path={`${this.props.match.url}/game-add`} component={GameFormView} />
+
           </Switch>
         </div>
       )

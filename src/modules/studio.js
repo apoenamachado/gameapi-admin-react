@@ -24,25 +24,25 @@ export default (state = studioInitialState, action) => {
       return Object.assign({}, state, {
         studios: [
           ...state.studios,
-          action.studio
+          action.payload
         ]
       })
     case STUDIOS_SET:
       return {
         ...state,
-        studios: action.studios
+        studios: action.payload
       }
     case STUDIO_SET_CURRENT:
         console.log('STUDIO_SET_CURRENT: ', action.studio)
         return {
           ...state,
-          studio: action.studio
+          studio: action.payload
         }
     case STUDIO_REMOVE:
       console.log('STUDIO_REMOVE: ', action.studio)
       return Object.assign({}, state, {
         studios: [
-          ...state.studios.filter(row => row.id != action.studio.id)
+          ...state.studios.filter(row => row.id != action.payload.id)
         ]
       })
     /*  
@@ -102,7 +102,7 @@ export const addStudio = (studio, token, onSuccess, onError) => {
       if(data){
         dispatch({
           type: STUDIO_ADD,
-          studio: data
+          payload: data
         })
         onSuccess(data)
         return true
@@ -154,7 +154,7 @@ export const updateStudio = (studio, token, onSuccess, onError) => {
       if(data){
         dispatch({
           type: STUDIO_SET_CURRENT,
-          studio: data
+          payload: data
         })
         /*
         dispatch({
@@ -239,7 +239,7 @@ export const listStudio = (token, onSuccess) => {
     }).then(function(data) {
       dispatch({
         type: STUDIOS_SET,
-        studios: data
+        payload: data
       })
       onSuccess(data)
       return true
@@ -257,7 +257,7 @@ export const setCurrentStudio = (studio) => {
   return dispatch => {
       dispatch({
         type: STUDIO_SET_CURRENT,
-        studio: studio
+        payload: studio
       })
   }
 }
@@ -287,7 +287,7 @@ export const removeStudio = (studio, token) => {
         console.log('Removendo studio: ', studio)
         dispatch({
           type: STUDIO_REMOVE,
-          studio: studio
+          payload: studio
         })
         return true
       }

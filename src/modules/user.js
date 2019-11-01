@@ -29,8 +29,8 @@ export default (state = initialState, action) => {
       console.log('SET_TOKEN: action: ', action)
       return {
         ...state,
-        token:action.token,
-        isAuthenticated:action.isAuthenticated,
+        token:action.payload.token,
+        isAuthenticated:action.payload.isAuthenticated,
       }
     case USER_UNSET_TOKEN:
       console.log('UNSET_TOKEN:')
@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
       console.log('SET_USER: action: ', action)
       return {
         ...state,
-        user:action.user
+        user:action.payload
       }
     default:
       return state
@@ -76,8 +76,10 @@ export const login = (username, email, password, callback) => {
       if(data && data.key){
         dispatch({
           type: USER_SET_TOKEN,
-          token: data.key,
-          isAuthenticated:true
+          payload: {
+            token: data.key,
+            isAuthenticated: true
+          }
         })
         //callback(true)
         callback(data)
@@ -120,8 +122,10 @@ export const signUp = (username, email, password1, password2, callback) => {
       if(data && data.key){
         dispatch({
           type: USER_SET_TOKEN,
-          token: data.key,
-          isAuthenticated:true
+          payload: {
+            token: data.key,
+            isAuthenticated:true
+          }  
         })
         callback(data)
         return true
@@ -162,7 +166,7 @@ export const getUser = (token, onSuccess, onError) => {
         
         dispatch({
           type: USER_SET_USER,
-          user: data
+          payload: data
         })
 
         onSuccess(data)
@@ -182,8 +186,6 @@ export const getUser = (token, onSuccess, onError) => {
     
   }
 }
-
-
 
 export const logout = (callback) => {
   return dispatch => {

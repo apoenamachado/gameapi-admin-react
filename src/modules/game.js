@@ -24,25 +24,25 @@ export default (state = gameInitialState, action) => {
       return Object.assign({}, state, {
         games: [
           ...state.games,
-          action.game
+          action.payload
         ]
       })
     case GAMES_SET:
       return {
         ...state,
-        games: action.games
+        games: action.payload
       }
     case GAME_SET_CURRENT:
         console.log('GAME_SET_CURRENT: ', action.game)
         return {
           ...state,
-          game: action.game
+          game: action.payload
         }
     case GAME_REMOVE:
       console.log('GAME_REMOVE: ', action.game)
       return Object.assign({}, state, {
         games: [
-          ...state.games.filter(row => row.id != action.game.id)
+          ...state.games.filter(row => row.id != action.payload.id)
         ]
       })
     /*  
@@ -108,7 +108,7 @@ export const addGame = (game, token, onSuccess, onError) => {
       if(data){
         dispatch({
           type: GAME_ADD,
-          game: data
+          payload: data
         })
         onSuccess(data)
         return true
@@ -161,7 +161,7 @@ export const updateGame = (game, token, onSuccess, onError) => {
       if(data){
         dispatch({
           type: GAME_SET_CURRENT,
-          game: data
+          payload: data
         })
         /*
         dispatch({
@@ -245,7 +245,7 @@ export const listGame = (token, studio, onSuccess) => {
     }).then(function(data) {
       dispatch({
         type: GAMES_SET,
-        games: data
+        payload: data
       })
       onSuccess(data)
       return true
@@ -263,7 +263,7 @@ export const setCurrentGame = (game) => {
   return dispatch => {
       dispatch({
         type: GAME_SET_CURRENT,
-        game: game
+        payload: game
       })
   }
 }
@@ -291,7 +291,7 @@ export const removeGame = (game, token, onSuccess) => {
       if(response.ok){
         dispatch({
           type: GAME_REMOVE,
-          game: game
+          payload: game
         })
         onSuccess()
         return true
