@@ -252,7 +252,7 @@ class GameFormView extends Component {
        
             <Header as='h3' floated='left'
               icon='setting'
-              content={'Settings'}
+              content={'Game'}
               subheader='Manage your Game'
             />
             <Divider clearing />

@@ -42,7 +42,7 @@ const TempHeader = (props)=> {
     <div>
         <Container style={{marginTop:'1em'}} basic>
         <Header as='h3' floated='left'
-            icon='chart line'
+            icon={props.icon}
             content={props.name}
             subheader={props.description}
             
@@ -57,16 +57,16 @@ const TempHeader = (props)=> {
 }
 
 const LeaderBoardView = ()=> {
-  return( <TempHeader name='LeaderBoard' description='Manage scores for your games'/>)
+  return( <TempHeader name='LeaderBoard' description='Manage scores for your games' icon='trophy' />)
 }
 const DlcView = ()=> {
-  return( <TempHeader name='Dlc' description='Manage Contend Download your games'/>)
+  return( <TempHeader name='Dlc' description='Manage Contend Download your games' icon='cart arrow down'/>)
 }
 const StorageView = ()=> {
-  return( <TempHeader name='Storage' description='Manage data for your games'/>)
+  return( <TempHeader name='Storage' description='Manage data for your games' icon='database'/>)
 }
 const PlayersView = ()=> {
-  return( <TempHeader name='Players' description='Players interacting with your game.'/>)
+  return( <TempHeader name='Players' description='Players interacting with your game.' icon='users'/>)
 }
 
 
@@ -115,7 +115,7 @@ class GameView extends Component {
   }
 
   go(url){
-    this.props.history.push('/game/'+ (this.props.match.params.id) + url)
+    this.props.history.push(this.props.match.url + url)
   }
 
   render(){
@@ -162,13 +162,13 @@ class GameView extends Component {
                     name='Dlc'
                     active={false}
                     onClick={()=>{ this.go('/dlc') }}
-                    icon='caret square down'
+                    icon='cart arrow down'
                   />
                 <Menu.Item
                     name='Leaderboard'
                     active={false}
                     onClick={()=>{ this.go('/leaderboard') }}
-                    icon='numbered list'
+                    icon='trophy'
                   />
                 <Menu.Item
                     name='Storage'

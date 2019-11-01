@@ -87,18 +87,11 @@ class StudioView extends Component {
     }else{
       return (
         <div>
-          <Switch>
-            {/*
+          <Switch>            
             <Route exact path="/studio/:id" component={StudioDashboardView} />
             <Route exact path="/studio/:id/games" component={GameListView} />
             <Route exact path="/studio/:id/settings" component={StudioFormView} />
             <Route exact path="/studio/:id/game-add" component={GameFormView} />
-            */}
-            <Route exact path={this.props.match.url} component={StudioDashboardView} />
-            <Route exact path={`${this.props.match.url}/games`} component={GameListView} />
-            <Route exact path={`${this.props.match.url}/settings`} component={StudioFormView} />
-            <Route exact path={`${this.props.match.url}/game-add`} component={GameFormView} />
-
           </Switch>
         </div>
       )
