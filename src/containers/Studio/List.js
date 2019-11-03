@@ -100,11 +100,11 @@ class StudiosListView extends Component {
 
             <Card 
                 style={{textAlign:'center', justifycontent:'middle'}}
-                raised
+                
                 key={`game-add`}
                 as={Link}
                 to={'/studios/add'}
-                color='violet'
+                //color='violet'
                 
                 header={(
                     <p style={{textAlign:'center', justifycontent:'middle'}}>
@@ -130,11 +130,9 @@ class StudiosListView extends Component {
 
               {this.props.studios.map((studio, index) => (
                 <Card 
-                  key={`game-${index}`}
+                  key={`game_${index}`}
                   //to={`/studio/${studio.id}`} 
-                  raised
-                  as={'a'}
-                  //color='blue'
+                  //color='violet'
                   >
                   <Card.Content>
                     <Fragment>

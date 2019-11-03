@@ -106,8 +106,7 @@ class GamesListView extends Component {
     return(
       <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
         <Card 
-          style={{textAlign:'center', justifycontent:'middle'}}
-          raised
+          style={{textAlign:'center', justifycontent:'middle', border:0}}
           key={`game-add`}
           as={'a'}
           onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
@@ -125,15 +124,15 @@ class GamesListView extends Component {
           <Card
             key={'game_'+index}
             loading={this.state.loading2}
-            raised 
+             
             image={game.image}
             header={game.name}
             //meta='Friend'
             //description={game.resume}
             meta={game.resume}
             as={Link}
-            //to={`/game/${game.id}`}
-            extra={this.renderAction(game)}
+            to={`/game/${game.id}`}
+            //extra={this.renderAction(game)}
           />
           )
         )}
@@ -155,7 +154,7 @@ class GamesListView extends Component {
 
           {this.props.games.map((game, index) => (
 
-            <Segment key={'game_'+index} >
+            <Segment key={'game_'+index}>
             <Table basic='very' celled unstackable selectable padded>
                 <Table.Body>
                   <Table.Row>
@@ -181,7 +180,7 @@ class GamesListView extends Component {
   }
 
   renderTable(){
-    return(      
+    return(   
       <Table basic stackable selectable>
           <Table.Header>
             <Table.Row>
@@ -219,7 +218,7 @@ class GamesListView extends Component {
             )
           )}
           </Table.Body>
-        </Table>      
+        </Table>
     )
   }
 

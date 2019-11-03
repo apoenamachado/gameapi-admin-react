@@ -80,6 +80,7 @@ class StudioFormView extends Component {
   componentDidUpdate( prevProps, prevState, snapshot){
     // Toda vez
     if(prevProps.location.pathname !== this.props.location.pathname){
+      this.resetMsgs()
       if(this.state.id){
         //this.setState(this.props.studio)
       }
@@ -196,6 +197,14 @@ class StudioFormView extends Component {
       return { content: obj[name][0]}
     }
     return false
+  }
+
+  resetMsgs(){
+    if(this.state.error || this.state.message){
+      setTimeout(() => {
+        this.setState({error:false, message:false})
+      }, 5000);
+    }
   }
   /**************************************************************
    * /Mover para arquivo centralizado
