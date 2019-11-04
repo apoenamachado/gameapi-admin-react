@@ -1,6 +1,6 @@
 # React Admin Client for GameApi
 
-Autor: Apoena Machado Cunha
+Author: Apoena Machado Cunha
 
 ## Modules
 
