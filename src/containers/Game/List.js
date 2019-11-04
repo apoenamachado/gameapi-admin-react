@@ -124,6 +124,7 @@ class GamesListView extends Component {
           <Card
             key={'game_'+index}
             loading={this.state.loading2}
+            //raised
              
             image={game.image}
             header={game.name}
@@ -146,16 +147,15 @@ class GamesListView extends Component {
           <Segment basic clearing>
             <Button 
                 floated='right'
+                color='violet'
                 onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
-                floated='right' icon labelPosition='left' primary size='small' >
+                floated='right' icon labelPosition='left' size='small' >
                 <Icon name='add' /> Add New Game
             </Button>
           </Segment>
 
           {this.props.games.map((game, index) => (
-
-            <Segment key={'game_'+index}>
-            <Table basic='very' celled unstackable selectable padded>
+            <Table  celled unstackable selectable padded key={'game_'+index}>
                 <Table.Body>
                   <Table.Row>
                     <Table.Cell width='one'><Image src={game.image} rounded size='small' /></Table.Cell>
@@ -172,7 +172,6 @@ class GamesListView extends Component {
                   </Table.Row>
                 </Table.Body>
               </Table>
-            </Segment>
             )
           )}
           </div>
@@ -181,16 +180,18 @@ class GamesListView extends Component {
 
   renderTable(){
     return(   
-      <Table basic stackable selectable>
+      <Table  stackable selectable>
           <Table.Header>
+
             <Table.Row>
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Genre</Table.HeaderCell>
               <Table.HeaderCell colSpan='2'>
                 <Button 
+                  color='violet'
                   onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
-                  floated='right' icon labelPosition='left' primary size='small' >
+                  floated='right' icon labelPosition='left'  size='small' >
                 <Icon name='add' /> Add New Game
                 </Button>
               </Table.HeaderCell>
@@ -200,7 +201,7 @@ class GamesListView extends Component {
           <Table.Body>
           {this.props.games.map((game, index) => (
             <Table.Row key={'game_'+index}>
-              <Table.Cell>{game.id}</Table.Cell>
+              <Table.Cell >{game.id}</Table.Cell>
               <Table.Cell>
                 <Header as='h4' image>
                   <Image src={game.image} rounded size='medium' />
@@ -210,7 +211,7 @@ class GamesListView extends Component {
                   </Header.Content>
                 </Header>
               </Table.Cell>
-            <Table.Cell>{game.genre}</Table.Cell>
+            <Table.Cell collapsing>{game.genre}</Table.Cell>
             <Table.Cell>
               {this.renderAction(game)}
             </Table.Cell>
@@ -226,7 +227,7 @@ class GamesListView extends Component {
     if(this.state.loading){
       return(
         <Segment placeholder basic>
-          <Loader active />
+          <Loader active size='large'/>
         </Segment>
       )
     }else{
@@ -255,7 +256,9 @@ class GamesListView extends Component {
         return (
           <div>
               <Container style={{marginTop:'1em'}} basic>
-                  <Header as='h3' floated='left'
+                
+                  <Header as='h3' 
+                          floated='left'
                           icon='gamepad'
                           content={'Games'}
                           subheader='Manage your Games'

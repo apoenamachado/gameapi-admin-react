@@ -70,7 +70,7 @@ class StudiosListView extends Component {
     if(this.state.loading){
       return(
         <Segment placeholder basic>
-          <Loader active />
+          <Loader active size='large'/>
         </Segment>
       )
     }
@@ -90,7 +90,7 @@ class StudiosListView extends Component {
       <div>
         <Container style={{marginTop:'1em'}}>
           <Header as='h3' 
-              icon='gamepad'
+              //icon='gamepad'
               content={'Studios'}
               subheader='Manage your Studios'
               dividing
@@ -104,7 +104,7 @@ class StudiosListView extends Component {
                 key={`game-add`}
                 as={Link}
                 to={'/studios/add'}
-                //color='violet'
+                color='violet'
                 
                 header={(
                     <p style={{textAlign:'center', justifycontent:'middle'}}>
@@ -133,10 +133,11 @@ class StudiosListView extends Component {
                   key={`game_${index}`}
                   //to={`/studio/${studio.id}`} 
                   //color='violet'
+                  //raised
                   >
                   <Card.Content>
                     <Fragment>
-                      <Card.Header>{studio.name}</Card.Header>
+                      <Card.Header as={Link} to={`/studio/${studio.id}/games`} >{studio.name}</Card.Header>
                       {/*<Card.Description>{studio.description}</Card.Description>*/}
                       {<Card.Meta>{studio.created_at}</Card.Meta>}
                     </Fragment>
@@ -148,7 +149,6 @@ class StudiosListView extends Component {
                       {/*<Popup trigger={ <Button icon='users' />} content='Users'/>*/}
                       <Popup trigger={ <Button icon='settings' as={Link} to={`/studio/${studio.id}/settings`} />}  content='Settings'/>
                       <Popup trigger={ <Button icon='game' as={Link} to={`/studio/${studio.id}/games`} />}  content='Games'/>
-                      <Popup trigger={ <Button icon='edit' as={Link} to={`/studio/${studio.id}`} />}  content='Edit'/>
                     </Button.Group>
 
                   </Card.Content>

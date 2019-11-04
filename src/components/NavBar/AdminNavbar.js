@@ -75,7 +75,6 @@ class AdminNavbar extends React.Component {
             {this.props.studio?
               <Dropdown item text={this.props.studio.name} inverted>
                 <Dropdown.Menu >
-                    <Dropdown.Item to={'/studio/'+this.props.studio.id} as={Link} text="Dashboard" icon='line graph layout'/>
                     <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/games'} as={Link} text="Games" icon='game layout'/>
                     <Dropdown.Item to={'/studio/'+this.props.studio.id+ '/settings'} as={Link} text="Settings" icon='setting layout'/>
                     <Dropdown.Divider />

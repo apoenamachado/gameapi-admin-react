@@ -37,10 +37,6 @@ class App extends Component {
     super(props);
   }
 
-  teste(){
-    console.log('Apoena testando')
-  }
-
   privateRoute({ component, ...rest}) {
     return (
       <Route

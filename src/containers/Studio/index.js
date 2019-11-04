@@ -14,7 +14,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 // Telas
-import StudioDashboardView from './Dashboard'
 //import StudioSettingsView from './Settings'
 import StudioFormView from './Form'
 import GameListView from '../Game/List'
@@ -80,7 +79,7 @@ class StudioView extends Component {
       return(
         <Container style={{ marginTop: '4em' }}>
           <Segment basic placeholder>
-              <Loader active>Loading Studio...</Loader>
+              <Loader active size='large'>Loading Studio...</Loader>
           </Segment>
         </Container>
       )
@@ -88,7 +87,7 @@ class StudioView extends Component {
       return (
         <div>
           <Switch>            
-            <Route exact path="/studio/:id" component={StudioDashboardView} />
+            <Route exact path="/studio/:id" component={GameListView} />
             <Route exact path="/studio/:id/games" component={GameListView} />
             <Route exact path="/studio/:id/settings" component={StudioFormView} />
             <Route exact path="/studio/:id/game-add" component={GameFormView} />

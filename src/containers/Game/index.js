@@ -123,7 +123,7 @@ class GameView extends Component {
       return(
         <Container style={{ marginTop: '4em' }}>
           <Segment basic placeholder>
-              <Loader active>Loading Game...</Loader>
+              <Loader active size='large'>Loading Game...</Loader>
           </Segment>
         </Container>
       )

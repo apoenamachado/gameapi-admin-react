@@ -242,7 +242,7 @@ class StudioFormView extends Component {
 
             <Form onSubmit={this.handleSubmit} loading={this.state.loading} >
 
-                <Form.Button content='Save' primary size='large' floated='right'/>
+                <Form.Button content='Save' color='violet' size='large' floated='right'/>
               
               {this.montaCampos()}                              
             </Form>

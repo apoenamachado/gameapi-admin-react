@@ -274,7 +274,7 @@ class GameFormView extends Component {
               :null
              }
               <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
-                <Form.Button content='Save' primary floated='right' size='large' />
+                <Form.Button content='Save' color='violet' floated='right' size='large' />
                 {this.montaCampos()}  
                 
               </Form>
