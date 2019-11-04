@@ -21,6 +21,11 @@ import { Link, Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import {
+  setLoading
+} from '../../modules/app'
+
 import {
   setCurrentGame,
   listGame,
@@ -47,9 +52,9 @@ class GamesListView extends Component {
 
   componentDidMount(){
     //this.props.setGames( gamesTemp[(Math.floor(Math.random() * gamesTemp.length))] )  
-    this.setState({loading:true})
+    this.props.setLoading(true)
     this.props.listGame(this.props.token, this.props.studio, ()=>{
-      this.setState({loading:false})
+      this.props.setLoading(false)
     })
     this.props.setCurrentGame(null)
   }
@@ -65,9 +70,13 @@ class GamesListView extends Component {
   }
 
   removeGame(game){
-    this.setState({loading2:true})
+    //this.setState({loading2:true})
+    this.props.setLoading(true)
     setTimeout(() => {
-      this.props.removeGame(game, this.props.token, ()=>{this.setState({loading2:false})})  
+      this.props.removeGame(game, this.props.token, ()=>{
+        //this.setState({loading2:false})
+        this.props.setLoading(false)
+      })  
     }, 150);
   }
 
@@ -182,7 +191,6 @@ class GamesListView extends Component {
     return(   
       <Table  stackable selectable>
           <Table.Header>
-
             <Table.Row>
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
@@ -224,7 +232,7 @@ class GamesListView extends Component {
   }
 
   render(){
-    if(this.state.loading){
+    if(this.props.loading){
       return(
         <Segment placeholder basic>
           <Loader active size='large'/>
@@ -282,7 +290,8 @@ class GamesListView extends Component {
   }
  }
 
- const mapStateToProps = ({ user, studio, game }) => ({
+ const mapStateToProps = ({ app, user, studio, game }) => ({
+  loading:app.loading,
   token: user.token,
   studio: studio.studio,
   games: game.games
@@ -291,6 +300,7 @@ class GamesListView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setLoading,
       setCurrentGame,
       listGame,
       addGame,

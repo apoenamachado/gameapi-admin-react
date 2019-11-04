@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import {
   Container,
+  Loader,
+  Segment
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-//import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 // Paginas
@@ -29,7 +31,6 @@ import AdminFooter from '../components/Footer/AdminFooter'
 import PublicFooter from '../components/Footer/PublicFooter'
 
 //var isAuthenticated = false 
-
 // feito com esse modelo https://github.com/notrab/create-react-app-redux
 
 class App extends Component {
@@ -68,7 +69,6 @@ class App extends Component {
   }
 
   render(){
-
     if (this.props.isAuthenticated){
       return (
         <div>
@@ -130,7 +130,6 @@ class App extends Component {
   }
  }
 
-
  const mapStateToProps = ({ user }) => ({
   user: user,
   token: user.token,
@@ -138,6 +137,6 @@ class App extends Component {
 })
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
   //mapDispatchToProps
 )(App)

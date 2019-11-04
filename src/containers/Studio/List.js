@@ -20,6 +20,12 @@ import { Route, Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+// Redux
+import {
+  setLoading
+} from '../../modules/app'
+
 import {
   listStudio,
   removeStudio
@@ -30,24 +36,16 @@ class StudiosListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading:false,
       itemsPerRow:4
     };
   }
 
   componentDidMount(){
-    this.setState({loading:true})
+    this.props.setLoading(true)
     this.props.listStudio(this.props.token, ()=>{
-      this.setState({loading:false})
+      this.props.setLoading(false)
     })
-  }
-
-  componentWillMount() {
-    console.log('componentWillMount')
-  }
-
-  componentWillUpdate(){
-    console.log('componentWillUpdate')
+    this.props.setLoading(true)
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -67,7 +65,7 @@ class StudiosListView extends Component {
 
   render(){
 
-    if(this.state.loading){
+    if(this.props.loading){
       return(
         <Segment placeholder basic>
           <Loader active size='large'/>
@@ -161,7 +159,8 @@ class StudiosListView extends Component {
   }
  }
 
- const mapStateToProps = ({ user, studio }) => ({
+ const mapStateToProps = ({ app, user, studio }) => ({
+  loading: app.loading,
   token: user.token,
   studios: studio.studios
 })
@@ -169,6 +168,7 @@ class StudiosListView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setLoading,
       listStudio,
       removeStudio,
       changePage: () => push('/studio')
