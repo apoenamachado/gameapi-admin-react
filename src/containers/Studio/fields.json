@@ -27,14 +27,14 @@
       },
       "slug": {
         "type": "slug",
-        "required": true,
+        "required": false,
         "read_only": false,
         "label": "Slug",
         "max_length": 64
       },
       "description": {
         "type": "string",
-        "required": true,
+        "required": false,
         "read_only": false,
         "label": "Description"
       },
