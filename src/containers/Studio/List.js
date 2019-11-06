@@ -75,13 +75,26 @@ class StudiosListView extends Component {
 
     if(this.props.studios.length===0){
       return(
-          <Segment placeholder>
-          <Header icon>
-            <Icon name='game' />
-              You have no studio. Register a studio and start managing your games
-          </Header>
-          <Button primary onClick={()=>{ this.go('/add') }} >Add Studio</Button>
-        </Segment>
+
+        <Container style={{marginTop:'1em'}} raised>
+
+          <Header as='h3' 
+            icon='setting'
+            content={'Studios'}
+            subheader='Manage your Studios'
+          />
+          <Divider clearing />
+
+          <Segment placeholder basic>
+            <Header icon>
+              <Icon name='game' />
+                You have no studio. Register a studio and start managing your games
+            </Header>
+            <Button color='violet' onClick={()=>{ this.go('/add') }} >
+              <Icon name='add' /> Add Studio
+            </Button>
+          </Segment>
+        </Container>
         )
     }
     return (
@@ -138,6 +151,7 @@ class StudiosListView extends Component {
                       <Card.Header as={Link} to={`/studio/${studio.id}/games`} >{studio.name}</Card.Header>
                       {/*<Card.Description>{studio.description}</Card.Description>*/}
                       {<Card.Meta>{studio.created_at}</Card.Meta>}
+                      {<Card.Meta>{studio.owner}</Card.Meta>}
                     </Fragment>
                   </Card.Content>
                   <Card.Content extra >

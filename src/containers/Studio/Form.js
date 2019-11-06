@@ -109,7 +109,8 @@ class StudioFormView extends Component {
       (data)=>{
         if(data){
           this.setState({message:true, loading:false})
-          this.go(`/studio/${this.props.studio.id}/games`)
+          //this.go(`/studio/${this.props.studio.id}/games`)
+          this.go(`/studios/list`)
         }
       }, 
       (err)=>{

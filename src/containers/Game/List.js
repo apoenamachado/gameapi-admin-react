@@ -256,7 +256,10 @@ class GamesListView extends Component {
               <Icon name='game' />
                 You have no game. Add and start managing the resources of your games.
             </Header>
-            <Button primary onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }} >Add Game</Button>
+            <Button color='violet' onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }} >
+              <Icon name='add' /> 
+              Add Game
+            </Button>
           </Segment>
           </Container>
         )

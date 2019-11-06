@@ -58,7 +58,8 @@ class LoginView extends Component {
         this.setState({loadingLogin:false})
         this.go('/studios/list')
       }else{
-        this.go('/')  
+        this.setState({loadingLogin:false})
+        //this.go('/')  
       }
     })
   }
