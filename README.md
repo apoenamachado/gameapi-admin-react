@@ -16,12 +16,12 @@ Use an API to manage game services and configure metadata to authorize and authe
 - DLC
 - Data Storage
 - Players
-
+- Purchases
+- Currency
 
 
 ## Login/Registration
 ![](./thumbs/gameapi-login.png)
-
 
 ## Studios
 Create studios (organization) and register the games independently.
