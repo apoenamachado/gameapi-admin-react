@@ -12,8 +12,9 @@ Use an API to manage game services and configure metadata to authorize and authe
 
 - User Accounts
 - Studios
-- Leaderboards
 - DLC
+TODO
+- Leaderboards
 - Data Storage
 - Players
 - Purchases
