@@ -14,10 +14,10 @@ Use an API to manage game services and configure metadata to authorize and authe
 - Studios
 - DLC
 - Leaderboards
-- (TODO)Data Storage
-- (TODO)Players
-- (TODO)Purchases
-- (TODO)Currency
+- (TODO) Data Storage
+- (TODO) Players
+- (TODO) Purchases
+- (TODO) Currency
 
 ## Login/Registration
 ![](./thumbs/gameapi-login.png)
