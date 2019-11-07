@@ -6,6 +6,8 @@ Use an API to manage game services and configure metadata to authorize and authe
 
 *Author:* Apoena Machado Cunha
 *Demo:* https://apoenamachado.github.io/gameapi-admin-react/
+- username: demo@demo.com
+- password: @12345678
 
 
 ## Modules
