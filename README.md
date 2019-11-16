@@ -1,21 +1,29 @@
 # React Admin Client for GameApi
 
-Author: Apoena Machado Cunha
+### A light backend platform for indie game developers.
+
+Use an API to manage game services and configure metadata to authorize and authenticate your game. Integrate popular features into your Mobile, Web and Desktop games using as our API.
+
+*Author:* Apoena Machado Cunha
+
+*Demo:* https://apoenamachado.github.io/gameapi-admin-react/
+- username: demo@demo.com
+- password: @12345678
+
 
 ## Modules
 
 - User Accounts
 - Studios
-- Leaderboards
 - DLC
-- Data Storage
-- Players
-
-
+- Leaderboards
+- (TODO) Data Storage
+- (TODO) Players
+- (TODO) Purchases
+- (TODO) Currency
 
 ## Login/Registration
 ![](./thumbs/gameapi-login.png)
-
 
 ## Studios
 Create studios (organization) and register the games independently.
