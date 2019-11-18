@@ -2,13 +2,13 @@ import glob
 import pysftp
 
 localFilePath = "./build/"
-remoteFilePath = "/home/apoena/share.apoena.net/react/gameapi"
+remoteFilePath = "/home/apoenapy/app.apoena.org/"
 myHostname = ""
 myUsername = ""
 myPassword = ""
 
 projectFolder = '/gameapi-admin-react/'
-projectDestFolder = '/react/gameapi/'
+projectDestFolder = '/'
 
 dirs = [
   "build/*.*",
@@ -18,15 +18,16 @@ dirs = [
 
 def replace_in_file(_file):
       
+      
   # Read in the file
-  with open(_file, 'r') as file :
+  with open(_file, 'r' , encoding='utf-8',errors='ignore') as file :
     filedata = file.read()
 
   # Replace the target string
   filedata = filedata.replace(projectFolder, projectDestFolder)
 
   # Write the file out again
-  with open(_file, 'w') as file:
+  with open(_file, 'w', encoding='utf-8',errors='ignore') as file:
     file.write(filedata)
 
   print(_file)
