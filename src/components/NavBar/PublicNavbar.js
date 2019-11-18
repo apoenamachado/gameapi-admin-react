@@ -38,8 +38,9 @@ class PublicNavbar extends React.Component {
          >
           <Menu.Item header>
               <Link to="/" style={{}} >
-                <Image src={logoInverted} wrapped size='tiny' />
+                <Image src={logoInverted} wrapped size='tiny' /> 
               </Link>
+               _{process.env.REACT_APP_AMBIENTE}
           </Menu.Item>
 
           <Menu.Item name='about' as={Link}  text="About" to="/about-us" />
