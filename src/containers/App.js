@@ -87,15 +87,14 @@ class App extends Component {
         <div> 
               {<PublicNavbar />}    
               <Switch>
+                <Route exact path="/" component={SiteHomeView} />
                 <Route exact path="/home" component={SiteHomeView} />
+
+                {/*
                 <Route exact path="/" >
                   <Redirect to='/home'/>
                 </Route>
-                {
-                <Route exact path="/gameapi-admin-react" >
-                  <Redirect to='/home' />
-                </Route>
-                }
+                */}
                 <Route path="/login" component={LoginView} />
                 <Route path="/components/cards" component={CardsView} />
                 <Route exact path="/components/tables" component={TablesView} />
