@@ -1,23 +1,40 @@
 {
+  "name": "ApoenaApp",
+  "productName": "ApoenaApp",
+  "version": "1.0.0",
+  "description": "<your project description>",
+  "author": "Apoena Machado Cunha",
+  "build": { "appId": "gameApi"},
+  "main": "public/electron.js",
+  "homepage": "./",
   "private": true,
-  "homepage": "https://apoenamachado.github.io/gameapi-admin-react",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build_dev": "env-cmd -f .env.development yarn run build",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "build_dev": "env-cmd -f .env.development yarn run react-build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "pretty-quick --staged",
-    "predeploy": "yarn run build",
-    "deploy:gh": "gh-pages -d build",
-    "deploy": "python pos_build.py"
+    "predeploy": "yarn run react-build",
+    "deploy:gh": "gh-pages -d react-build",
+    "deploy": "python pos_build.py",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "devDependencies": {
+    "concurrently": "^5.0.0",
+    "electron": "^7.1.2",
+    "electron-builder": "^21.2.0",
     "prettier": "1.18.2",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "wait-on": "^3.3.0"
   },
   "dependencies": {
     "connected-react-router": "4.5.0",
+    "cross-env": "^6.0.3",
+    "electron-is-dev": "^1.1.0",
     "env-cmd": "^10.0.1",
     "gh-pages": "^2.1.1",
     "react": "16.10.1",
