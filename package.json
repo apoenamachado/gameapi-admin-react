@@ -1,10 +1,11 @@
 {
+  "name": "ApoenaApp",
+  "productName": "ApoenaApp",
+  "version": "1.0.0",
   "description": "<your project description>",
   "author": "Apoena Machado Cunha",
   "build": { "appId": "gameApi"},
   "main": "public/electron.js",
-  "name":"gameapi",
-  "version":"21.2.0",
   "homepage": "./",
   "private": true,
   "scripts": {
