@@ -144,7 +144,7 @@ class StudiosListView extends Component {
                   key={`game_${index}`}
                   //to={`/studio/${studio.id}`} 
                   //color='violet'
-                  //raised
+                  raised
                   >
                   <Card.Content>
                     <Fragment>

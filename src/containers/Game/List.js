@@ -133,7 +133,7 @@ class GamesListView extends Component {
           <Card
             key={'game_'+index}
             loading={this.state.loading2}
-            //raised
+            raised
              
             image={game.image}
             header={game.name}
