@@ -26,7 +26,7 @@ import GameDashboardView from './Dashboard'
 import GameFormView from './Form'
 
 // Game Modules
-//import DlcView from './Dlc'
+import DlcView from '../Dlc'
 //import LeaderboardView from './Leaderboard'
 
 import {
@@ -59,9 +59,11 @@ const TempHeader = (props)=> {
 const LeaderBoardView = ()=> {
   return( <TempHeader name='LeaderBoard' description='Manage scores for your games' icon='trophy' />)
 }
+/*
 const DlcView = ()=> {
   return( <TempHeader name='Dlc' description='Manage Contend Download your games' icon='cart arrow down'/>)
 }
+*/
 const StorageView = ()=> {
   return( <TempHeader name='Storage' description='Manage data for your games' icon='database'/>)
 }
@@ -194,7 +196,7 @@ class GameView extends Component {
                 <Switch>
                   <Route exact path="/game/:id" component={GameDashboardView} />
                   <Route exact path="/game/:id/leaderboard" component={LeaderBoardView} />
-                  <Route exact path="/game/:id/dlc" component={DlcView} />
+                  <Route  path="/game/:id/dlc" component={DlcView} />
                   <Route exact path="/game/:id/storage" component={StorageView} />
                   <Route exact path="/game/:id/settings" component={GameFormView} />
                   <Route exact path="/game/:id/players" component={PlayersView} />

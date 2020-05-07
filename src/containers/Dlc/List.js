@@ -27,36 +27,37 @@ import {
 } from '../../modules/app'
 
 import {
-  setCurrentGame,
-  listGame,
-  addGame,
-  removeGame
-} from '../../modules/game'
+  setCurrentDlc,
+  listDlc,
+  addDlc,
+  removeDlc
+} from '../../modules/dlc'
 
 
 const GRID = 1
 const LIST = 2
 const TABLE = 3
 
-class GamesListView extends Component {
+class DlcListView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      layout:GRID,
-      itemsPerRow:4,
+      layout:TABLE,
+      itemsPerRow:3,
       loading:false,
       loading2:false
     };
   }
 
   componentDidMount(){
+
     //this.props.setGames( gamesTemp[(Math.floor(Math.random() * gamesTemp.length))] )  
     this.props.setLoading(true)
-    this.props.listGame(this.props.token, this.props.studio, ()=>{
+    this.props.listDlc(this.props.token, this.props.game, ()=>{
       this.props.setLoading(false)
     })
-    this.props.setCurrentGame(null)
+    //this.props.setCurrentDlc(null)
   }
 
   componentDidUpdate( prevProps, prevState, snapshot){
@@ -69,11 +70,11 @@ class GamesListView extends Component {
     this.props.history.push(url)
   }
 
-  removeGame(game){
+  removeDlc(dlc){
     //this.setState({loading2:true})
     this.props.setLoading(true)
     setTimeout(() => {
-      this.props.removeGame(game, this.props.token, ()=>{
+      this.props.removeDlc(dlc, this.props.token, ()=>{
         //this.setState({loading2:false})
         this.props.setLoading(false)
       })  
@@ -101,47 +102,46 @@ class GamesListView extends Component {
     }
   }
 
-  renderAction(game){
+  renderAction(dlc){
     return(
       <Button.Group basic size='large' floated='right'>
-        <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeGame(game) } } />} content='Remove'/>
-        <Popup trigger={ <Button icon='settings' as={Link} to={`/game/${game.id}/settings`} />}  content='Settings'/>
-        <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${game.id}`} />}  content='Edit'/>
+        <Popup trigger={ <Button color='red' icon='trash alternate' onClick={()=>{this.removeDlc(dlc) } } />} content='Remove'/>
+        <Popup trigger={ <Button icon='edit' as={Link} to={`/game/${this.props.game.id}/dlc/edit/${dlc.id}/`} />}  content='Edit'/>
       </Button.Group>
     )
   }
-
+  
   renderGrid(){
     return(
       <Card.Group itemsPerRow={this.state.itemsPerRow} doubling stackable>
         <Card 
           style={{textAlign:'center', justifycontent:'middle', border:0}}
-          key={`game-add`}
+          key={`dlc-add`}
           as={'a'}
-          onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+          onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }}
           color='blue'
           header={(
               <p style={{textAlign:'center', justifycontent:'middle'}}>
               <Icon name='add'/> 
-              Add New Game
+              Add New Dlc
               </p>
             )}
-          description='Add and start managing the resources of your games.'
+          description='Add and start managing the Download Content of your games.'
         />
 
-        {this.props.games.map((game, index) => (
+        {this.props.dlcs.map((dlc, index) => (
           <Card
-            key={'game_'+index}
+            key={'dlc_'+index}
             loading={this.state.loading2}
             raised
              
-            image={game.image}
-            header={game.name}
+            image={dlc.thumb}
+            header={dlc.name}
             //meta='Friend'
             //description={game.resume}
-            meta={game.resume}
+            meta={dlc.resume}
             as={Link}
-            to={`/game/${game.id}`}
+            to={`/game/${this.props.game.id}/dlc/edit/${dlc.id}`}
             //extra={this.renderAction(game)}
           />
           )
@@ -157,27 +157,27 @@ class GamesListView extends Component {
             <Button 
                 floated='right'
                 color='violet'
-                onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+                onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }}
                 floated='right' icon labelPosition='left' size='small' >
-                <Icon name='add' /> Add New Game
+                <Icon name='add' /> Add New Dlc
             </Button>
           </Segment>
 
-          {this.props.games.map((game, index) => (
-            <Table  celled unstackable selectable padded key={'game_'+index}>
+          {this.props.dlcs.map((dlc, index) => (
+            <Table  celled unstackable selectable padded key={'dlc_'+index}>
                 <Table.Body>
                   <Table.Row>
-                    <Table.Cell width='one'><Image src={game.image} rounded size='small' /></Table.Cell>
+                    <Table.Cell width='one'><Image src={dlc.thumb} rounded size='small' /></Table.Cell>
                     <Table.Cell width='seven'>
                         <Header as='h3'>
-                          <Header.Content as={Link} to={`/game/${game.id}`}>
-                            {game.name}
-                            <Header.Subheader>{game.resume}</Header.Subheader>
+                          <Header.Content as={Link} to={`/game/${this.props.game.id}/dlc/edit/${dlc.id}`}>
+                            {dlc.name}
+                            <Header.Subheader>{dlc.resume}</Header.Subheader>
                           </Header.Content>
                         </Header>
                     </Table.Cell>
-                    <Table.Cell width='tree'>{game.genre}</Table.Cell>
-                    <Table.Cell textAlign='right' width='one'>{this.renderAction(game)}</Table.Cell>
+                    <Table.Cell width='tree'>{dlc.type}</Table.Cell>
+                    <Table.Cell textAlign='right' width='one'>{this.renderAction(dlc)}</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               </Table>
@@ -194,34 +194,34 @@ class GamesListView extends Component {
             <Table.Row>
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Genre</Table.HeaderCell>
+              <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell colSpan='2'>
                 <Button 
                   color='violet'
-                  onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }}
+                  onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }}
                   floated='right' icon labelPosition='left'  size='small' >
-                <Icon name='add' /> Add New Game
+                <Icon name='add' /> Add New Dlc
                 </Button>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
-          {this.props.games.map((game, index) => (
-            <Table.Row key={'game_'+index}>
-              <Table.Cell >{game.id}</Table.Cell>
+          {this.props.dlcs.map((dlc, index) => (
+            <Table.Row key={'dlc_'+index}>
+              <Table.Cell >{dlc.id}</Table.Cell>
               <Table.Cell>
                 <Header as='h4' image>
-                  <Image src={game.image} rounded size='medium' />
-                  <Header.Content as={Link} to={`/game/${game.id}`}>
-                    {game.name}
-                    <Header.Subheader>{game.resume}</Header.Subheader>
+                  <Image src={dlc.thumb} rounded size='medium' />
+                  <Header.Content as={Link} to={`/game/${this.props.game.id}/dlc/edit/${dlc.id}`}>
+                    {dlc.name}
+                    <Header.Subheader>{dlc.resume}</Header.Subheader>
                   </Header.Content>
                 </Header>
               </Table.Cell>
-            <Table.Cell collapsing>{game.genre}</Table.Cell>
+            <Table.Cell collapsing>{dlc.type}</Table.Cell>
             <Table.Cell>
-              {this.renderAction(game)}
+              {this.renderAction(dlc)}
             </Table.Cell>
             </Table.Row>
             )
@@ -240,25 +240,25 @@ class GamesListView extends Component {
       )
     }else{
 
-      if(this.props.games.length===0){
+      if(this.props.dlcs.length===0){
         return(
           <Container style={{marginTop:'1em'}} raised>
 
             <Header as='h3' floated='left'
               icon='gamepad'
-              content={'Games'}
-              subheader='Manage your Games'
+              content={'Dlc'}
+              subheader='Manage your Download Content'
              />
             <Divider clearing />
 
             <Segment placeholder basic>
             <Header icon>
               <Icon name='game' />
-                You have no game. Add and start managing the resources of your games.
+                You have no dlc. Add and start managing the dlc of your games.
             </Header>
-            <Button color='violet' onClick={()=>{ this.go(`/studio/${this.props.studio.id}/game-add`) }} >
+            <Button color='violet' onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }} >
               <Icon name='add' /> 
-              Add Game
+              Add Dlc
             </Button>
           </Segment>
           </Container>
@@ -271,8 +271,8 @@ class GamesListView extends Component {
                   <Header as='h3' 
                           floated='left'
                           icon='gamepad'
-                          content={'Games'}
-                          subheader='Manage your Games'
+                          content={'Dlc'}
+                          subheader='Manage your Dlc'
                   />
 
                   <Button.Group basic size='medium' floated='right'>
@@ -293,21 +293,22 @@ class GamesListView extends Component {
   }
  }
 
- const mapStateToProps = ({ app, user, studio, game }) => ({
+ const mapStateToProps = ({ app, user, studio, game, dlc }) => ({
   loading:app.loading,
   token: user.token,
   studio: studio.studio,
-  games: game.games
+  game: game.game,
+  dlcs: dlc.dlcs
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setLoading,
-      setCurrentGame,
-      listGame,
-      addGame,
-      removeGame
+      setCurrentDlc,
+      listDlc,
+      addDlc,
+      removeDlc
       //changePage: () => push('/studio')
     },
     dispatch
@@ -316,5 +317,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GamesListView)
+)(DlcListView)
 

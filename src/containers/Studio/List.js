@@ -44,6 +44,7 @@ class StudiosListView extends Component {
     this.props.setLoading(true)
     this.props.listStudio(this.props.token, ()=>{
       this.props.setLoading(false)
+      this.isOneStudio()
     })
     this.props.setLoading(true)
   }
@@ -61,6 +62,13 @@ class StudiosListView extends Component {
 
   removeStudio(studio){
     this.props.removeStudio(studio, this.props.token)
+  }
+
+  // Redireciona para primeiro studio, caso seja o unico
+  isOneStudio(){
+    if(this.props.studios.length==1){
+      this.props.history.push(`/studio/${this.props.studios[0].id}/games`)
+    }
   }
 
   render(){
@@ -144,7 +152,7 @@ class StudiosListView extends Component {
                   key={`game_${index}`}
                   //to={`/studio/${studio.id}`} 
                   //color='violet'
-                  //raised
+                  raised
                   >
                   <Card.Content>
                     <Fragment>
@@ -194,4 +202,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(StudiosListView)
-

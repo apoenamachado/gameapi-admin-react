@@ -1,0 +1,116 @@
+{
+    "POST": {
+        "id": {
+            "type": "integer",
+            "required": false,
+            "read_only": false,
+            "label": "Id"
+        },
+        "uuid": {
+            "type": "string",
+            "required": false,
+            "read_only": true,
+            "label": "UUID"
+        },
+        "game": {
+            "type": "field",
+            "required": true,
+            "read_only": false,
+            "label": "Game"
+        },
+        "name": {
+            "type": "string",
+            "required": true,
+            "read_only": false,
+            "label": "Name",
+            "max_length": 200
+        },
+        "resume": {
+            "type": "string",
+            "required": false,
+            "read_only": false,
+            "label": "Resume"
+        },
+        "description": {
+            "type": "string",
+            "required": false,
+            "read_only": false,
+            "label": "Description"
+        },
+        "type": {
+            "type": "choice",
+            "required": true,
+            "read_only": false,
+            "label": "Type",
+            "choices": [
+                {
+                    "value": "LEVEL",
+                    "display_name": "Level"
+                },
+                {
+                    "value": "MUSIC",
+                    "display_name": "Music"
+                },
+                {
+                    "value": "ITEM",
+                    "display_name": "Item"
+                },
+                {
+                    "value": "GAME",
+                    "display_name": "Game"
+                },
+                {
+                    "value": "PATCH",
+                    "display_name": "Patch"
+                }
+            ]
+        },
+        "status": {
+            "type": "choice",
+            "required": true,
+            "read_only": false,
+            "label": "Status",
+            "choices": [
+                {
+                    "value": "HIDE",
+                    "display_name": "Hide"
+                },
+                {
+                    "value": "PAID",
+                    "display_name": "Payd"
+                },
+                {
+                    "value": "FREE",
+                    "display_name": "Free"
+                }
+            ]
+        },
+        "thumb": {
+            "type": "image upload",
+            "required": false,
+            "read_only": false,
+            "label": "Thumb",
+            "max_length": 100
+        },
+        "filepath": {
+            "type": "file upload",
+            "required": false,
+            "read_only": false,
+            "label": "Filepath",
+            "max_length": 100
+        },
+        "savepath": {
+            "type": "string",
+            "required": false,
+            "read_only": false,
+            "label": "Save Path",
+            "max_length": 500
+        },
+        "url": {
+            "type": "field",
+            "required": false,
+            "read_only": true,
+            "label": "Url"
+        }
+    }
+}
