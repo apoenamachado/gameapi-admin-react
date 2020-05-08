@@ -271,7 +271,9 @@ export const setCurrentGame = (game) => {
 
 /**
  * Remove Game
+ * @param {*} game 
  * @param {*} token 
+ * @param {*} onSuccess 
  */
 export const removeGame = (game, token, onSuccess) => {
   return dispatch => {
@@ -301,5 +303,53 @@ export const removeGame = (game, token, onSuccess) => {
     }).catch(function (err) {
       return false
     })
+  }
+}
+
+/**
+ * Get Game Token
+ * @param {*} game 
+ * @param {*} token 
+ * @param {*} onSuccess 
+ * @param {*} onError 
+ */
+export const getGameToken = (game, token, onSuccess, onError) => {
+  return dispatch => {
+
+    return fetch(`${API_URL}/token/?game=${game.id}`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'Token '+token
+      }
+    }).then(function(response) {
+      if(response.ok){
+        return response.json();
+      }else{
+        console.log('getGame:Token Erro 1', response)
+        onError(response)
+        return false;
+      }
+    }).then(function(data) {
+      console.log('getGameToken: data: ', data)
+      if(data){
+        /*
+        dispatch({
+          type: GAME_SET_CURRENT,
+          game: data
+        })
+        */
+        onSuccess(data)
+        return true
+      }
+    })
+    /*.catch(function (err) {
+
+      err.then(function(result) {
+          console.log('Erro 3', result['PromiseValue'])  
+        onError(result.value)
+      });
+      return false
+    })
+    */
   }
 }

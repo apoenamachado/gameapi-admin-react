@@ -27,14 +27,13 @@ import GameFormView from './Form'
 
 // Game Modules
 import DlcView from '../Dlc'
+import ApiView from './Api'
 //import LeaderboardView from './Leaderboard'
 
 import {
   getGame,
   setCurrentGame
 } from '../../modules/game'
-
-
 
 // Fake Components
 const TempHeader = (props)=> {
@@ -70,7 +69,6 @@ const StorageView = ()=> {
 const PlayersView = ()=> {
   return( <TempHeader name='Players' description='Players interacting with your game.' icon='users'/>)
 }
-
 
 class GameView extends Component {
 
@@ -154,18 +152,21 @@ class GameView extends Component {
 
               <Menu vertical>
 
+                
                 <Menu.Item
                     name='Dashboard'
                     active={false}
                     onClick={()=>{ this.go('') }}
                     icon='line graph layout'
                   />
+
                 <Menu.Item
                     name='Dlc'
                     active={false}
                     onClick={()=>{ this.go('/dlc') }}
                     icon='cart arrow down'
                   />
+                  {/*
                 <Menu.Item
                     name='Leaderboard'
                     active={false}
@@ -184,11 +185,18 @@ class GameView extends Component {
                     onClick={()=>{ this.go('/players') }}
                     icon='users'
                   />
+                  */}
                 <Menu.Item
                     name='Settings'
                     active={false}
                     onClick={()=>{ this.go('/settings') }}
                     icon='setting layout'
+                  />
+                <Menu.Item
+                    name='API Access'
+                    active={false}
+                    onClick={()=>{ this.go('/api') }}
+                    icon='boxes'
                   />
               </Menu>
             </Grid.Column>
@@ -200,6 +208,7 @@ class GameView extends Component {
                   <Route exact path="/game/:id/storage" component={StorageView} />
                   <Route exact path="/game/:id/settings" component={GameFormView} />
                   <Route exact path="/game/:id/players" component={PlayersView} />
+                  <Route exact path="/game/:id/api" component={ApiView} />
                 </Switch>
               </Grid.Column>
             </Grid>
@@ -231,4 +240,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(GameView)
-

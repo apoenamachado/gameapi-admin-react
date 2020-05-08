@@ -89,7 +89,7 @@ class AdminNavbar extends React.Component {
                       //icon='game'
                       inverted
                       image={this.props.game.image}
-                      content={this.props.game.name + ' Game'}
+                      content={this.props.game.name}
                       //subheader={this.props.game.resume}
                     />  
             </Menu.Item>
