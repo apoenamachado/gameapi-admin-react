@@ -331,15 +331,12 @@ export const getGameToken = (game, token, onSuccess, onError) => {
       }
     }).then(function(data) {
       console.log('getGameToken: data: ', data)
-      if(data){
-        /*
-        dispatch({
-          type: GAME_SET_CURRENT,
-          game: data
-        })
-        */
+      if(data.length>0){
         onSuccess(data)
         return true
+      }else{
+        onError({message:'No valid token'})
+        return false;
       }
     })
     /*.catch(function (err) {

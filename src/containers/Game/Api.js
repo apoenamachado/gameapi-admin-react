@@ -9,8 +9,7 @@ import {
   Label,
   Input,
   Message,
-  Table,
-  Icon
+  Button
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -20,6 +19,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import {
+  updateGame,
   getGameToken
 } from '../../modules/game'
 
@@ -41,7 +41,6 @@ class ApiView extends Component {
 
   apiKeyRef = createRef()
 
-
   componentDidMount(){
     this.getGameToken()
   }
@@ -58,17 +57,16 @@ class ApiView extends Component {
     this.setState({loading:true})  
 
     this.props.getGameToken({id:this.props.game.id}, this.props.token, (dados)=>{
-      console.log('Token:', dados)
       this.setState({
-        token:dados[0].key,
+        token:dados[0].key, // recebe uma lista com um token
         loading:false
       }
       )  
     },
     (err)=>{
       console.log('GetGame CallbackError: ', err)
-      this.setState({loading:false})  
-      this.props.history.goBack()
+      this.setState({loading:false})
+      //this.props.history.goBack()
     }) 
   }
 
@@ -89,6 +87,19 @@ class ApiView extends Component {
       })
     }, 500);
   };
+
+  generateToken = ()=> {
+    this.setState({loading:true})
+    this.props.updateGame(this.props.game, this.props.token, 
+      (data)=>{
+        if(data){
+          this.getGameToken()
+        }
+      }, 
+      (err)=>{
+        this.setState({loading:false})
+      })
+  }
   
   go(url){
     this.props.history.push(url)
@@ -122,8 +133,9 @@ class ApiView extends Component {
               </p>
             }
             />
-            <Segment>
 
+          {this.state.token?
+            <Segment>
               <Form>
                 <Form.Field>
                   <Input
@@ -145,6 +157,27 @@ class ApiView extends Component {
 
               </Form>
             </Segment>
+
+            :
+            <Segment>
+              <Form>
+                <Form.Field>
+                  <Input
+                    label='API Key'
+                    readOnly
+                    action={{
+                      color: this.state.copy_color,
+                      labelPosition: 'right',
+                      icon: 'copy',
+                      content: 'Create New Token',
+                      onClick:this.generateToken
+                    }}
+                    defaultValue='No yoken'                    
+                    />
+                </Form.Field>
+              </Form>
+            </Segment>
+            }
         
           </Container>   
         </div>
@@ -162,6 +195,7 @@ class ApiView extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      updateGame,
       getGameToken,
       changePage: () => push('/game')
     },

@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "private": true,
   "homepage": "https://apoenamachado.github.io/gameapi-admin-react",
   "scripts": {
