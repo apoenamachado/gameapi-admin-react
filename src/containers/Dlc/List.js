@@ -245,7 +245,7 @@ class DlcListView extends Component {
           <Container style={{marginTop:'1em'}} raised>
 
             <Header as='h3' floated='left'
-              icon='gamepad'
+              icon='cart arrow down'
               content={'Dlc'}
               subheader='Manage your Download Content'
              />

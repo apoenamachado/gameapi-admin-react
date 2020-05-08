@@ -56,7 +56,7 @@ const FileCurrent = (props)=>{
         <a href={props.element[props.field.name]} target='_blank'>
           <div class="ui label">
               <i aria-hidden="true" class="file icon"></i>
-              Download/View File Novo
+              Download/View File
           </div>
         </a>
       </p>

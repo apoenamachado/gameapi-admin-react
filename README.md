@@ -2,21 +2,29 @@
 
 ### A light backend platform for indie game developers.
 
-Use an API to manage game services and configure metadata to authorize and authenticate your game. Integrate popular features into your Mobile, Web and Desktop games using as our API.
-
 *Author:* Apoena Machado Cunha
 
-*Demo:* https://apoenamachado.github.io/gameapi-admin-react/
-- username: demo@demo.com
-- password: @12345678
+Use an API to manage game services and configure metadata to authorize and authenticate your game. Integrate popular features into your Mobile, Web and Desktop games using as our API.
 
+### Demo APP
+
+https://app.apoena.net
+- username: demo@demo.com
+- password: demo@123
+
+### API
+
+https://api.apoena.net
+- username: demo@demo.com
+- password: demo@123
 
 ## Modules
 
 - User Accounts
 - Studios
+- Games
 - DLC
-- Leaderboards
+- (TODO) Leaderboards
 - (TODO) Data Storage
 - (TODO) Players
 - (TODO) Purchases
