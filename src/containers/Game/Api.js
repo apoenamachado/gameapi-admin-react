@@ -70,22 +70,28 @@ class ApiView extends Component {
     }) 
   }
 
-  copyToClipboard = (e) => {
+  copyToClipboard = () => {
     //navigator.clipboard.writeText(e.target.value)
     navigator.clipboard.writeText(this.state.token)
 
-    this.apiKeyRef.current.focus()
-    this.setState({
-      copy_color:'green',
-      copy_text:'Copied'
-    })
-    
-    setTimeout(() => {
+    navigator.clipboard.writeText(this.state.token).then(function() {      
+      this.apiKeyRef.current.focus()
       this.setState({
-        copy_color:'violet',
-        copy_text:'Copy'
+        copy_color:'green',
+        copy_text:'Copied'
       })
-    }, 500);
+      
+      setTimeout(() => {
+        this.setState({
+          copy_color:'violet',
+          copy_text:'Copy'
+        })
+      }, 500);
+
+    }, function() {
+      console.log('Erro ao copiar token:', this.state.token)
+    });
+
   };
 
   generateToken = ()=> {
@@ -157,7 +163,6 @@ class ApiView extends Component {
 
               </Form>
             </Segment>
-
             :
             <Segment>
               <Form>
@@ -172,7 +177,7 @@ class ApiView extends Component {
                       content: 'Create New Token',
                       onClick:this.generateToken
                     }}
-                    defaultValue='No yoken'                    
+                    defaultValue='No Token'
                     />
                 </Form.Field>
               </Form>

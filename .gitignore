@@ -11,8 +11,8 @@
 # production
 /build
 
-# Script
-pos_build.py
+# Config
+deploy.config.ini
 
 
 # misc
