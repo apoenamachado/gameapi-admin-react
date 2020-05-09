@@ -8,7 +8,7 @@ Use an API to manage game services and configure metadata to authorize and authe
 
 ### Demo APP
 
-http://app.apoena.org
+https://app.apoena.org
 - username: demo@demo.com
 - password: demo@123
 
