@@ -74,23 +74,18 @@ class ApiView extends Component {
     //navigator.clipboard.writeText(e.target.value)
     navigator.clipboard.writeText(this.state.token)
 
-    navigator.clipboard.writeText(this.state.token).then(function() {      
-      this.apiKeyRef.current.focus()
+    this.apiKeyRef.current.focus()
+    this.setState({
+      copy_color:'green',
+      copy_text:'Copied'
+    })
+    
+    setTimeout(() => {
       this.setState({
-        copy_color:'green',
-        copy_text:'Copied'
+        copy_color:'violet',
+        copy_text:'Copy'
       })
-      
-      setTimeout(() => {
-        this.setState({
-          copy_color:'violet',
-          copy_text:'Copy'
-        })
-      }, 500);
-
-    }, function() {
-      console.log('Erro ao copiar token:', this.state.token)
-    });
+    }, 500);
 
   };
 
