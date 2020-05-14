@@ -13,7 +13,8 @@ import {
   Popup,
   Icon,
   Divider,
-  Image
+  Image,
+  Modal
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -21,6 +22,9 @@ import { Link, Route } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+// Components
+import Confirm from "../../components/Util/Confirm"
 
 import {
   setLoading
@@ -71,14 +75,18 @@ class DlcListView extends Component {
   }
 
   removeDlc(dlc){
-    //this.setState({loading2:true})
-    this.props.setLoading(true)
-    setTimeout(() => {
-      this.props.removeDlc(dlc, this.props.token, ()=>{
-        //this.setState({loading2:false})
-        this.props.setLoading(false)
-      })  
-    }, 150);
+
+    if(window.confirm("Do you really want to delete?")){
+      //this.setState({loading2:true})
+      this.props.setLoading(true)
+      setTimeout(() => {
+        this.props.removeDlc(dlc, this.props.token, ()=>{
+          //this.setState({loading2:false})
+          this.props.setLoading(false)
+        })  
+      }, 150);
+    }
+
   }
 
   setLayout(layout){
@@ -189,37 +197,43 @@ class DlcListView extends Component {
 
   renderTable(){
     return(   
+      <div>
+          <Segment basic clearing>
+            <Button 
+                floated='right'
+                color='violet'
+                onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }}
+                floated='right' icon labelPosition='left' size='small' >
+                <Icon name='add' /> Add New Dlc
+            </Button>
+          </Segment>
+
       <Table  stackable selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Type</Table.HeaderCell>
-              <Table.HeaderCell colSpan='2'>
-                <Button 
-                  color='violet'
-                  onClick={()=>{ this.go(`/game/${this.props.game.id}/dlc/add`) }}
-                  floated='right' icon labelPosition='left'  size='small' >
-                <Icon name='add' /> Add New Dlc
-                </Button>
-              </Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
           {this.props.dlcs.map((dlc, index) => (
             <Table.Row key={'dlc_'+index}>
-              <Table.Cell >{dlc.id}</Table.Cell>
+              <Table.Cell>{dlc.id}</Table.Cell>
               <Table.Cell>
                 <Header as='h4' image>
                   <Image src={dlc.thumb} rounded size='medium' />
                   <Header.Content as={Link} to={`/game/${this.props.game.id}/dlc/edit/${dlc.id}`}>
                     {dlc.name}
-                    <Header.Subheader>{dlc.resume}</Header.Subheader>
+                    {/*<Header.Subheader>{dlc.resume}</Header.Subheader>*/}
                   </Header.Content>
                 </Header>
               </Table.Cell>
-            <Table.Cell collapsing>{dlc.type}</Table.Cell>
+            <Table.Cell>{dlc.type}</Table.Cell>
+            <Table.Cell>{dlc.status}</Table.Cell>
             <Table.Cell>
               {this.renderAction(dlc)}
             </Table.Cell>
@@ -228,6 +242,8 @@ class DlcListView extends Component {
           )}
           </Table.Body>
         </Table>
+
+      </div>
     )
   }
 
@@ -286,6 +302,7 @@ class DlcListView extends Component {
                    {this.renderlayout()}
 
                   </Container>
+
           </div>
         );
       }
