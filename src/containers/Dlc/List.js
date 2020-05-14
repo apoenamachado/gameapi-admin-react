@@ -43,7 +43,7 @@ class DlcListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      layout:TABLE,
+      layout:LIST,
       itemsPerRow:3,
       loading:false,
       loading2:false
